@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Casino Wheel Animation</title>
+    <style>
+      #wheel {
+        width: 200px;
+        height: 200px;
+        border: 3px solid red;
+        border-radius: 50%;
+        position: relative;
+        animation: rotate 24s infinite linear;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotateZ(0deg);
+        }
+        100% {
+          transform: rotateZ(360deg);
+        }
+      }
+
+      #top,
+      #right,
+      #bottom,
+      #left {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      #top {
+        top: 0;
+      }
+      #right {
+        right: 0;
+        transform: rotate(90deg);
+      }
+      #bottom {
+        bottom: 0;
+        transform: rotate(180deg);
+      }
+      #left {
+        left: 0;
+        transform: rotate(-90deg);
+      }
+
+      #spinButton {
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wheel">
+      <div id="top">Prize 1</div>
+      <div id="right">Prize 2</div>
+      <div id="bottom">Prize 3</div>
+      <div id="left">Prize 4</div>
+    </div>
+
+    <button id="spinButton">Spin</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var isSpinning = false;
+        var rotationSpeed = 10; // Initial rotation speed
+        var prizeIndex = -1; // Initialize the prizeIndex
+
+        var options = [
+          "$100",
+          "$10",
+          "$25",
+          "$250",
+          "$30",
+          "$1000",
+          "$1",
+          "$200",
+          "$45",
+          "$500",
+          "$5",
+          "$20",
+          "Lose",
+          "$1000000",
+          "Lose",
+          "$350",
+          "$5",
+          "$99",
+        ];
+
+        function spin() {
+          if (!isSpinning) {
+            isSpinning = true;
+            prizeIndex = -1; // Reset prizeIndex
+            rotationSpeed = 10; // Reset rotation speed
+            $("#spinButton").prop("disabled", true); // Disable the button
+
+            // Calculate random rotation and duration
+            var totalRotation = 360 * 5 + Math.random() * 360; // Total rotation to stop at a random angle
+            var spinDuration = Math.random() * 3000 + 4000; // Random spin duration between 4 and 7 seconds
+
+            // Start spinning animation
+            $("#wheel").animate(
+              { rotation: "+=" + totalRotation },
+              {
+                duration: spinDuration,
+                easing: "linear", // Use linear easing for a constant rotation speed
+                step: function (now, fx) {
+                  if (fx.prop === "rotation") {
+                    rotationSpeed += 15; // Increase rotation speed over time
+                    $(this).css("transform", "rotate(" + now + "deg)");
+                  }
+                },
+                complete: function () {
+                  isSpinning = false;
+                  // Calculate the prize index based on the final rotation angle
+                  var degrees = parseFloat(
+                    $("#wheel").css("transform").split("(")[1].split(")")[0]
+                  );
+                  var normalizedDegrees = ((degrees % 360) + 360) % 360; // Normalize to positive degrees
+                  prizeIndex = Math.floor(
+                    (360 - normalizedDegrees) / (360 / options.length)
+                  );
+
+                  // Display the winning segment
+                  displayWinner();
+                },
+              }
+            );
+          }
+        }
+
+        function displayWinner() {
+          if (prizeIndex !== -1) {
+            alert("Congratulations! You won " + options[prizeIndex]);
+            $("#spinButton").prop("disabled", false); // Enable the button after spin completes
+          }
+        }
+
+        $("#spinButton").click(function () {
+          spin();
+        });
+      });
+    </script>
+  </body>
+</html>
