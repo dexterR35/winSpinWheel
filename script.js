@@ -41,6 +41,28 @@ function createAndAppendButton(id, text, clickCallback) {
 
   $(".modal-footer").append(button);
 }
+
+function removeModal() {
+  $("#customModal").fadeOut("slow", function () {
+    $("#customModal").remove();
+  });
+}
+function removeBox() {
+  $(".wrapperBox").fadeOut("slow", function () {
+    $(".wrapperBox").remove();
+    setTimeout(addNewDivContainer, 500);
+  });
+}
+function addNewDivContainer() {
+  // Create a new div container
+  let newContainer = $("<div>", {
+    class: "new-container",
+    text: "This is a new div container!",
+  });
+
+  // Append the new div container to the body
+  $("#appendDivs").append(newContainer);
+}
 function spin() {
   if (buttonPressed) {
     return;
@@ -72,12 +94,13 @@ function spin() {
     showModal("Congratulations", "You Won The " + SelectedItem + ".");
     createAndAppendButton("btnContinue", "Continua", function () {
       removeModal();
+      setTimeout(removeBox, 1000);
     });
     // Set a lower speed for continuous rotation after the initial spin
   }, 5500);
   // Delay and set reset
   setTimeout(function () {
-    _boxContainer.css("transition", "initial");
+    _boxContainer.css("transition", "all ease 5s");
     _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
     buttonPressed = false;
   }, 6000);
@@ -87,10 +110,7 @@ function showModal(title, content) {
   let modalContent = `
     <div class="modal-dialog" >
       <div class="modal-content">
-       
           <h5 class="modal-title" id="modalTitle">${title}</h5>
-      
-        
         <div class="modal-body" id="modalContent">${content}</div>
         <div class="modal-footer">aa</div>
       </div>
@@ -105,15 +125,10 @@ function showModal(title, content) {
     "aria-describedby": "modalContent",
   })
     .html(modalContent)
-    .appendTo("body")
+    .appendTo("#appendDivs")
     .fadeIn("slow");
 }
 
-function removeModal() {
-  $("#customModal").fadeOut("slow", function () {
-    $("#customModal").remove();
-  });
-}
 $(document).ready(function () {
   $(".clipPath").each(function (index) {
     console.log(index);
