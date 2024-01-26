@@ -48,7 +48,9 @@ function spin() {
   buttonPressed = true;
   wheel.play();
   let SelectedItem = "";
-  let prizes = shuffle([2773, 2773, 2773]);
+  //2773 for 400 yellow
+  //4753,2953 for 400 pink
+  let prizes = shuffle([2773, 2953, 2773]);
   let Result = [prizes[0]];
   console.log(prizes);
   console.log(Result[0], "fsdaf");
@@ -76,7 +78,7 @@ function spin() {
   // Delay and set reset
   setTimeout(function () {
     _boxContainer.css("transition", "initial");
-    _boxContainer.css("transform", "rotate(108deg)");
+    _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
     buttonPressed = false;
   }, 6000);
 }
