@@ -17,11 +17,12 @@ function shuffle(array) {
 
   return array;
 }
-const customModal = $("#customModal");
+
 const _boxContainer = $("._boxContainer");
 const _pinImg = $("._pin img");
 const mainBox = $("#mainbox");
-let buttonPressed = false;
+let buttonPressed,
+  containerAppended = false;
 
 function createAndAppendButton(id, text, clickCallback) {
   console.log(id, "das");
@@ -48,21 +49,45 @@ function removeModal() {
   });
 }
 function removeBox() {
-  $(".wrapperBox").fadeOut("slow", function () {
-    $(".wrapperBox").remove();
+  $("._hR").fadeOut("slow", function () {
+    $("._hR").remove();
     setTimeout(addNewDivContainer, 500);
   });
 }
-function addNewDivContainer() {
-  // Create a new div container
-  let newContainer = $("<div>", {
-    class: "new-container",
-    text: "This is a new div container!",
-  });
 
-  // Append the new div container to the body
-  $("#appendDivs").append(newContainer);
+function addNewDivContainer() {
+  if (!containerAppended) {
+    let htmlStructure = `
+      <div class="_scrathContainer _apDiv">
+        <div class="_scratchCardParent">
+          ${Array.from(
+            { length: 3 },
+            (_, i) => `
+            <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
+              "js-container-" + "" + (i + 1)
+            }>
+              <canvas class="_scratchCanva" id=${
+                "js-canvas-" + "" + (i + 1)
+              } width="420px" height="270px"></canvas>
+              <div class="_canvaTextContainer">
+                <div>text ${i + 1}</div>
+              </div>
+            </div>
+          `
+          ).join("")}
+        </div>
+      </div>
+    `;
+    $("#appendDivs").append(htmlStructure);
+    containerAppended = true;
+    initializeScratchCard("js-container-1", "js-canvas-1");
+    initializeScratchCard("js-container-2", "js-canvas-2");
+    initializeScratchCard("js-container-3", "js-canvas-3");
+  } else {
+    console.log("Container already appended");
+  }
 }
+
 function spin() {
   if (buttonPressed) {
     return;
@@ -74,9 +99,8 @@ function spin() {
   //4753,2953 for 400 pink
   let prizes = shuffle([2773, 2953, 2773]);
   let Result = [prizes[0]];
-  console.log(prizes);
-  console.log(Result[0], "fsdaf");
-
+  // console.log(prizes);
+  // console.log(Result[0], "fsdaf");
   if (prizes.includes(Result[0])) SelectedItem = "test";
 
   _boxContainer.css("transition", "all ease 5s");
@@ -96,7 +120,6 @@ function spin() {
       removeModal();
       setTimeout(removeBox, 1000);
     });
-    // Set a lower speed for continuous rotation after the initial spin
   }, 5500);
   // Delay and set reset
   setTimeout(function () {
@@ -137,3 +160,5 @@ $(document).ready(function () {
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });
 });
+
+// Initialize each scratch card separately
