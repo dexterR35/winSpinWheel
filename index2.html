@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiple Scratch Cards</title>
+    <script src="https://cdn.jsdelivr.net/npm/scratchcard-js@1.5.5/build/scratchcard.min.js"></script>
+  </head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      gap: 20px;
+    }
+    .test {
+      width: 25vh;
+      height: 20vh;
+      background: red;
+      position: relative;
+      z-index: 3;
+    }
+    .test img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: -1;
+    }
+    .sc__inner {
+      /* background-image: url(./png/elements/crown.webp);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      position: absolute; */
+    }
+  </style>
+  <body>
+    <div id="js--sc--container1" class="test"></div>
+    <div id="js--sc--container2" class="test"></div>
+    <div id="js--sc--container3" class="test"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Keep track of completion status for each container
+        const completionStatus = {
+          "js--sc--container1": false,
+          "js--sc--container2": false,
+          "js--sc--container3": false,
+        };
+        function createScratchCard(
+          containerId,
+          imageForwardSrc,
+          imageBackgroundSrc
+        ) {
+          const container = document.getElementById(containerId);
+
+          const sc = new ScratchCard(container, {
+            scratchType: SCRATCH_TYPE.LINE,
+            containerWidth: container.offsetWidth,
+            containerHeight: container.offsetHeight,
+            imageForwardSrc: imageForwardSrc,
+            imageBackgroundSrc: imageBackgroundSrc,
+            htmlBackground: "",
+            clearZoneRadius: 20,
+            nPoints: 0,
+            pointSize: 0,
+
+            callback: function () {},
+          });
+          sc.canvas.addEventListener("scratch.move", () => {
+            let percent = sc.getPercent();
+            if (percent >= 0.1 && !completionStatus[containerId]) {
+              //   console.log(percent, "sfa");
+              completionStatus[containerId] = true;
+              console.log(`Container ${containerId}, ${percent}% cleared!`);
+
+              // Check if exactly 2 out of the three cards have reached 50%
+              const completedContainers = Object.values(
+                completionStatus
+              ).filter((status) => status);
+              console.log(completedContainers, "remain");
+              if (completedContainers.length === 2) {
+                // Disable user interaction for the remaining card
+                const remainingContainerId = Object.keys(completionStatus).find(
+                  (id) => !completionStatus[id]
+                );
+
+                if (remainingContainerId) {
+                  document.getElementById(
+                    remainingContainerId
+                  ).style.pointerEvents = "none";
+                }
+
+                console.log(
+                  "Two containers reached 50% or more! No more scratching allowed."
+                );
+                console.log(percent, "percent");
+              }
+            } else {
+              //   console.log(percent, "else");
+            }
+          });
+
+          sc.init()
+            .then(() => {
+              console.log("Scratch card initialized successfully!");
+              // Change styles of other elements on the page
+              document.body.style.backgroundColor = "red";
+            })
+            .catch((error) => {
+              console.error("Error initializing scratch card:", error);
+            });
+        }
+        // function checkCompletion() {
+        //   // Check if 2 out of 3 containers are completed
+        //   const completedContainers = Object.values(completionStatus).filter(
+        //     (status) => status
+        //   );
+
+        //   if (completedContainers.length === 2) {
+        //     // Disable user interaction for the remaining card
+        //     const remainingContainerId = Object.keys(completionStatus).find(
+        //       (id) => !completionStatus[id]
+        //     );
+
+        //     if (remainingContainerId) {
+        //       document.getElementById(
+        //         remainingContainerId
+        //       ).style.pointerEvents = "none";
+        //     }
+
+        //     alert("Two containers reached 50% or more!");
+        //   }
+        // }
+
+        // Create scratch cards with different containers and images
+        createScratchCard(
+          "js--sc--container1",
+          "./png/bg-desktop.jpg",
+          "./png/crown.webp"
+        );
+        createScratchCard(
+          "js--sc--container2",
+          "./png/bg-desktop.jpg",
+          "./png/nbLogo.png"
+        );
+        createScratchCard(
+          "js--sc--container3",
+          "./png/bg-desktop.jpg",
+          "./png/nbLogo.png"
+        );
+      });
+    </script>
+  </body>
+</html>

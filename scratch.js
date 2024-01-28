@@ -1,43 +1,35 @@
-function initializeScratchCard(containerId, canvasId) {
-  console.log(canvasId);
+function initializeScratchCard(containerId, scratchDivId) {
+  console.log(scratchDivId);
   console.log(containerId);
   let isDrawing, lastPoint;
   let containerIDS = document.getElementById(containerId);
-  let canvas = document.getElementById(canvasId);
-  canvas.width = containerIDS.offsetWidth;
-  canvas.height = containerIDS.offsetHeight;
-  let ctx = canvas.getContext("2d");
+  let scratchDiv = document.getElementById(scratchDivId);
+  scratchDiv.style.width = containerIDS.offsetWidth + "px";
+  scratchDiv.style.height = containerIDS.offsetHeight + "px";
+  scratchDiv.style.position = "relative";
+  scratchDiv.style.overflow = "hidden";
+  let ctx = scratchDiv.style;
+
   let image = new Image();
   let brush = new Image();
-  let scale = 1; // Set the initial scale value
   let offsetX, offsetY;
   image.src = "./png/elements/scratched.webp";
   image.onload = function () {
-    // Calculate the scaling factor to fit the image within the canvas
-    scale = Math.min(canvas.width / image.width, canvas.height / image.height);
-    // Center the image within the canvas
-    offsetX = (canvas.width - image.width * scale) / 2;
-    offsetY = (canvas.height - image.height * scale) / 2;
+    offsetX = scratchDiv.offsetWidth - image.width;
+    offsetY = scratchDiv.offsetHeight - image.height;
 
-    // Draw the image
-    ctx.drawImage(
-      image,
-      offsetX,
-      offsetY,
-      image.width * scale,
-      image.height * scale
-    );
-
-    // Show the form when Image is loaded.
+    // Set the background image
+    scratchDiv.style.backgroundImage = "url(" + image.src + ")";
+    scratchDiv.style.backgroundPosition = offsetX + "px " + offsetY + "px";
   };
   brush.src = "./png/brush.png";
 
-  canvas.addEventListener("mousedown", handleMouseDown, false);
-  canvas.addEventListener("touchstart", handleMouseDown, false);
-  canvas.addEventListener("mousemove", handleMouseMove, false);
-  canvas.addEventListener("touchmove", handleMouseMove, false);
-  canvas.addEventListener("mouseup", handleMouseUp, false);
-  canvas.addEventListener("touchend", handleMouseUp, false);
+  scratchDiv.addEventListener("mousedown", handleMouseDown, false);
+  scratchDiv.addEventListener("touchstart", handleMouseDown, false);
+  scratchDiv.addEventListener("mousemove", handleMouseMove, false);
+  scratchDiv.addEventListener("touchmove", handleMouseMove, false);
+  scratchDiv.addEventListener("mouseup", handleMouseUp, false);
+  scratchDiv.addEventListener("touchend", handleMouseUp, false);
 
   function distanceBetween(point1, point2) {
     return Math.sqrt(
@@ -49,13 +41,17 @@ function initializeScratchCard(containerId, canvasId) {
     return Math.atan2(point2.x - point1.x, point2.y - point1.y);
   }
 
-  // but might lead to inaccuracy
   function getFilledInPixels(stride) {
     if (!stride || stride < 1) {
       stride = 1;
     }
 
-    let pixels = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height),
+    let pixels = ctx.getImageData(
+        0,
+        0,
+        scratchDiv.offsetWidth,
+        scratchDiv.offsetHeight
+      ),
       pdata = pixels.data,
       l = pdata.length,
       total = l / stride,
@@ -71,17 +67,17 @@ function initializeScratchCard(containerId, canvasId) {
     return Math.round((count / total) * 100);
   }
 
-  function getMouse(e, canvas) {
+  function getMouse(e, div) {
     let offsetX = 0,
       offsetY = 0,
       mx,
       my;
 
-    if (canvas.offsetParent !== undefined) {
+    if (div.offsetParent !== undefined) {
       do {
-        offsetX += canvas.offsetLeft;
-        offsetY += canvas.offsetTop;
-      } while ((canvas = canvas.offsetParent));
+        offsetX += div.offsetLeft;
+        offsetY += div.offsetTop;
+      } while ((div = div.offsetParent));
     }
 
     mx = (e.pageX || e.touches[0].clientX) - offsetX;
@@ -93,14 +89,19 @@ function initializeScratchCard(containerId, canvasId) {
   function handlePercentage(filledInPixels) {
     filledInPixels = filledInPixels || 0;
 
-    if (filledInPixels > 62) {
-      canvas.parentNode.removeChild(canvas);
+    if (filledInPixels > 50) {
+      scratchDiv.parentNode.removeChild(scratchDiv);
+      showModal(
+        "Congratulations",
+        "You scratched 2 out of 3 cards with at least 60% on each card!",
+        "scenario2"
+      );
     }
   }
 
   function handleMouseDown(e) {
     isDrawing = true;
-    lastPoint = getMouse(e, canvas);
+    lastPoint = getMouse(e, scratchDiv);
   }
 
   function handleMouseMove(e) {
@@ -110,7 +111,7 @@ function initializeScratchCard(containerId, canvasId) {
 
     e.preventDefault();
 
-    let currentPoint = getMouse(e, canvas),
+    let currentPoint = getMouse(e, scratchDiv),
       dist = distanceBetween(lastPoint, currentPoint),
       angle = angleBetween(lastPoint, currentPoint),
       x,
@@ -120,7 +121,7 @@ function initializeScratchCard(containerId, canvasId) {
       x = lastPoint.x + Math.sin(angle) * i - 20;
       y = lastPoint.y + Math.cos(angle) * i - 25;
       ctx.globalCompositeOperation = "destination-out";
-      //   ctx.drawImage(brush, x, y, canvas.width, canvas.height);
+      //   ctx.drawImage(brush, x, y, scratchDiv.offsetWidth, scratchDiv.offsetHeight);
       ctx.drawImage(brush, x, y, brush.width * 0.8, brush.height * 0.5);
     }
 

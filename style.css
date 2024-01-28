@@ -599,7 +599,8 @@ span {
 }
 ._scratchCardParent {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 20px;
   align-items: center;
   height: 100%;
 }

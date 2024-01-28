@@ -21,39 +21,8 @@ function shuffle(array) {
 const _boxContainer = $("._boxContainer");
 const _pinImg = $("._pin img");
 const mainBox = $("#mainbox");
-let buttonPressed,
-  containerAppended = false;
-
-function createAndAppendButton(id, text, clickCallback) {
-  console.log(id, "das");
-  console.log(text, "text");
-  let button = $("<button>", {
-    class: "btn",
-    id: id,
-    text: text,
-  }).on("click", function () {
-    if (buttonPressed) return;
-    buttonPressed = true;
-    setTimeout(() => (buttonPressed = false), 6000);
-    if (clickCallback) {
-      clickCallback();
-    }
-  });
-
-  $(".modal-footer").append(button);
-}
-
-function removeModal() {
-  $("#customModal").fadeOut("slow", function () {
-    $("#customModal").remove();
-  });
-}
-function removeBox() {
-  $("._hR").fadeOut("slow", function () {
-    $("._hR").remove();
-    setTimeout(addNewDivContainer, 500);
-  });
-}
+let buttonPressed, buttonClicked;
+containerAppended = false;
 
 function addNewDivContainer() {
   if (!containerAppended) {
@@ -114,13 +83,15 @@ function spin() {
   }, 5000);
   setTimeout(function () {
     _pinImg.removeClass("animate");
-    // applause.play();
-    showModal("Congratulations", "You Won The " + SelectedItem + ".");
-    createAndAppendButton("btnContinue", "Continua", function () {
-      removeModal();
-      setTimeout(removeBox, 1000);
-    });
+    applause.play();
+
+    showModal(
+      "Congratulations",
+      "You scratched 2 out of 3 cards with at least 60% on each card!",
+      "scenario1"
+    );
   }, 5500);
+
   // Delay and set reset
   setTimeout(function () {
     _boxContainer.css("transition", "all ease 5s");
@@ -129,28 +100,28 @@ function spin() {
   }, 6000);
 }
 
-function showModal(title, content) {
-  let modalContent = `
-    <div class="modal-dialog" >
-      <div class="modal-content">
-          <h5 class="modal-title" id="modalTitle">${title}</h5>
-        <div class="modal-body" id="modalContent">${content}</div>
-        <div class="modal-footer">aa</div>
-      </div>
-    </div>`;
+// function showModal(title, content) {
+//   let modalContent = `
+//     <div class="modal-dialog" >
+//       <div class="modal-content">
+//           <h5 class="modal-title" id="modalTitle">${title}</h5>
+//         <div class="modal-body" id="modalContent">${content}</div>
+//         <div class="modal-footer">aa</div>
+//       </div>
+//     </div>`;
 
-  let modal = $("<div>", {
-    class: "modalNB",
-    id: "customModal",
-    style: "display: flex;",
-    role: "dialog",
-    "aria-labelledby": "modalTitle",
-    "aria-describedby": "modalContent",
-  })
-    .html(modalContent)
-    .appendTo("#appendDivs")
-    .fadeIn("slow");
-}
+//   let modal = $("<div>", {
+//     class: "modalNB",
+//     id: "customModal",
+//     style: "display: flex;",
+//     role: "dialog",
+//     "aria-labelledby": "modalTitle",
+//     "aria-describedby": "modalContent",
+//   })
+//     .html(modalContent)
+//     .appendTo("#appendDivs")
+//     .fadeIn("slow");
+// }
 
 $(document).ready(function () {
   $(".clipPath").each(function (index) {
@@ -160,5 +131,67 @@ $(document).ready(function () {
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });
 });
+function showModal(title, message, scenario) {
+  let buttonsConfig = {};
 
+  if (scenario === "scenario1" || scenario === "scenario2") {
+    if (buttonClicked) {
+      // Disable button if already clicked
+      return;
+    }
+
+    buttonClicked = true;
+    buttonsConfig = {
+      handleBtnClick: function () {
+        $("#customModal").fadeOut("slow", function () {
+          $("#customModal").remove();
+        });
+        setTimeout(function () {
+          $("._hR").fadeOut("slow", function () {
+            $("._hR").remove();
+            setTimeout(addNewDivContainer, 500);
+          });
+        }, 1000);
+      },
+    };
+  } else {
+    console.log("test");
+  }
+  let modalContent = `
+       <div class="modal-dialog" >
+         <div class="modal-content">
+             <h5 class="modal-title" id="modalTitle">${title}</h5>
+           <div class="modal-body" id="modalContent">${message}</div>
+           <div class="modal-footer" id="modalFooter"></div>
+         </div>
+       </div>`;
+
+  let modal = $("<div>", {
+    class: "modalNB",
+    modal: {
+      backdrop: "static",
+      keyboard: false,
+    },
+    id: "customModal",
+    style: "display: flex;",
+    role: "dialog",
+    "aria-labelledby": "modalTitle",
+    "aria-describedby": "modalContent",
+  })
+    .html(modalContent)
+    .appendTo("#appendDivs")
+    .fadeIn("slow");
+
+  for (let buttonLabel in buttonsConfig) {
+    if (buttonsConfig.hasOwnProperty(buttonLabel)) {
+      $("<button>", {
+        class: "btn btn-primary",
+        text: scenario === "scenario1" ? "continueb" : "mergi",
+        click: buttonsConfig[buttonLabel],
+        disabled: !buttonClicked,
+      }).appendTo("#modalFooter");
+    }
+  }
+  // modal.focus();
+}
 // Initialize each scratch card separately
