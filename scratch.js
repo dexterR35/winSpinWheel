@@ -40,7 +40,7 @@ function addScrath() {
             applause.play();
             showModal(
               "Congratulations",
-              "You scratched 2 out of 3 cards with at least 60% on each card!",
+              `"You won" + ${prizePool}`,
               "scenario2"
             );
           }, 1000);

@@ -1,5 +1,5 @@
 function shuffle(array) {
-  var currentIndex = array.length,
+  let currentIndex = array.length,
     randomIndex;
   console.log(currentIndex, "curentindex");
   // While there remain elements to shuffle...
@@ -96,14 +96,12 @@ function spin() {
 }
 
 function showModal(title, message, scenario) {
-  buttonPressed = false;
   let buttonsConfig = {};
   if (scenario === "scenario1" || scenario === "scenario2") {
-    if (buttonPressed) {
+    if (buttonClicked) {
       return;
     }
-    console.log(buttonPressed, "scenario");
-    buttonPressed = true;
+    buttonClicked = false;
     buttonsConfig = {
       handleBtnClick: function () {
         $("#customModal").fadeOut("slow", function () {
@@ -122,14 +120,17 @@ function showModal(title, message, scenario) {
   }
   let modalContent = `
        <div class="modal-dialog" >
+       <img class="modalImg" src="./png/elements/suport_text.webp"/>
          <div class="modal-content">
-             <h5 class="modal-title" id="modalTitle">${title}</h5>
-           <div class="modal-body" id="modalContent">${message}</div>
+            <div class="modal-body" id="modalContent">
+              <h5 class="modal-title" id="modalTitle">${title}</h5>
+              <div class="content-offer">${message}</div>
+            </div>
            <div class="modal-footer" id="modalFooter"></div>
          </div>
        </div>`;
 
-  let modal = $("<div>", {
+  $("<div>", {
     class: "modalNB",
 
     id: "customModal",
@@ -148,7 +149,7 @@ function showModal(title, message, scenario) {
         class: "btn btn-primary",
         text: scenario === "scenario1" ? "continueb" : "mergi",
         click: buttonsConfig[buttonLabel],
-        disabled: !buttonPressed,
+        disabled: buttonClicked,
       }).appendTo("#modalFooter");
       // console.log(buttonPressed, "btncfg");
     }
@@ -201,7 +202,7 @@ function stopConfetti() {
 $(document).ready(function () {
   $(".clipPath").each(function (index) {
     console.log(index);
-    var rotationAngle = -17 + index * 36;
+    let rotationAngle = -17 + index * 36;
     _boxContainer.css("transform", "rotate(108deg)");
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });

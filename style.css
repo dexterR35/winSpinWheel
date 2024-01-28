@@ -14,7 +14,7 @@
   --s_cave: 78vmin;
   --s_mainBox: 51vmin;
   --s_boxWheel: 51vmin;
-  --s_modalDialog: calc(min(600px, max(350px, 50vmax)));
+  /* --s_modalDialog: calc(min(600px, max(350px, 50vmax))); */
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   --test: 46, 46, 46;
 }
@@ -34,6 +34,7 @@ body {
   background-size: var(--s_BG) !important;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
 }
 /* body::after {
   content: "";
@@ -63,6 +64,7 @@ header .logoNB img,
 .borderCave,
 .modalNB,
 .modalNB::after,
+.modalNB::before,
 ._canvaTextContainer {
   width: 100%;
   height: 100%;
@@ -74,6 +76,7 @@ header {
   position: fixed;
   top: 0;
   color: white;
+  z-index: 5;
 }
 header::after {
   content: "";
@@ -468,20 +471,45 @@ span {
   content: "";
   position: absolute;
   top: 0;
-  background-color: #270e25cb;
+  background-color: #270e25b8;
   z-index: -1;
 }
-
+.modalNB::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  background-color: #05050514;
+  z-index: -2;
+}
+.modal-content {
+  position: absolute;
+  z-index: 1;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .modal-dialog {
   width: var(--s_modalDialog);
   max-width: 100%;
-  background: #fff;
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
 }
-
-.modal-content {
-  padding: 20px;
+.modalImg {
+  width: 100%;
+  height: 50vh;
+  object-fit: contain;
+  background: #0a0a0a;
+  top: 0;
+  position: relative;
 }
 
 .modal-header {
@@ -525,57 +553,96 @@ span {
   width: 100%;
   position: absolute;
   z-index: 10;
-  perspective: 530px; /* Adjust the value to control the depth of the perspective */
+  /* background: red; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  height: 80%;
 }
-
-._tText {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 60px;
-  text-transform: uppercase;
-  transform: matrix(1.1, 0, -1.6, 0.6, 0, 0);
-  transform: translate3d(10%, 350%, 90px);
+._tText,
+._tText_s {
   text-shadow: 0px 1px #d4112e, 1px 0px #343232, 1px -2px #d4112e,
     2px -1px #343232, 2px -3px #d4112e, 3px -2px #343232, 3px -4px #d4112e,
     4px -3px #343232, 4px -5px #d4112e, 5px -4px #343232, 5px -6px #d4112e,
     6px -5px #343232, 6px -7px #d4112e, 7px -6px #343232, 7px -8px #d4112e,
     8px -7px #343232;
-}
-._tText_s {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 70px;
-  transform: translate3d(-44%, 300%, 190px);
   font-weight: bold;
   color: #ececec;
-  /* filter: drop-shadow(2px 2px 5px red); */
-  text-shadow: 0px 1px #d4112e, 1px 0px #343232, 1px -2px #d4112e,
-    2px -1px #343232, 2px -3px #d4112e, 3px -2px #343232, 3px -4px #d4112e,
-    4px -3px #343232, 4px -5px #d4112e, 5px -4px #343232, 5px -6px #d4112e,
-    6px -5px #343232, 6px -7px #d4112e, 7px -6px #343232, 7px -8px #d4112e,
-    8px -7px #343232;
-  /* Add other CSS properties here */
+  position: relative;
+  text-transform: uppercase;
+}
+._tText {
+  position: relative;
+  font-size: 4vmin;
+  transform: translate(24vh, 1vh);
+}
+._tText_s {
+  font-size: 10vmin;
 }
 
 ._tText_s::before {
   content: "RUNDELE GRATUITE";
   position: absolute;
-  top: 9px;
-  left: 76px;
+  top: 15px;
+  left: 72px;
   font-size: 0.9em;
   font-weight: bold;
   font-family: Verdana, sans-serif;
   color: #0e0e0e;
   width: 100%;
   height: 100%;
-  transform: matrix(1.1, 0, -1.6, 0.6, 0, 0);
+  transform: matrix(1.07, 0, -1.5, 0.6, 0, 0);
   text-shadow: none !important;
   z-index: -1;
-  /* filter: none !important; */
   filter: blur(5px);
 }
+/*PART 1 ElementDesktopBg*/
+/*PART 1 ElementDesktopBg*/
+/*PART 1 ElementDesktopBg*/
+/*PART 1 ElementDesktopBg*/
+.elemAssets {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.elemAssets div {
+  width: 20vh;
+  height: 20vh;
+  /* background: black; */
+  position: absolute;
+}
+/*seven*/
+.elemAssets div:nth-child(1) {
+  right: 10%;
+  bottom: 0%;
+}
+/*crown*/
+.elemAssets div:nth-child(2) {
+  left: 10%;
+  bottom: 0%;
+}
+/*star*/
+.elemAssets div:nth-child(3) {
+  left: 10%;
+  top: 30%;
+}
+/*dolar*/
+.elemAssets div:nth-child(4) {
+  right: 10%;
+  top: 5%;
+}
+
+.elemAssets img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/*PART 1 end ElementDesktopBg*/
+/*PART 1 end ElementDesktopBg*/
+/*PART 1 end ElementDesktopBg*/
+/*PART 1 end ElementDesktopBg*/
 
 /*PART 2 SCRATCH*/
 /*PART 2 SCRATCH*/
