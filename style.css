@@ -12,8 +12,8 @@
   --s_BG: cover;
   --s_pin: 51vh;
   --s_cave: 78vmin;
-  --s_mainBox: 49vmin;
-  --s_boxWheel: 54vmin;
+  --s_mainBox: 51vmin;
+  --s_boxWheel: 51vmin;
   --s_modalDialog: calc(min(600px, max(350px, 50vmax)));
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   --test: 46, 46, 46;
@@ -390,7 +390,7 @@ span {
   width: fit-content;
   height: fit-content;
   top: 46%;
-  z-index: 1;
+  z-index: 4;
 }
 .caveImg {
   height: var(--s_cave);
@@ -583,7 +583,7 @@ span {
 /*PART 2 SCRATCH*/
 
 ._scrathContainer {
-  max-width: 90vw;
+  max-width: 70vw;
   width: 100%;
   height: 70vh;
   margin: auto;
@@ -604,9 +604,10 @@ span {
   align-items: center;
   height: 100%;
 }
+
 ._scratchCard {
-  width: 420px;
-  height: 270px;
+  width: 32.5%;
+  height: 30vh;
   background: rgba(0, 0, 0, 0.329);
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -617,7 +618,15 @@ span {
   cursor: pointer;
   position: relative;
 }
-._scratchCanva {
+
+._scratchCard img {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.sc__canvas {
   z-index: 2;
   position: relative;
 }

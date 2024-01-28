@@ -21,27 +21,24 @@ function shuffle(array) {
 const _boxContainer = $("._boxContainer");
 const _pinImg = $("._pin img");
 const mainBox = $("#mainbox");
-let buttonPressed, buttonClicked;
-containerAppended = false;
+let buttonPressed = false;
+let buttonClicked = false;
+let containerAppended = false;
+let prizePool = "400";
 
+console.log(buttonPressed, "start");
 function addNewDivContainer() {
   if (!containerAppended) {
     let htmlStructure = `
-      <div class="_scrathContainer _apDiv">
+      <div class="_scrathContainer _apDiv _hR">
         <div class="_scratchCardParent">
           ${Array.from(
             { length: 3 },
             (_, i) => `
             <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
-              "js-container-" + "" + (i + 1)
+              "jsContainer" + "" + (i + 1)
             }>
-              <canvas class="_scratchCanva" id=${
-                "js-canvas-" + "" + (i + 1)
-              } width="420px" height="270px"></canvas>
-              <div class="_canvaTextContainer">
-                <div>text ${i + 1}</div>
-              </div>
-            </div>
+             </div>
           `
           ).join("")}
         </div>
@@ -49,9 +46,7 @@ function addNewDivContainer() {
     `;
     $("#appendDivs").append(htmlStructure);
     containerAppended = true;
-    initializeScratchCard("js-container-1", "js-canvas-1");
-    initializeScratchCard("js-container-2", "js-canvas-2");
-    initializeScratchCard("js-container-3", "js-canvas-3");
+    addScrath();
   } else {
     console.log("Container already appended");
   }
@@ -61,7 +56,9 @@ function spin() {
   if (buttonPressed) {
     return;
   }
+
   buttonPressed = true;
+  console.log(buttonPressed, "spin");
   wheel.play();
   let SelectedItem = "";
   //2773 for 400 yellow
@@ -70,7 +67,7 @@ function spin() {
   let Result = [prizes[0]];
   // console.log(prizes);
   // console.log(Result[0], "fsdaf");
-  if (prizes.includes(Result[0])) SelectedItem = "test";
+  if (prizes.includes(Result[0])) SelectedItem = prizePool;
 
   _boxContainer.css("transition", "all ease 5s");
   _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
@@ -83,13 +80,9 @@ function spin() {
   }, 5000);
   setTimeout(function () {
     _pinImg.removeClass("animate");
-    applause.play();
 
-    showModal(
-      "Congratulations",
-      "You scratched 2 out of 3 cards with at least 60% on each card!",
-      "scenario1"
-    );
+    applause.play();
+    showModal("Congratulations", `"You won" + ${SelectedItem}`, "scenario1");
   }, 5500);
 
   // Delay and set reset
@@ -97,50 +90,20 @@ function spin() {
     _boxContainer.css("transition", "all ease 5s");
     _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
     buttonPressed = false;
+    startConfetti();
+    console.log(startConfetti(), "settime reset");
   }, 6000);
 }
 
-// function showModal(title, content) {
-//   let modalContent = `
-//     <div class="modal-dialog" >
-//       <div class="modal-content">
-//           <h5 class="modal-title" id="modalTitle">${title}</h5>
-//         <div class="modal-body" id="modalContent">${content}</div>
-//         <div class="modal-footer">aa</div>
-//       </div>
-//     </div>`;
-
-//   let modal = $("<div>", {
-//     class: "modalNB",
-//     id: "customModal",
-//     style: "display: flex;",
-//     role: "dialog",
-//     "aria-labelledby": "modalTitle",
-//     "aria-describedby": "modalContent",
-//   })
-//     .html(modalContent)
-//     .appendTo("#appendDivs")
-//     .fadeIn("slow");
-// }
-
-$(document).ready(function () {
-  $(".clipPath").each(function (index) {
-    console.log(index);
-    var rotationAngle = -17 + index * 36;
-    _boxContainer.css("transform", "rotate(108deg)");
-    $(this).css("transform", "rotate(" + rotationAngle + "deg)");
-  });
-});
 function showModal(title, message, scenario) {
+  buttonPressed = false;
   let buttonsConfig = {};
-
   if (scenario === "scenario1" || scenario === "scenario2") {
-    if (buttonClicked) {
-      // Disable button if already clicked
+    if (buttonPressed) {
       return;
     }
-
-    buttonClicked = true;
+    console.log(buttonPressed, "scenario");
+    buttonPressed = true;
     buttonsConfig = {
       handleBtnClick: function () {
         $("#customModal").fadeOut("slow", function () {
@@ -168,10 +131,7 @@ function showModal(title, message, scenario) {
 
   let modal = $("<div>", {
     class: "modalNB",
-    modal: {
-      backdrop: "static",
-      keyboard: false,
-    },
+
     id: "customModal",
     style: "display: flex;",
     role: "dialog",
@@ -188,10 +148,62 @@ function showModal(title, message, scenario) {
         class: "btn btn-primary",
         text: scenario === "scenario1" ? "continueb" : "mergi",
         click: buttonsConfig[buttonLabel],
-        disabled: !buttonClicked,
+        disabled: !buttonPressed,
       }).appendTo("#modalFooter");
+      // console.log(buttonPressed, "btncfg");
     }
   }
   // modal.focus();
 }
+
+let durationConf = 5 * 1000;
+let animationEnd = Date.now() + durationConf;
+let defaults = {
+  startVelocity: 15,
+  spread: 360,
+  ticks: 30,
+  zIndex: 0,
+};
+
+function randomInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function startConfetti() {
+  confettiInterval = setInterval(function () {
+    let timeLeft = animationEnd - Date.now();
+
+    if (timeLeft <= 0) {
+      stopConfetti();
+      return;
+    }
+    console.log(timeLeft);
+    let particleCount = 50 * (timeLeft / durationConf);
+    // console.log(particleCountFixed, "count");
+    confetti({
+      ...defaults,
+      particleCount,
+      origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      className: "confetti-particle",
+    });
+    confetti({
+      ...defaults,
+      particleCount,
+      origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      className: "confetti-particle",
+    });
+  }, 100);
+}
+
+function stopConfetti() {
+  clearInterval(confettiInterval);
+}
+$(document).ready(function () {
+  $(".clipPath").each(function (index) {
+    console.log(index);
+    var rotationAngle = -17 + index * 36;
+    _boxContainer.css("transform", "rotate(108deg)");
+    $(this).css("transform", "rotate(" + rotationAngle + "deg)");
+  });
+});
 // Initialize each scratch card separately

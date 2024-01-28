@@ -1,135 +1,111 @@
-function initializeScratchCard(containerId, scratchDivId) {
-  console.log(scratchDivId);
-  console.log(containerId);
-  let isDrawing, lastPoint;
-  let containerIDS = document.getElementById(containerId);
-  let scratchDiv = document.getElementById(scratchDivId);
-  scratchDiv.style.width = containerIDS.offsetWidth + "px";
-  scratchDiv.style.height = containerIDS.offsetHeight + "px";
-  scratchDiv.style.position = "relative";
-  scratchDiv.style.overflow = "hidden";
-  let ctx = scratchDiv.style;
-
-  let image = new Image();
-  let brush = new Image();
-  let offsetX, offsetY;
-  image.src = "./png/elements/scratched.webp";
-  image.onload = function () {
-    offsetX = scratchDiv.offsetWidth - image.width;
-    offsetY = scratchDiv.offsetHeight - image.height;
-
-    // Set the background image
-    scratchDiv.style.backgroundImage = "url(" + image.src + ")";
-    scratchDiv.style.backgroundPosition = offsetX + "px " + offsetY + "px";
+function addScrath() {
+  console.log("loaded scratch");
+  // Keep track of completion status for each container
+  const completionStatus = {
+    jsContainer1: false,
+    jsContainer2: false,
+    jsContainer3: false,
   };
-  brush.src = "./png/brush.png";
 
-  scratchDiv.addEventListener("mousedown", handleMouseDown, false);
-  scratchDiv.addEventListener("touchstart", handleMouseDown, false);
-  scratchDiv.addEventListener("mousemove", handleMouseMove, false);
-  scratchDiv.addEventListener("touchmove", handleMouseMove, false);
-  scratchDiv.addEventListener("mouseup", handleMouseUp, false);
-  scratchDiv.addEventListener("touchend", handleMouseUp, false);
+  function createScratchCard(containerId, imageForwardSrc, imageBackgroundSrc) {
+    const _containerBox = document.getElementById(containerId);
 
-  function distanceBetween(point1, point2) {
-    return Math.sqrt(
-      Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2)
-    );
+    const sc = new ScratchCard(_containerBox, {
+      scratchType: SCRATCH_TYPE.CIRCLE,
+      containerWidth: _containerBox.offsetWidth,
+      containerHeight: _containerBox.offsetHeight,
+      imageForwardSrc: imageForwardSrc,
+      imageBackgroundSrc: imageBackgroundSrc,
+      htmlBackground: "",
+      percentToFinish: 90,
+      clearZoneRadius: 40,
+      nPoints: 19,
+      pointSize: 13,
+      brushSrc: !"",
+      // enabledPercentUpdate: !"";
+
+      callback: function () {
+        let percent = sc.getPercent();
+        if (containerId) {
+          console.log(containerId, "each containerId");
+        }
+        const completedContainers23 = Object.values(completionStatus).filter(
+          (status) => !status
+        );
+
+        if (completedContainers23.length === 1 && percent >= 90) {
+          console.log(_containerBox);
+          $("._scratchCard").css("pointerEvents", "none");
+          setTimeout(function () {
+            applause.play();
+            showModal(
+              "Congratulations",
+              "You scratched 2 out of 3 cards with at least 60% on each card!",
+              "scenario2"
+            );
+          }, 1000);
+        }
+      },
+    });
+
+    sc.init()
+      .then(() => {
+        let percents = sc.getPercent();
+        sc.canvas.addEventListener("scratch.move", () => {
+          let percent = sc.getPercent();
+          if (!completionStatus[containerId]) {
+            if (percent >= 0.1) {
+              completionStatus[containerId] = true;
+              const completedContainers = Object.values(
+                completionStatus
+              ).filter((status) => status);
+
+              if (completedContainers.length === 2) {
+                const remainingContainerId = Object.keys(completionStatus).find(
+                  (id) => !completionStatus[id]
+                );
+
+                if (remainingContainerId) {
+                  document.getElementById(
+                    remainingContainerId
+                  ).style.pointerEvents = "none";
+                }
+                console.log(
+                  "Two containers reached 50% or more! No more scratching allowed.percent >= 0.1",
+                  percent
+                );
+                return;
+              }
+            }
+          } else if (percent >= 89 && percent <= 95) {
+            const completedContainers2 = Object.values(completionStatus).filter(
+              (status) => !status
+            );
+
+            if (completedContainers2.length === 1) {
+              // console.log("completedContainers2", completedContainers2);
+            }
+          }
+        });
+      })
+      .catch((error) => {
+        console.error("Error initializing scratch card:", error);
+      });
   }
 
-  function angleBetween(point1, point2) {
-    return Math.atan2(point2.x - point1.x, point2.y - point1.y);
-  }
-
-  function getFilledInPixels(stride) {
-    if (!stride || stride < 1) {
-      stride = 1;
-    }
-
-    let pixels = ctx.getImageData(
-        0,
-        0,
-        scratchDiv.offsetWidth,
-        scratchDiv.offsetHeight
-      ),
-      pdata = pixels.data,
-      l = pdata.length,
-      total = l / stride,
-      count = 0;
-
-    // Iterate over all pixels
-    for (let i = (count = 0); i < l; i += stride) {
-      if (parseInt(pdata[i]) === 0) {
-        count++;
-      }
-    }
-
-    return Math.round((count / total) * 100);
-  }
-
-  function getMouse(e, div) {
-    let offsetX = 0,
-      offsetY = 0,
-      mx,
-      my;
-
-    if (div.offsetParent !== undefined) {
-      do {
-        offsetX += div.offsetLeft;
-        offsetY += div.offsetTop;
-      } while ((div = div.offsetParent));
-    }
-
-    mx = (e.pageX || e.touches[0].clientX) - offsetX;
-    my = (e.pageY || e.touches[0].clientY) - offsetY;
-
-    return { x: mx, y: my };
-  }
-
-  function handlePercentage(filledInPixels) {
-    filledInPixels = filledInPixels || 0;
-
-    if (filledInPixels > 50) {
-      scratchDiv.parentNode.removeChild(scratchDiv);
-      showModal(
-        "Congratulations",
-        "You scratched 2 out of 3 cards with at least 60% on each card!",
-        "scenario2"
-      );
-    }
-  }
-
-  function handleMouseDown(e) {
-    isDrawing = true;
-    lastPoint = getMouse(e, scratchDiv);
-  }
-
-  function handleMouseMove(e) {
-    if (!isDrawing) {
-      return;
-    }
-
-    e.preventDefault();
-
-    let currentPoint = getMouse(e, scratchDiv),
-      dist = distanceBetween(lastPoint, currentPoint),
-      angle = angleBetween(lastPoint, currentPoint),
-      x,
-      y;
-
-    for (let i = 0; i < dist; i++) {
-      x = lastPoint.x + Math.sin(angle) * i - 20;
-      y = lastPoint.y + Math.cos(angle) * i - 25;
-      ctx.globalCompositeOperation = "destination-out";
-      //   ctx.drawImage(brush, x, y, scratchDiv.offsetWidth, scratchDiv.offsetHeight);
-      ctx.drawImage(brush, x, y, brush.width * 0.8, brush.height * 0.5);
-    }
-
-    lastPoint = currentPoint;
-    handlePercentage(getFilledInPixels(32));
-  }
-
-  function handleMouseUp(e) {
-    isDrawing = false;
-  }
+  createScratchCard(
+    "jsContainer1",
+    "./png/elements/scratched.webp",
+    "./png/elements/unscratched.webp"
+  );
+  createScratchCard(
+    "jsContainer2",
+    "./png/elements/scratched.webp",
+    "./png/elements/unscratched.webp"
+  );
+  createScratchCard(
+    "jsContainer3",
+    "./png/elements/scratched.webp",
+    "./png/elements/unscratched.webp"
+  );
 }
