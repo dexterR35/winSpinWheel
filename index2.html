@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Multiple Scratch Cards</title>
     <script src="https://cdn.jsdelivr.net/npm/scratchcard-js@1.5.5/build/scratchcard.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <style>
     body {
@@ -28,95 +29,96 @@
       object-fit: contain;
       z-index: -1;
     }
-    .sc__inner {
-      /* background-image: url(./png/elements/crown.webp);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      position: absolute;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      position: absolute; */
-    }
   </style>
   <body>
-    <div id="js--sc--container1" class="test"></div>
-    <div id="js--sc--container2" class="test"></div>
-    <div id="js--sc--container3" class="test"></div>
-    <div class="sc__infos">
-      <!-- percent -->
-    </div>
+    <div id="jsContainer1" class="test"></div>
+    <div id="jsContainer2" class="test"></div>
+    <div id="jsContainer3" class="test"></div>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Keep track of completion status for each container
         const completionStatus = {
-          "js--sc--container1": false,
-          "js--sc--container2": false,
-          "js--sc--container3": false,
+          jsContainer1: false,
+          jsContainer2: false,
+          jsContainer3: false,
         };
+
         function createScratchCard(
           containerId,
           imageForwardSrc,
           imageBackgroundSrc
         ) {
           const container = document.getElementById(containerId);
-          const scInfos = document.querySelector(".sc__infos");
+
           const sc = new ScratchCard(container, {
-            scratchType: SCRATCH_TYPE.SPRAY,
+            scratchType: SCRATCH_TYPE.CIRCLE,
             containerWidth: container.offsetWidth,
             containerHeight: container.offsetHeight,
             imageForwardSrc: imageForwardSrc,
-            imageBackgroundSrc: "",
-            htmlBackground: '<div class="inner_html"><p>Html content</p></div>',
-            percentToFinish: 10,
-            clearZoneRadius: 20,
+            imageBackgroundSrc: imageBackgroundSrc,
+            htmlBackground: "<div class='prizesInsert'></div>",
+            percentToFinish: 90,
+            clearZoneRadius: 40,
             nPoints: 19,
-            pointSize: 3,
+            pointSize: 13,
 
             callback: function () {
-              alert("Now the window will reload !");
-              window.location.reload();
+              let percent = sc.getPercent();
+              if (containerId) {
+                console.log(containerId, "each containerId");
+              }
+              const completedContainers23 = Object.values(
+                completionStatus
+              ).filter((status) => !status);
+
+              if (completedContainers23.length === 1 && percent >= 90) {
+                setTimeout(function () {
+                  console.log(container);
+                  $(".test").css("pointerEvents", "none");
+                  alert("fasfasfasf", completedContainers23);
+                }, 500);
+              }
             },
           });
 
           sc.init()
             .then(() => {
-              let percents = sc.getPercent().toFixed(0);
-              scInfos.innerHTML = percents + "%";
-              console.log(percents);
-
+              let percents = sc.getPercent();
               sc.canvas.addEventListener("scratch.move", () => {
                 let percent = sc.getPercent();
-                if (percent >= 0.1 && !completionStatus[containerId]) {
-                  //   console.log(percent, "sfa");
-                  completionStatus[containerId] = true;
-                  console.log(`Container ${containerId}, ${percent}% cleared!`);
-
-                  // Check if exactly 2 out of the three cards have reached 50%
-                  const completedContainers = Object.values(
-                    completionStatus
-                  ).filter((status) => status);
-                  console.log(completedContainers, "remain");
-                  if (completedContainers.length === 2) {
-                    // Disable user interaction for the remaining card
-                    const remainingContainerId = Object.keys(
+                if (!completionStatus[containerId]) {
+                  if (percent >= 0.1) {
+                    completionStatus[containerId] = true;
+                    const completedContainers = Object.values(
                       completionStatus
-                    ).find((id) => !completionStatus[id]);
+                    ).filter((status) => status);
 
-                    if (remainingContainerId) {
-                      document.getElementById(
-                        remainingContainerId
-                      ).style.pointerEvents = "none";
+                    if (completedContainers.length === 2) {
+                      const remainingContainerId = Object.keys(
+                        completionStatus
+                      ).find((id) => !completionStatus[id]);
+
+                      if (remainingContainerId) {
+                        document.getElementById(
+                          remainingContainerId
+                        ).style.pointerEvents = "none";
+                      }
+                      console.log(
+                        "Two containers reached 50% or more! No more scratching allowed.percent >= 0.1",
+                        percent
+                      );
+                      return;
                     }
-
-                    console.log(
-                      "Two containers reached 50% or more! No more scratching allowed."
-                    );
-                    console.log(percent, "percent");
                   }
-                } else {
-                  console.log(percent, "else");
+                } else if (percent >= 89 && percent <= 95) {
+                  const completedContainers2 = Object.values(
+                    completionStatus
+                  ).filter((status) => !status);
+
+                  if (completedContainers2.length === 1) {
+                    // console.log("completedContainers2", completedContainers2);
+                  }
                 }
               });
             })
@@ -126,17 +128,17 @@
         }
 
         createScratchCard(
-          "js--sc--container1",
+          "jsContainer1",
           "./png/bg-desktop.jpg",
-          "./png/crown.webp"
+          "./png/nbLogo.webp"
         );
         createScratchCard(
-          "js--sc--container2",
+          "jsContainer2",
           "./png/bg-desktop.jpg",
           "./png/nbLogo.png"
         );
         createScratchCard(
-          "js--sc--container3",
+          "jsContainer3",
           "./png/bg-desktop.jpg",
           "./png/nbLogo.png"
         );
