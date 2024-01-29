@@ -14,7 +14,7 @@
   --s_cave: 78vmin;
   --s_mainBox: 51vmin;
   --s_boxWheel: 51vmin;
-  --wheel_frame: 51vmin;
+  --wheel_frame: 53vmin;
   --s_modalDialog: calc(min(60vh, max(350px, 50vmax)));
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   --test: 46, 46, 46;
@@ -432,7 +432,7 @@ span {
   width: fit-content;
   height: fit-content;
   top: 46%;
-  z-index: 4;
+  z-index: 2;
 }
 .caveImg {
   height: var(--s_cave);
@@ -478,7 +478,7 @@ span {
   transform: translate(-50%, -50%);
 }
 
-.borderCave .Lorem {
+.borderCave .borderFrame {
   border: 15px solid transparent;
   /* border-image: conic-gradient(#ff0000, #00ff00, #0000ff, #ff0000) 1; */
   border-radius: 50%;
@@ -496,7 +496,7 @@ span {
     transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+    transform: rotate(-360deg);
   }
 }
 
@@ -522,11 +522,11 @@ span {
 .modal-dialog::before {
   content: "";
   width: 100%;
-  height: 55%;
+  height: 100%;
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -100%);
   background-image: url(./png/elements/crown_card.png);
   background-size: 20vh;
   z-index: 1;
@@ -536,13 +536,13 @@ span {
 
 @keyframes floating {
   0% {
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -100%);
   }
   50% {
-    transform: translate(-50%, -46%);
+    transform: translate(-50%, -96%);
   }
   100% {
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -100%);
   }
 }
 .modal-content {
@@ -725,11 +725,11 @@ span {
 /*PART 2 SCRATCH*/
 
 ._scrathContainer {
-  max-width: 70vw;
+  max-width: 85vw;
   width: 100%;
   height: 70vh;
   margin: auto;
-  background-color: red;
+  background-color: rgba(255, 0, 0, 0.219);
   padding: 20px;
   box-sizing: border-box;
 }
@@ -741,14 +741,13 @@ span {
 }
 ._scratchCardParent {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-around;
   align-items: center;
   height: 100%;
 }
 .frame_scratch {
   width: 30%;
-  height: 33vh;
+  height: 35vh;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -766,7 +765,7 @@ span {
   position: relative;
   border-image-repeat: round;
   border-image-slice: 50;
-  z-index: 1;
+  z-index: 0;
   position: absolute;
   width: 100%;
   height: 100%;

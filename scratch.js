@@ -11,7 +11,7 @@ function addScrath() {
     const _containerBox = document.getElementById(containerId);
 
     const sc = new ScratchCard(_containerBox, {
-      scratchType: SCRATCH_TYPE.CIRCLE,
+      scratchType: SCRATCH_TYPE.LINE,
       containerWidth: _containerBox.offsetWidth,
       containerHeight: _containerBox.offsetHeight,
       imageForwardSrc: imageForwardSrc,
@@ -19,9 +19,9 @@ function addScrath() {
       htmlBackground: "",
       percentToFinish: 90,
       clearZoneRadius: 40,
-      nPoints: 19,
-      pointSize: 13,
-      brushSrc: !"",
+      nPoints: 100,
+      pointSize: 100,
+      brushSrc: "./png/brush.png",
       // enabledPercentUpdate: !"";
 
       callback: function () {
@@ -93,19 +93,13 @@ function addScrath() {
       });
   }
 
-  createScratchCard(
-    "jsContainer1",
-    "./png/elements/scratched.png",
-    "./png/elements/redpilow.png"
-  );
-  createScratchCard(
-    "jsContainer2",
-    "./png/elements/scratched.png",
-    "./png/elements/redpilow.png"
-  );
-  createScratchCard(
-    "jsContainer3",
-    "./png/elements/scratched.png",
-    "./png/elements/redpilow.png"
-  );
+  const containerIds = ["jsContainer1", "jsContainer2", "jsContainer3"];
+
+  containerIds.forEach((id) => {
+    createScratchCard(
+      id,
+      "./png/elements/scratched.png",
+      "./png/elements/redpilow.png"
+    );
+  });
 }
