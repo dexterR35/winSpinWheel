@@ -37,7 +37,7 @@ function addScrath() {
           console.log(_containerBox);
           $("._scratchCard").css("pointerEvents", "none");
           setTimeout(function () {
-            applause.play();
+            jackpotWin.play();
             showModal(
               "Congratulations",
               `"You won" + ${prizePool}`,
@@ -95,17 +95,17 @@ function addScrath() {
 
   createScratchCard(
     "jsContainer1",
-    "./png/elements/scratched.webp",
-    "./png/elements/unscratched.webp"
+    "./png/elements/scratched.png",
+    "./png/elements/redpilow.png"
   );
   createScratchCard(
     "jsContainer2",
-    "./png/elements/scratched.webp",
-    "./png/elements/unscratched.webp"
+    "./png/elements/scratched.png",
+    "./png/elements/redpilow.png"
   );
   createScratchCard(
     "jsContainer3",
-    "./png/elements/scratched.webp",
-    "./png/elements/unscratched.webp"
+    "./png/elements/scratched.png",
+    "./png/elements/redpilow.png"
   );
 }

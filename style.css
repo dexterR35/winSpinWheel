@@ -14,15 +14,51 @@
   --s_cave: 78vmin;
   --s_mainBox: 51vmin;
   --s_boxWheel: 51vmin;
-  /* --s_modalDialog: calc(min(600px, max(350px, 50vmax))); */
+  --wheel_frame: 51vmin;
+  --s_modalDialog: calc(min(60vh, max(350px, 50vmax)));
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   --test: 46, 46, 46;
+  --modalBgColor: #270e25b8;
+  --white_color: #fff;
+  --button_color: crimson;
 }
 body {
+  font-family: sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+}
+
+#splashScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  font-family: sans-serif;
+  background-color: #4158d0;
+  /* background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  ); */
+  filter: hue-rotate(49deg);
+  background-image: url(./png/splashScreen.jpg);
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
+
+#splashScreen p {
+  font-size: 1.4vw;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 #appendDivs {
   display: flex;
   justify-content: center;
@@ -32,17 +68,9 @@ body {
   overflow: hidden;
   background-image: url(./png/bg-desktop.jpg);
   background-size: var(--s_BG) !important;
-  background-position: center;
-  background-repeat: no-repeat;
   position: relative;
 }
-/* body::after {
-  content: "";
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-} */
+
 /*header style*/
 /*header style*/
 /*header style*/
@@ -56,6 +84,7 @@ body {
   align-items: center;
   justify-content: center;
 }
+body,
 span,
 header::after,
 header .headerElements,
@@ -63,9 +92,11 @@ header .logoNB img,
 ._boxContainer,
 .borderCave,
 .modalNB,
+.modalImg,
 .modalNB::after,
 .modalNB::before,
-._canvaTextContainer {
+._canvaTextContainer,
+.elemAssets img {
   width: 100%;
   height: 100%;
 }
@@ -75,7 +106,7 @@ header {
   max-height: 100%;
   position: fixed;
   top: 0;
-  color: white;
+  color: var(--white_color);
   z-index: 5;
 }
 header::after {
@@ -130,6 +161,7 @@ header .headerElements {
 }
 header .linksNB {
   gap: 5px;
+  font-size: 1.4em;
 }
 header .logoNB {
   flex-basis: 35vh;
@@ -187,6 +219,15 @@ header .linksNB {
 /*END header style*/
 /*END header style*/
 
+#appendDivs,
+._boxContainer,
+._canvaTextContainer,
+.modal-dialog::before,
+.splashScreen {
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 audio {
   display: none;
 }
@@ -205,8 +246,7 @@ audio {
   overflow: hidden;
   background-size: var(--s_boxWheel);
   background-image: url(./png/wheel/roata2.webp);
-  background-position: center;
-  background-repeat: no-repeat;
+
   z-index: 2;
 }
 
@@ -362,13 +402,12 @@ span {
   width: 85px;
   height: 85px;
   border-radius: 50%;
-  background-color: #ff5722;
-  color: #fff;
-  box-shadow: 0 5px 20px #000;
+  background: transparent;
   font-weight: bold;
-  font-size: 22px;
   cursor: pointer;
   z-index: 1000;
+  border: none;
+  outline: none;
 }
 
 .spin:active {
@@ -441,11 +480,15 @@ span {
 
 .borderCave .Lorem {
   border: 15px solid transparent;
-  border-image: conic-gradient(#ff0000, #00ff00, #0000ff, #ff0000) 1;
+  /* border-image: conic-gradient(#ff0000, #00ff00, #0000ff, #ff0000) 1; */
   border-radius: 50%;
   width: 100%;
   height: 100%;
   animation: rotate 140s linear infinite;
+  background-image: url(./png/wheel/wheel_frame.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: var(--wheel_frame);
 }
 
 @keyframes rotate {
@@ -465,31 +508,52 @@ span {
   left: 0;
   flex-direction: column;
   z-index: 1000;
-  /* z-index: 2; */
 }
 .modalNB::after {
   content: "";
   position: absolute;
   top: 0;
-  background-color: #270e25b8;
+  background-color: var(--modalBgColor);
   z-index: -1;
 }
-.modalNB::before {
+.modal-dialog {
+  position: relative;
+}
+.modal-dialog::before {
   content: "";
+  width: 100%;
+  height: 55%;
   position: absolute;
   top: 0;
-  background-color: #05050514;
-  z-index: -2;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url(./png/elements/crown_card.png);
+  background-size: 20vh;
+  z-index: 1;
+
+  animation: floating 10s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, -46%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
 }
 .modal-content {
   position: absolute;
   z-index: 1;
-  color: white;
+  color: var(--white_color);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  height: 100%;
+  height: auto;
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -499,15 +563,11 @@ span {
 .modal-dialog {
   width: var(--s_modalDialog);
   max-width: 100%;
-
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
 }
 .modalImg {
-  width: 100%;
-  height: 50vh;
   object-fit: contain;
-  background: #0a0a0a;
   top: 0;
   position: relative;
 }
@@ -516,7 +576,7 @@ span {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--white_color);
 }
 
 .modal-title {
@@ -529,24 +589,35 @@ span {
 
 .modal-body {
   padding: 20px;
+  font-size: 3vmin;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-footer {
   display: flex;
-  justify-content: flex-end;
-  padding: 10px 20px;
-  border-top: 1px solid #ddd;
+  justify-content: center;
+  padding: 10px 0px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 /* Button Style (Adjust as needed) */
 .btn {
-  padding: 8px 16px;
+  padding: 0.8em 2em;
+  width: 50%;
   margin-left: 10px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: var(--button_color);
+  color: var(--white_color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 2vmin;
+  margin: 0 auto;
 }
 
 ._perspective {
@@ -615,28 +686,32 @@ span {
 }
 /*seven*/
 .elemAssets div:nth-child(1) {
-  right: 10%;
-  bottom: 0%;
+  right: 9%;
+  top: -12%;
+  width: 45vh;
+  height: 46vh;
 }
 /*crown*/
 .elemAssets div:nth-child(2) {
-  left: 10%;
-  bottom: 0%;
+  left: 12%;
+  top: 4%;
+  width: 35vh;
+  height: 35vh;
 }
 /*star*/
 .elemAssets div:nth-child(3) {
-  left: 10%;
-  top: 30%;
+  right: 30%;
+  top: 4%;
+  width: 12vh;
+  height: 12vh;
 }
 /*dolar*/
 .elemAssets div:nth-child(4) {
-  right: 10%;
-  top: 5%;
+  left: 12%;
+  bottom: 17%;
 }
 
 .elemAssets img {
-  width: 100%;
-  height: 100%;
   object-fit: contain;
 }
 /*PART 1 end ElementDesktopBg*/
@@ -671,27 +746,65 @@ span {
   align-items: center;
   height: 100%;
 }
-
-._scratchCard {
-  width: 32.5%;
-  height: 30vh;
-  background: rgba(0, 0, 0, 0.329);
+.frame_scratch {
+  width: 30%;
+  height: 33vh;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
-  user-select: none;
-  border: 4px solid yellow;
-  cursor: pointer;
   position: relative;
+  /* border-image: url(/png/elements/framepilow.png);
+  border-image-outset: 4px;
+  border-image-width: 100%; */
 }
+.frame_scratch .tesst {
+  /* border-image: url(/png/elements/frame/frame-top.png); */
+  border-image: url(/png/elements/framepilow.png);
+  border-image-outset: 6px;
+  border-image-width: 6vh;
+  position: relative;
+  border-image-repeat: round;
+  border-image-slice: 50;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+._scratchCard {
+  /* width: 100%;
+  height: 100%;
+  user-select: none;
+  cursor: pointer;
+  position: relative; */
 
+  width: 95%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  /* background-image: url(./png/elements/framepilow.png); */
+  /* background-image: url(./png/elements/framepilow.png); */
+}
+.frame_img {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 ._scratchCard img {
   position: absolute;
   z-index: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  filter: hue-rotate(307deg);
 }
 .sc__canvas {
   z-index: 2;
@@ -704,8 +817,6 @@ span {
   flex-direction: column;
   background-image: url(./png/elements/unscratched.webp);
   background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 /*end PART 2 SCRATCH*/
 /*end PART 2 SCRATCH*/

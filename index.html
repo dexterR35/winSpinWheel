@@ -9,9 +9,12 @@
       rel="stylesheet"
       href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
     /> -->
-    <title>Lucky Spin App Example</title>
+    <title>Roata</title>
   </head>
   <body>
+    <div id="splashScreen">
+      <p>Se incarca...</p>
+    </div>
     <header>
       <div class="headerElements">
         <div class="logoNB"><img src="./png/nbLogo.png" alt="nblogo" /></div>
@@ -81,7 +84,7 @@
               <span class="clipPath span10"><b></b></span>
             </div>
           </div>
-          <button class="spin" onclick="spin()">SPIN</button>
+          <button class="spin" onclick="spin()"></button>
           <div class="_pin">
             <img src="./png/wheel/pin.webp" alt="ping" class="pinImg" />
           </div>
@@ -90,14 +93,47 @@
     </div>
     <audio
       controls="controls"
-      id="applause"
-      src="./audio/applause.mp3"
+      id="wheel"
+      src="./audio/wheel.mp3"
       type="audio/mp3"
     ></audio>
     <audio
       controls="controls"
-      id="wheel"
-      src="./audio/wheel.mp3"
+      id="applause"
+      src="./audio/applause.mp3"
+      type="audio/mp3"
+    ></audio>
+
+    <audio
+      controls="controls"
+      id="winningLarge"
+      src="./audio/winningLarge.mp3"
+      type="audio/mp3"
+    ></audio>
+
+    <audio
+      controls="controls"
+      id="you_win"
+      src="./audio/you_win.mp3"
+      type="audio/mp3"
+    ></audio>
+
+    <audio
+      controls="controls"
+      id="bonusWin"
+      src="./audio/bonusWin.mp3"
+      type="audio/mp3"
+    ></audio>
+    <audio
+      controls="controls"
+      id="cardsShow"
+      src="./audio/cardsShow.mp3"
+      type="audio/mp3"
+    ></audio>
+    <audio
+      controls="controls"
+      id="jackpotWin"
+      src="./audio/jackpotWin.mp3"
       type="audio/mp3"
     ></audio>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
