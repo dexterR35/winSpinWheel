@@ -1,6 +1,5 @@
 function addScrath() {
   console.log("loaded scratch");
-  // Keep track of completion status for each container
   const completionStatus = {
     jsContainer1: false,
     jsContainer2: false,
@@ -18,48 +17,52 @@ function addScrath() {
       imageBackgroundSrc: imageBackgroundSrc,
       htmlBackground: "",
       percentToFinish: 90,
-      clearZoneRadius: 40,
-      nPoints: 100,
-      pointSize: 100,
+      clearZoneRadius: 90,
+      nPoints: 140,
+      enabledPercentUpdate: true,
+      pointSize: 210,
       brushSrc: "./png/brush.png",
-      // enabledPercentUpdate: !"";
 
       callback: function () {
         let percent = sc.getPercent();
+
         if (containerId) {
           console.log(containerId, "each containerId");
-        }
-        const completedContainers23 = Object.values(completionStatus).filter(
-          (status) => !status
-        );
 
-        if (completedContainers23.length === 1 && percent >= 90) {
-          console.log(_containerBox);
-          $("._scratchCard").css("pointerEvents", "none");
-          setTimeout(function () {
-            jackpotWin.play();
-            showModal(
-              "Congratulations",
-              `"You won" + ${prizePool}`,
-              "scenario2"
-            );
-          }, 1000);
+          const completedContainers = Object.values(completionStatus).filter(
+            (status) => !status
+          );
+          //from 3xfalse > 1xfalse==true
+          // console.log(completedContainers, "fasfasf");
+          if (completedContainers.length === 1 && percent >= 90) {
+            $("._scratchCard").css("pointerEvents", "none");
+            setTimeout(function () {
+              jackpotWin.play();
+              showModal(
+                "Congratulations",
+                `"You won" ${prizePool}`,
+                "scenario2"
+              );
+            }, 1000);
+          }
         }
       },
     });
 
     sc.init()
       .then(() => {
-        let percents = sc.getPercent();
         sc.canvas.addEventListener("scratch.move", () => {
           let percent = sc.getPercent();
+          // console.log(percent);
           if (!completionStatus[containerId]) {
-            if (percent >= 0.1) {
+            if (percent >= 0.01) {
               completionStatus[containerId] = true;
+              //find status true
               const completedContainers = Object.values(
                 completionStatus
               ).filter((status) => status);
-
+              // console.log(completedContainers);
+              //complete status 2xtrue
               if (completedContainers.length === 2) {
                 const remainingContainerId = Object.keys(completionStatus).find(
                   (id) => !completionStatus[id]
@@ -69,6 +72,8 @@ function addScrath() {
                   document.getElementById(
                     remainingContainerId
                   ).style.pointerEvents = "none";
+                  document.getElementById(remainingContainerId).style.display =
+                    "none";
                 }
                 console.log(
                   "Two containers reached 50% or more! No more scratching allowed.percent >= 0.1",
@@ -76,14 +81,6 @@ function addScrath() {
                 );
                 return;
               }
-            }
-          } else if (percent >= 89 && percent <= 95) {
-            const completedContainers2 = Object.values(completionStatus).filter(
-              (status) => !status
-            );
-
-            if (completedContainers2.length === 1) {
-              // console.log("completedContainers2", completedContainers2);
             }
           }
         });

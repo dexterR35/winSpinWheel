@@ -10,7 +10,7 @@
 
 :root {
   --s_BG: cover;
-  --s_pin: 51vh;
+  --s_pin: 51vmin;
   --s_cave: 78vmin;
   --s_mainBox: 51vmin;
   --s_boxWheel: 51vmin;
@@ -246,8 +246,8 @@ audio {
   overflow: hidden;
   background-size: var(--s_boxWheel);
   background-image: url(./png/wheel/roata2.webp);
-
   z-index: 2;
+  border-radius: 50%;
 }
 
 span {
@@ -262,13 +262,13 @@ span {
 /*color and text position for each clipPath inside the wheel*/
 /*color and text position for each clipPath inside the wheel*/
 /*color and text position for each clipPath inside the wheel*/
-/* .span1 {
+.span1 {
   background-color: green;
 }
 
-.span2 {
+/* .span2 {
   background-color: red;
-}
+} */
 
 .span3 {
   background-color: blue;
@@ -285,7 +285,7 @@ span {
   background-color: purple;
 }
 .span7 {
-  background-color: rgb(247, 54, 173);
+  /* background-color: rgb(247, 54, 173); */
 }
 .span8 {
   background-color: rgb(241, 219, 17);
@@ -295,9 +295,8 @@ span {
 }
 .span10 {
   background-color: crimson;
-} */
+}
 
-/* 
 ._box1 .span1 b {
   position: absolute;
   top: 39%;
@@ -370,7 +369,7 @@ span {
   right: 10%;
   transform: rotate(-20deg);
   text-align: center;
-} */
+}
 
 /*END color and text position for each clipPath inside the wheel*/
 

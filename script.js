@@ -1,13 +1,16 @@
+console.log("start script");
+
 function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
-  console.log(currentIndex, "curentindex");
+
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
+    // console.log(randomIndex, "randomIndex");
     currentIndex--;
-    console.log(currentIndex, "curentindex");
+    // console.log(currentIndex, "curentindex");
     // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
@@ -51,6 +54,7 @@ function addNewDivContainer() {
       </div>
     `;
     $("#appendDivs").append(htmlStructure);
+
     containerAppended = true;
 
     addScrath();
@@ -70,12 +74,11 @@ function spin() {
   wheel.play();
 
   let SelectedItem = "";
-  //2773 for 400 yellow
-  //4753,2953 for 400 pink
-  let prizes = shuffle([2773, 2953, 2773]); // only 400 prize from bgwheel
+
+  let prizes = shuffle([2773, 3133, 3313]); // only 400 prize from bgwheel >  180deg
 
   let Result = [prizes[0]];
-
+  console.log(Result);
   if (prizes.includes(Result[0])) SelectedItem = prizePool;
 
   _boxContainer.css("transition", "all ease 5s");
@@ -100,11 +103,11 @@ function spin() {
 
   // Delay and set reset
   setTimeout(function () {
+    buttonPressed = false;
     _boxContainer.css("transition", "all ease 5s");
     _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
-    buttonPressed = false;
     startConfetti();
-    console.log(startConfetti(), "settime reset");
+    console.log(startConfetti(), "start confetty");
   }, 6000);
 }
 
@@ -145,9 +148,8 @@ function showModal(title, message, scenario) {
          </div>
        </div>`;
 
-  $("<div>", {
+  let modal = $("<div>", {
     class: "modalNB",
-
     id: "customModal",
     style: "display: flex;",
     role: "dialog",
@@ -162,102 +164,21 @@ function showModal(title, message, scenario) {
     if (buttonsConfig.hasOwnProperty(buttonLabel)) {
       $("<button>", {
         class: "btn btn-primary",
-        text: scenario === "scenario1" ? "continueb" : "mergi",
+        text: scenario === "scenario1" ? "continueb" : "Inregistreaza-te",
         click: buttonsConfig[buttonLabel],
         disabled: buttonClicked,
       }).appendTo("#modalFooter");
       // console.log(buttonPressed, "btncfg");
     }
   }
-  // modal.focus();
+  modal.focus();
 }
 
-let durationConf = 5 * 1000;
-let animationEnd = Date.now() + durationConf;
-let defaults = {
-  startVelocity: 15,
-  spread: 360,
-  ticks: 30,
-  zIndex: 0,
-};
-
-function randomInRange(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-function startConfetti() {
-  confettiInterval = setInterval(function () {
-    let timeLeft = animationEnd - Date.now();
-
-    if (timeLeft <= 0) {
-      stopConfetti();
-      return;
-    }
-    console.log(timeLeft);
-    let particleCount = 50 * (timeLeft / durationConf);
-    // console.log(particleCountFixed, "count");
-    confetti({
-      ...defaults,
-      particleCount,
-      origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-      className: "confetti-particle",
-    });
-    confetti({
-      ...defaults,
-      particleCount,
-      origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-      className: "confetti-particle",
-    });
-  }, 100);
-}
-
-function stopConfetti() {
-  clearInterval(confettiInterval);
-}
 $(document).ready(function () {
   $(".clipPath").each(function (index) {
-    console.log(index);
-    let rotationAngle = -17 + index * 36;
+    let rotationAngle = -14 + index * 36;
+    console.log(rotationAngle, "rotationAngle");
     _boxContainer.css("transform", "rotate(108deg)");
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });
 });
-
-function checkImagesLoaded() {
-  const images = document.querySelectorAll("img");
-  let loadedCount = 0;
-
-  images.forEach((img) => {
-    if (img.complete) {
-      loadedCount++;
-      console.log(loadedCount, "image Ready");
-    } else {
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === images.length) {
-          hideSplashScreen();
-        }
-      };
-    }
-  });
-
-  // no images, hide the splash screen
-  if (loadedCount === images.length) {
-    hideSplashScreen();
-  }
-}
-
-function showSplashScreen() {
-  $("#splashScreen").show();
-
-  setTimeout(() => {
-    checkImagesLoaded();
-  }, 1000);
-}
-
-function hideSplashScreen() {
-  $("#splashScreen").hide();
-}
-
-showSplashScreen();
-// Initialize each scratch card separately
