@@ -49,9 +49,9 @@ body {
 body,
 span,
 #splashScreen,
-._scratchCard img,
-header .headerElements,
 header .logoNB img,
+header .headerElements,
+._scratchCard img,
 ._boxContainer,
 .borderCave,
 .modalNB,
@@ -674,7 +674,7 @@ span {
 }
 .prizeScratch {
   position: absolute;
-  z-index: 200;
+  z-index: 1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
