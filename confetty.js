@@ -1,27 +1,26 @@
-let durationConf = 5 * 1000;
-let animationEnd = Date.now() + durationConf;
-let defaults = {
-  startVelocity: 15,
-  spread: 360,
-  ticks: 30,
-  zIndex: 0,
-};
+console.log("loaded Confetty script");
 
 function randomInRange(min, max) {
   return Math.random() * (max - min) + min;
 }
 
 function startConfetti() {
+  let durationConf = 2 * 1000;
+  let animationEnd = Date.now() + durationConf;
+  let defaults = {
+    startVelocity: 15,
+    spread: 360,
+    ticks: 30,
+    zIndex: 2000,
+  };
   confettiInterval = setInterval(function () {
     let timeLeft = animationEnd - Date.now();
-
     if (timeLeft <= 0) {
       stopConfetti();
       return;
     }
-    console.log(timeLeft);
+    // console.log(timeLeft,"confetty timeleft");
     let particleCount = 50 * (timeLeft / durationConf);
-    // console.log(particleCountFixed, "count");
     confetti({
       ...defaults,
       particleCount,

@@ -6,6 +6,7 @@
     <title>Multiple Scratch Cards</title>
     <script src="https://cdn.jsdelivr.net/npm/scratchcard-js@1.5.5/build/scratchcard.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <style>
     body {
@@ -31,69 +32,119 @@
     }
   </style>
   <body>
-    <div id="jsContainer1" class="test"></div>
-    <div id="jsContainer2" class="test"></div>
-    <div id="jsContainer3" class="test"></div>
+    <div id="appendDivs"></div>
+    <!-- <div id="jsContainer1" class="_scratchCard"></div>
+    <div id="jsContainer2" class="_scratchCard"></div>
+    <div id="jsContainer3" class="_scratchCard"></div> -->
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Keep track of completion status for each container
+      let containerAppended = false;
+      let prize = "safasf";
+      function addNewDivContainer() {
+        if (!containerAppended) {
+          // cardsShow.play();
+          let htmlStructure = `
+      <div class="_scrathContainer _apDiv _hR">
+
+        <div class="_scratchCardParent">
+          ${Array.from(
+            { length: 3 },
+            (_, i) => `
+            <div class="frame_scratch">
+           <div class="prizeScratch"></div>
+              <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
+              "jsContainer" + "" + (i + 1)
+            }>
+             </div>
+            </div>
+          `
+          ).join("")}
+        </div>
+      </div>
+    `;
+          $("#appendDivs").append(htmlStructure);
+
+          containerAppended = true;
+
+          addScrath();
+        } else {
+          console.log("Container already appended");
+        }
+      }
+      addNewDivContainer();
+      function addScrath() {
+        console.log("loaded Scratch Script");
+
         const completionStatus = {
           jsContainer1: false,
           jsContainer2: false,
           jsContainer3: false,
         };
-
+        //      enabledPercentUpdate: true,
+        //    brushSrc: "./png/brush.png",
         function createScratchCard(
           containerId,
           imageForwardSrc,
           imageBackgroundSrc
         ) {
-          const container = document.getElementById(containerId);
-
-          const sc = new ScratchCard(container, {
-            scratchType: SCRATCH_TYPE.CIRCLE,
-            containerWidth: container.offsetWidth,
-            containerHeight: container.offsetHeight,
+          const _containerBox = document.getElementById(containerId);
+          console.log(_containerBox, "each containerId");
+          const sc = new ScratchCard(_containerBox, {
+            scratchType: SCRATCH_TYPE.BRUSH,
+            containerWidth: _containerBox.offsetWidth,
+            containerHeight: _containerBox.offsetHeight,
             imageForwardSrc: imageForwardSrc,
             imageBackgroundSrc: imageBackgroundSrc,
-            htmlBackground: "<div class='prizesInsert'></div>",
-            percentToFinish: 90,
-            clearZoneRadius: 40,
-            nPoints: 19,
-            pointSize: 13,
-
+            htmlBackground: "", // for percent
+            percentToFinish: 45,
+            clearZoneRadius: 0, //for line
+            nPoints: 0, //for spray
+            pointSize: 0,
+            brushSrc: "./png/brush.webp",
             callback: function () {
               let percent = sc.getPercent();
+              // console.log(percent, "callback get done");
               if (containerId) {
-                console.log(containerId, "each containerId");
-              }
-              const completedContainers23 = Object.values(
-                completionStatus
-              ).filter((status) => !status);
-
-              if (completedContainers23.length === 1 && percent >= 90) {
-                setTimeout(function () {
-                  console.log(container);
-                  $(".test").css("pointerEvents", "none");
-                  alert("fasfasfasf", completedContainers23);
-                }, 500);
+                // console.log(containerId, "each containerId");
+                const completedContainers = Object.values(
+                  completionStatus
+                ).filter((status) => !status);
+                //from 3xfalse > 1xfalse==true
+                console.log(completedContainers, "fasfasf");
+                if (completedContainers.length === 1 && percent >= 90) {
+                  $("._scratchCard").css("pointerEvents", "none");
+                  setTimeout(function () {
+                    alert("itsDone");
+                    // startConfetti();
+                    // jackpotWin.play();
+                    // showModal(
+                    //   "Congratulations",
+                    //   `"You won" ${prizePool}`,
+                    //   "scenario2"
+                    // );
+                  }, 1000);
+                }
               }
             },
           });
 
           sc.init()
             .then(() => {
-              let percents = sc.getPercent();
               sc.canvas.addEventListener("scratch.move", () => {
                 let percent = sc.getPercent();
+                console.log(percent.toFixed(0));
+
+                // console.log(percent, "scratch move");
                 if (!completionStatus[containerId]) {
-                  if (percent >= 0.1) {
+                  if (percent >= 0) {
                     completionStatus[containerId] = true;
+                    //find status true
                     const completedContainers = Object.values(
                       completionStatus
                     ).filter((status) => status);
-
+                    console.log(completedContainers, "fasfasf");
+                    // console.log(completedContainers);
+                    //complete status 2xtrue
                     if (completedContainers.length === 2) {
                       const remainingContainerId = Object.keys(
                         completionStatus
@@ -103,6 +154,8 @@
                         document.getElementById(
                           remainingContainerId
                         ).style.pointerEvents = "none";
+                        // document.getElementById(remainingContainerId).style.display =
+                        //   "none";
                       }
                       console.log(
                         "Two containers reached 50% or more! No more scratching allowed.percent >= 0.1",
@@ -111,13 +164,11 @@
                       return;
                     }
                   }
-                } else if (percent >= 89 && percent <= 95) {
-                  const completedContainers2 = Object.values(
-                    completionStatus
-                  ).filter((status) => !status);
-
-                  if (completedContainers2.length === 1) {
-                    // console.log("completedContainers2", completedContainers2);
+                }
+                if (percent >= 20) {
+                  console.log(_containerBox, "Fas");
+                  if (_containerBox) {
+                    $(".prizeScratch").text(prize);
                   }
                 }
               });
@@ -127,22 +178,22 @@
             });
         }
 
-        createScratchCard(
-          "jsContainer1",
-          "./png/bg-desktop.jpg",
-          "./png/nbLogo.webp"
-        );
-        createScratchCard(
-          "jsContainer2",
-          "./png/bg-desktop.jpg",
-          "./png/nbLogo.png"
-        );
-        createScratchCard(
-          "jsContainer3",
-          "./png/bg-desktop.jpg",
-          "./png/nbLogo.png"
-        );
-      });
+        const containerIds = ["jsContainer1", "jsContainer2", "jsContainer3"];
+
+        containerIds.forEach((id) => {
+          createScratchCard(
+            id,
+            "./png/elements/unscratched.webp",
+            "./png/elements/scratched.webp"
+          );
+        });
+        console.log("test");
+        // function reloadPage() {
+        //   location.reload();
+        // }
+        // window.addEventListener("resize", reloadPage);
+      }
+      // addScrath();
     </script>
   </body>
 </html>

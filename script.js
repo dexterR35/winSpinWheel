@@ -1,16 +1,14 @@
-console.log("start script");
+console.log("start main script");
 
 function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
-
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     // console.log(randomIndex, "randomIndex");
     currentIndex--;
-    // console.log(currentIndex, "curentindex");
     // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
@@ -37,12 +35,12 @@ function addNewDivContainer() {
     let htmlStructure = `
       <div class="_scrathContainer _apDiv _hR">
 
+      <div class="modalNew"><div>${prizePool}</div></div>
         <div class="_scratchCardParent">
           ${Array.from(
             { length: 3 },
             (_, i) => `
             <div class="frame_scratch">
-            <div class="tesst"></div>
               <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
               "jsContainer" + "" + (i + 1)
             }>
@@ -86,29 +84,21 @@ function spin() {
 
   setTimeout(function () {
     _pinImg.addClass("animate");
+    buttonPressed = true;
   }, 100);
-  setTimeout(function () {
-    _pinImg.removeClass("animate");
-    you_win.play();
-  }, 5000);
   setTimeout(function () {
     you_win.play();
   }, 4500);
   setTimeout(function () {
+    _pinImg.removeClass("animate");
+  }, 5000);
+  setTimeout(function () {
     winningLarge.play();
-  }, 5500);
-  setTimeout(function () {
     showModal("Congratulations", `"You won" + ${SelectedItem}`, "scenario1");
-  }, 6000);
-
-  // Delay and set reset
-  setTimeout(function () {
-    buttonPressed = false;
+    // set initial rotation of the wheel after complete animation
     _boxContainer.css("transition", "all ease 5s");
     _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
-    startConfetti();
-    console.log(startConfetti(), "start confetty");
-  }, 6000);
+  }, 5500);
 }
 
 function showModal(title, message, scenario) {
@@ -122,12 +112,12 @@ function showModal(title, message, scenario) {
       handleBtnClick: function () {
         bonusWin.play();
         $("#customModal").fadeOut("slow", function () {
-          $("#customModal").remove();
+          $(this).remove();
           // winningLarge.play();
         });
         setTimeout(function () {
           $("._hR").fadeOut("slow", function () {
-            $("._hR").remove();
+            $(this).remove();
             setTimeout(addNewDivContainer, 500);
           });
         }, 1000);
@@ -177,8 +167,53 @@ function showModal(title, message, scenario) {
 $(document).ready(function () {
   $(".clipPath").each(function (index) {
     let rotationAngle = -14 + index * 36;
-    console.log(rotationAngle, "rotationAngle");
+    // console.log(rotationAngle, "rotationAngle");
     _boxContainer.css("transform", "rotate(108deg)");
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });
 });
+
+let mouseMoveInited = false;
+let _seven = document.querySelector("._seven"),
+  _crown = document.querySelector("._crown"),
+  _dollar = document.querySelector("._dollar");
+function onMouseMove(e) {
+  (x = e.clientX), (y = e.clientY);
+
+  _seven.style["transform"] =
+    "translateX(" +
+    (e.clientX * 0.01 - 5) +
+    "px) translateY(" +
+    -e.clientY * 0.1 +
+    "px)";
+  _crown.style["transform"] =
+    "translateX(" +
+    (5 - e.clientX * 0.02) +
+    "px) translateY(" +
+    (5 - e.clientY * 0.01) +
+    "px)";
+  _dollar.style["transform"] =
+    "translateX(" +
+    (e.clientX * 0.02 - 5) +
+    "px) translateY(" +
+    (5 - e.clientY * 0.01) +
+    "px)";
+}
+
+function check() {
+  if (window.innerWidth > 1000) {
+    if (mouseMoveInited) return false;
+    mouseMoveInited = true;
+    window.addEventListener("mousemove", onMouseMove);
+  } else if (mouseMoveInited) {
+    mouseMoveInited = false;
+    _seven.style["transform"] = "";
+    _crown.style["transform"] = "";
+    _dollar.style["transform"] = "";
+    window.removeEventListener("mousemove", onMouseMove);
+  }
+}
+
+window.addEventListener("resize", check);
+
+// check();

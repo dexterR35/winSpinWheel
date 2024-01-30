@@ -24,26 +24,26 @@
     </header>
     <div class="appendDivs" id="appendDivs">
       <div class="elemAssets">
-        <div class="div">
+        <div class="div _seven">
           <img src="./png/elements/seven.webp" alt="seven" />
         </div>
-        <div class="div">
+        <div class="div _crown">
           <img src="./png/elements/crown.webp" alt="crown" />
         </div>
         <div class="div">
           <img src="./png/elements/star-cherries.webp" alt="cherries" />
         </div>
-        <div class="div">
+        <div class="div _dollar">
           <img src="./png/elements/dollar.webp" alt="dollar" />
         </div>
       </div>
-      <!-- <div class="_perspective _hR">
+      <div class="_perspective _hR">
         <div class="_tText">invarte cartonasele si</div>
         <div class="_tText_s">RUNDELE GRATUITE</div>
-      </div> -->
+      </div>
       <div class="wrapperBox _hR">
         <div class="cave">
-          <img src="./png/elements/arch.webp" alt="" class="caveImg" />
+          <img src="./png/elements/arch2.webp" alt="" class="caveImg" />
         </div>
         <div class="mainbox" id="mainbox">
           <div class="borderCave">
@@ -51,34 +51,34 @@
           </div>
           <div class="_boxContainer" id="__box">
             <div class="_box1">
-              <span class="clipPath span1"><b>1</b></span>
+              <span class="clipPath span1"></span>
             </div>
             <div class="_box2">
-              <span class="clipPath span2"><b>2</b></span>
+              <span class="clipPath span2"></span>
             </div>
             <div class="_box3">
-              <span class="clipPath span3"><b>3</b></span>
+              <span class="clipPath span3"></span>
             </div>
             <div class="_box4">
-              <span class="clipPath span4"><b>4</b></span>
+              <span class="clipPath span4"></span>
             </div>
             <div class="_box5">
-              <span class="clipPath span5"><b>5</b></span>
+              <span class="clipPath span5"></span>
             </div>
             <div class="_box6">
-              <span class="clipPath span6"><b>6</b></span>
+              <span class="clipPath span6"></span>
             </div>
             <div class="_box7">
-              <span class="clipPath span7"><b>7</b></span>
+              <span class="clipPath span7"></span>
             </div>
             <div class="_box8">
-              <span class="clipPath span8"><b>8</b></span>
+              <span class="clipPath span8"></span>
             </div>
             <div class="_box9">
-              <span class="clipPath span9"><b>9</b></span>
+              <span class="clipPath span9"></span>
             </div>
             <div class="_box10">
-              <span class="clipPath span10"><b>10</b></span>
+              <span class="clipPath span10"></span>
             </div>
           </div>
           <button class="spin" onclick="spin()"></button>
@@ -88,58 +88,60 @@
         </div>
       </div>
     </div>
-    <audio
-      controls="controls"
-      id="wheel"
-      src="./audio/wheel.mp3"
-      type="audio/mp3"
-    ></audio>
-    <audio
-      controls="controls"
-      id="applause"
-      src="./audio/applause.mp3"
-      type="audio/mp3"
-    ></audio>
+    <div class="audio">
+      <audio
+        controls="controls"
+        id="wheel"
+        src="./audio/wheel.mp3"
+        type="audio/mp3"
+      ></audio>
+      <audio
+        controls="controls"
+        id="applause"
+        src="./audio/applause.mp3"
+        type="audio/mp3"
+      ></audio>
 
-    <audio
-      controls="controls"
-      id="winningLarge"
-      src="./audio/winningLarge.mp3"
-      type="audio/mp3"
-    ></audio>
+      <audio
+        controls="controls"
+        id="winningLarge"
+        src="./audio/winningLarge.mp3"
+        type="audio/mp3"
+      ></audio>
 
-    <audio
-      controls="controls"
-      id="you_win"
-      src="./audio/you_win.mp3"
-      type="audio/mp3"
-    ></audio>
+      <audio
+        controls="controls"
+        id="you_win"
+        src="./audio/you_win.mp3"
+        type="audio/mp3"
+      ></audio>
 
-    <audio
-      controls="controls"
-      id="bonusWin"
-      src="./audio/bonusWin.mp3"
-      type="audio/mp3"
-    ></audio>
-    <audio
-      controls="controls"
-      id="cardsShow"
-      src="./audio/cardsShow.mp3"
-      type="audio/mp3"
-    ></audio>
-    <audio
-      controls="controls"
-      id="jackpotWin"
-      src="./audio/jackpotWin.mp3"
-      type="audio/mp3"
-    ></audio>
+      <audio
+        controls="controls"
+        id="bonusWin"
+        src="./audio/bonusWin.mp3"
+        type="audio/mp3"
+      ></audio>
+      <audio
+        controls="controls"
+        id="cardsShow"
+        src="./audio/cardsShow.mp3"
+        type="audio/mp3"
+      ></audio>
+      <audio
+        controls="controls"
+        id="jackpotWin"
+        src="./audio/jackpotWin.mp3"
+        type="audio/mp3"
+      ></audio>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/scratchcard-js@1.5.5/build/scratchcard.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <script src="./splash.js"></script>
-    <script src="./script.js"></script>
-    <script src="./scratch.js"></script>
-    <script src="./confetty.js"></script>
+    <!-- <script src="./splash.js"></script> -->
+    <script src="./scratch.js" defer></script>
+    <script src="./script.js" defer></script>
+    <script src="./confetty.js" defer></script>
     <!-- <script src="./confetty.js"></script> -->
   </body>
 </html>

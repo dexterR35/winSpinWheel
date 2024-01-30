@@ -1,14 +1,15 @@
 function addScrath() {
-  console.log("loaded scratch");
+  console.log("loaded Scratch Script");
+
   const completionStatus = {
     jsContainer1: false,
     jsContainer2: false,
     jsContainer3: false,
   };
-
+  //      enabledPercentUpdate: true,
+  //    brushSrc: "./png/brush.png",
   function createScratchCard(containerId, imageForwardSrc, imageBackgroundSrc) {
     const _containerBox = document.getElementById(containerId);
-
     const sc = new ScratchCard(_containerBox, {
       scratchType: SCRATCH_TYPE.LINE,
       containerWidth: _containerBox.offsetWidth,
@@ -18,11 +19,8 @@ function addScrath() {
       htmlBackground: "",
       percentToFinish: 90,
       clearZoneRadius: 90,
-      nPoints: 140,
-      enabledPercentUpdate: true,
-      pointSize: 210,
-      brushSrc: "./png/brush.png",
-
+      nPoints: 0,
+      pointSize: 0,
       callback: function () {
         let percent = sc.getPercent();
 
@@ -37,7 +35,9 @@ function addScrath() {
           if (completedContainers.length === 1 && percent >= 90) {
             $("._scratchCard").css("pointerEvents", "none");
             setTimeout(function () {
+              startConfetti();
               jackpotWin.play();
+
               showModal(
                 "Congratulations",
                 `"You won" ${prizePool}`,
@@ -72,8 +72,8 @@ function addScrath() {
                   document.getElementById(
                     remainingContainerId
                   ).style.pointerEvents = "none";
-                  document.getElementById(remainingContainerId).style.display =
-                    "none";
+                  // document.getElementById(remainingContainerId).style.display =
+                  //   "none";
                 }
                 console.log(
                   "Two containers reached 50% or more! No more scratching allowed.percent >= 0.1",
@@ -95,8 +95,13 @@ function addScrath() {
   containerIds.forEach((id) => {
     createScratchCard(
       id,
-      "./png/elements/scratched.png",
-      "./png/elements/redpilow.png"
+      "./png/elements/unscratched.webp",
+      "./png/elements/scratched.webp"
     );
   });
+
+  // function reloadPage() {
+  //   location.reload();
+  // }
+  // window.addEventListener("resize", reloadPage);
 }

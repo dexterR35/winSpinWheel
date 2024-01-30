@@ -9,18 +9,18 @@
 }
 
 :root {
-  --s_BG: cover;
-  --s_pin: 51vmin;
-  --s_cave: 78vmin;
-  --s_mainBox: 51vmin;
-  --s_boxWheel: 51vmin;
-  --wheel_frame: 53vmin;
-  --s_modalDialog: calc(min(60vh, max(350px, 50vmax)));
+  --s_BG: 110vmax;
+  --s_pin: 53vmin;
+  --s_cave: 85vmin;
+  --s_mainBox: 58vmin;
+  --s_boxWheel: 56vmin;
+  --wheel_frame: 58vmin;
+  --s_modalDialog: calc(min(50vh, max(350px, 50vmax)));
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   --test: 46, 46, 46;
   --modalBgColor: #270e25b8;
   --white_color: #fff;
-  --button_color: crimson;
+  --button_color: linear-gradient(to right, #ff1c26, #a81c1f);
 }
 body {
   font-family: sans-serif;
@@ -29,26 +29,58 @@ body {
   -ms-user-select: none;
   -o-user-select: none;
 }
-
-#splashScreen {
-  position: fixed;
-  top: 0;
-  left: 0;
+.headerElements,
+.linksNB,
+.modalNB,
+.modal-body,
+.modal-content,
+.modal-header,
+.modal-footer,
+#appendDivs,
+#splashScreen,
+._scratchCard,
+._perspective,
+._canvaTextContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+body,
+span,
+#splashScreen,
+._scratchCard img,
+header .headerElements,
+header .logoNB img,
+._boxContainer,
+.borderCave,
+.modalNB,
+.frame_img,
+.modalImg,
+.modalNB::after,
+.modalNB::before,
+._scratchCard,
+._canvaTextContainer,
+.elemAssets img {
   width: 100%;
   height: 100%;
-  background-color: #4158d0;
-  /* background-image: linear-gradient(
-    43deg,
-    #4158d0 0%,
-    #c850c0 46%,
-    #ffcc70 100%
-  ); */
-  filter: hue-rotate(49deg);
-  background-image: url(./png/splashScreen.jpg);
+}
+#appendDivs {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+}
+#splashScreen {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  background: crimson;
+  /* background-image: url(./png/splashScreen.jpg); */
   background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column !important;
+  gap: 30px;
   z-index: 9999;
 }
 
@@ -60,14 +92,12 @@ body {
 }
 
 #appendDivs {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100vh;
   overflow: hidden;
   background-image: url(./png/bg-desktop.jpg);
   background-size: var(--s_BG) !important;
+  background-position: center 20px;
   position: relative;
 }
 
@@ -75,31 +105,6 @@ body {
 /*header style*/
 /*header style*/
 
-.headerElements,
-.linksNB,
-.modalNB,
-._canvaTextContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-body,
-span,
-header::after,
-header .headerElements,
-header .logoNB img,
-._boxContainer,
-.borderCave,
-.modalNB,
-.modalImg,
-.modalNB::after,
-.modalNB::before,
-._canvaTextContainer,
-.elemAssets img {
-  width: 100%;
-  height: 100%;
-}
 header {
   width: 100%;
   height: 10vh;
@@ -109,15 +114,7 @@ header {
   color: var(--white_color);
   z-index: 5;
 }
-header::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  opacity: 0.9;
-  background-color: rgba(0, 0, 0, 0.17);
-  z-index: -1;
-  filter: blur(10px);
-}
+
 header .headerElements {
   width: 100%;
   max-width: 1900px;
@@ -223,7 +220,8 @@ header .linksNB {
 ._boxContainer,
 ._canvaTextContainer,
 .modal-dialog::before,
-.splashScreen {
+#splashScreen,
+.borderFrame {
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -234,6 +232,8 @@ audio {
 
 .wrapperBox {
   aspect-ratio: 16/9;
+  position: relative;
+  top: 2%;
 }
 .mainbox {
   position: relative;
@@ -245,7 +245,7 @@ audio {
   position: relative;
   overflow: hidden;
   background-size: var(--s_boxWheel);
-  background-image: url(./png/wheel/roata2.webp);
+  background-image: url(./png/wheel/roata_noua.webp);
   z-index: 2;
   border-radius: 50%;
 }
@@ -262,22 +262,19 @@ span {
 /*color and text position for each clipPath inside the wheel*/
 /*color and text position for each clipPath inside the wheel*/
 /*color and text position for each clipPath inside the wheel*/
+/* 
 .span1 {
   background-color: green;
 }
-
-/* .span2 {
+.span2 {
   background-color: red;
-} */
-
+}
 .span3 {
   background-color: blue;
 }
-
 .span4 {
   background-color: rgb(9, 247, 68);
 }
-
 .span5 {
   background-color: cyan;
 }
@@ -285,7 +282,7 @@ span {
   background-color: purple;
 }
 .span7 {
-  /* background-color: rgb(247, 54, 173); */
+  background-color: rgb(247, 54, 173);
 }
 .span8 {
   background-color: rgb(241, 219, 17);
@@ -295,81 +292,7 @@ span {
 }
 .span10 {
   background-color: crimson;
-}
-
-._box1 .span1 b {
-  position: absolute;
-  top: 39%;
-  right: 60%;
-  transform: rotate(200deg);
-  text-align: center;
-}
-
-._box2 .span2 b {
-  position: absolute;
-  top: 34%;
-  right: 77%;
-  transform: rotate(-130deg);
-}
-
-._box3 .span3 b {
-  position: absolute;
-  top: 20%;
-  right: 36%;
-  transform: rotate(-90deg);
-}
-
-._box4 .span4 b {
-  position: absolute;
-  top: 25%;
-  right: 15%;
-  transform: rotate(-45deg);
-}
-
-._box5 .span5 b {
-  position: absolute;
-  top: 38%;
-  right: 10%;
-  transform: rotate(-15deg);
-  text-align: center;
-}
-
-._box6 .span1 b {
-  position: absolute;
-  top: 34%;
-  right: 70%;
-  transform: rotate(200deg);
-}
-
-._box7 .span2 b {
-  position: absolute;
-  top: 20%;
-  right: 60%;
-  transform: rotate(-130deg);
-  text-align: center;
-}
-
-._box8 .span3 b {
-  position: absolute;
-  top: 15%;
-  right: 40%;
-  transform: rotate(270deg);
-}
-
-._box9 .span4 b {
-  position: absolute;
-  top: 27%;
-  right: 20%;
-  transform: rotate(310deg);
-}
-
-._box10 .span5 b {
-  position: absolute;
-  top: 35%;
-  right: 10%;
-  transform: rotate(-20deg);
-  text-align: center;
-}
+} */
 
 /*END color and text position for each clipPath inside the wheel*/
 
@@ -430,7 +353,7 @@ span {
 .cave {
   width: fit-content;
   height: fit-content;
-  top: 46%;
+  top: 44%;
   z-index: 2;
 }
 .caveImg {
@@ -485,8 +408,7 @@ span {
   height: 100%;
   animation: rotate 140s linear infinite;
   background-image: url(./png/wheel/wheel_frame.png);
-  background-position: center;
-  background-repeat: no-repeat;
+
   background-size: var(--wheel_frame);
 }
 
@@ -526,7 +448,7 @@ span {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -100%);
+  /* transform: translate(-50%, -100%); */
   background-image: url(./png/elements/crown_card.png);
   background-size: 20vh;
   z-index: 1;
@@ -555,9 +477,6 @@ span {
   width: 100%;
   height: auto;
   padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
 }
 .modal-dialog {
@@ -573,9 +492,7 @@ span {
 }
 
 .modal-header {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
   border-bottom: 1px solid var(--white_color);
 }
 
@@ -592,26 +509,45 @@ span {
   font-size: 3vmin;
   text-transform: uppercase;
   font-weight: bold;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
 }
 
 .modal-footer {
+  padding: 10px 0px;
+  /* width: 90%; */
+  margin: 0 auto;
+}
+
+.modalNew {
+  width: 14%;
+  height: 26%;
+  background: red;
+  position: relative;
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-image: url(./png/elements/suport_text.png);
+}
+.modalNew div {
+  height: 100%;
+  width: 100%;
+  color: white;
+  font-weight: bold;
+  font-size: 2em;
+  /* background: #ececec; */
   display: flex;
   justify-content: center;
-  padding: 10px 0px;
-  width: 90%;
-  margin: 0 auto;
+  align-items: center;
 }
 
 /* Button Style (Adjust as needed) */
 .btn {
   padding: 0.8em 2em;
-  width: 50%;
+  width: 100%;
   margin-left: 10px;
-  background-color: var(--button_color);
+  background: var(--button_color);
   color: var(--white_color);
   border: none;
   border-radius: 4px;
@@ -624,21 +560,14 @@ span {
   width: 100%;
   position: absolute;
   z-index: 10;
-  /* background: red; */
   text-align: center;
-  display: flex;
   flex-direction: column;
   justify-content: end;
-  align-items: center;
-  height: 80%;
+  /* height: 90%; */
+  bottom: 4%;
 }
 ._tText,
 ._tText_s {
-  text-shadow: 0px 1px #d4112e, 1px 0px #343232, 1px -2px #d4112e,
-    2px -1px #343232, 2px -3px #d4112e, 3px -2px #343232, 3px -4px #d4112e,
-    4px -3px #343232, 4px -5px #d4112e, 5px -4px #343232, 5px -6px #d4112e,
-    6px -5px #343232, 6px -7px #d4112e, 7px -6px #343232, 7px -8px #d4112e,
-    8px -7px #343232;
   font-weight: bold;
   color: #ececec;
   position: relative;
@@ -653,22 +582,6 @@ span {
   font-size: 10vmin;
 }
 
-._tText_s::before {
-  content: "RUNDELE GRATUITE";
-  position: absolute;
-  top: 15px;
-  left: 72px;
-  font-size: 0.9em;
-  font-weight: bold;
-  font-family: Verdana, sans-serif;
-  color: #0e0e0e;
-  width: 100%;
-  height: 100%;
-  transform: matrix(1.07, 0, -1.5, 0.6, 0, 0);
-  text-shadow: none !important;
-  z-index: -1;
-  filter: blur(5px);
-}
 /*PART 1 ElementDesktopBg*/
 /*PART 1 ElementDesktopBg*/
 /*PART 1 ElementDesktopBg*/
@@ -729,94 +642,81 @@ span {
   width: 100%;
   height: 70vh;
   margin: auto;
-  background-color: rgba(255, 0, 0, 0.219);
+  /* background-color: rgba(255, 0, 0, 0.219); */
   padding: 20px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
 
 @media (max-width: 991px) {
   ._scrathContainer {
     max-width: 96vw;
   }
+  ._scratchCardParent {
+    flex-direction: column;
+  }
 }
 ._scratchCardParent {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
-  height: 100%;
+  height: auto;
+  gap: 30px;
 }
 .frame_scratch {
-  width: 30%;
-  height: 35vh;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
+  width: 50%;
+  height: 36vh;
   position: relative;
-  /* border-image: url(/png/elements/framepilow.png);
-  border-image-outset: 4px;
-  border-image-width: 100%; */
+  /* background-color: black; */
 }
-.frame_scratch .tesst {
-  /* border-image: url(/png/elements/frame/frame-top.png); */
-  /* border-image: url(/png/elements/framepilow.png);
-  border-image-outset: 6px;
-  border-image-width: 6vh; */
-  position: relative;
-  border-image-repeat: round;
-  border-image-slice: 50;
-  z-index: 0;
+.prizeScratch {
   position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.frame_scratch .tesst::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url(/png/elements/frame/frame-top.png);
-}
-._scratchCard {
-  /* width: 100%;
-  height: 100%;
-  user-select: none;
-  cursor: pointer;
-  position: relative; */
-
-  width: 95%;
-  height: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
+  z-index: 200;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2em;
+}
+/* ._scratchCard img {
+
+} */
+
+._scratchCard {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
   user-select: none;
-  /* background-image: url(./png/elements/framepilow.png); */
   /* background-image: url(./png/elements/framepilow.png); */
 }
 .frame_img {
-  position: absolute;
+  position: relative;
   z-index: 10;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 ._scratchCard img {
   position: absolute;
   z-index: 0;
+  /* object-fit: cover; */
+  /* filter: hue-rotate(307deg); */
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  filter: hue-rotate(307deg);
 }
 .sc__canvas {
+  width: 100%;
+  height: 100%;
   z-index: 2;
-  position: relative;
+  position: absolute;
+  /* width: 100%;
+  height: 100%; */
+  object-fit: contain;
 }
 ._canvaTextContainer {
   position: absolute;
@@ -832,55 +732,53 @@ span {
 /*end PART 2 SCRATCH*/
 
 .spinner {
-  .spinner {
-    --R: 28px;
-    --g1: #ff1d00 96%, #0000;
-    --g2: #e1e1ed 96%, #0000;
-    width: calc(2 * var(--R));
-    height: calc(2 * var(--R));
-    border-radius: 50%;
-    display: grid;
-    -webkit-mask: linear-gradient(#000 0 0);
-    animation: spinner-maxc6n 2s infinite linear;
-  }
+  --R: 28px;
+  --g1: #ff1d00 96%, #0000;
+  --g2: #e1e1ed 96%, #0000;
+  width: calc(2 * var(--R));
+  height: calc(2 * var(--R));
+  border-radius: 50%;
+  display: grid;
+  -webkit-mask: linear-gradient(#000 0 0);
+  animation: spinner-maxc6n 2s infinite linear;
+}
 
-  .spinner::before,
-  .spinner::after {
-    content: "";
-    grid-area: 1/1;
-    width: 50%;
-    background: radial-gradient(farthest-side, var(--g1))
-        calc(var(--R) + 0.866 * var(--R) - var(--R))
-        calc(var(--R) - 0.5 * var(--R) - var(--R)),
-      radial-gradient(farthest-side, var(--g1))
-        calc(var(--R) + 0.866 * var(--R) - var(--R))
-        calc(var(--R) - 0.5 * var(--R) - var(--R)),
-      radial-gradient(farthest-side, var(--g2))
-        calc(var(--R) + 0.5 * var(--R) - var(--R))
-        calc(var(--R) - 0.866 * var(--R) - var(--R)),
-      radial-gradient(farthest-side, var(--g1)) 0 calc(-1 * var(--R)),
-      radial-gradient(farthest-side, var(--g2))
-        calc(var(--R) - 0.5 * var(--R) - var(--R))
-        calc(var(--R) - 0.866 * var(--R) - var(--R)),
-      radial-gradient(farthest-side, var(--g1))
-        calc(var(--R) - 0.866 * var(--R) - var(--R))
-        calc(var(--R) - 0.5 * var(--R) - var(--R)),
-      radial-gradient(farthest-side, var(--g2)) calc(-1 * var(--R)) 0,
-      radial-gradient(farthest-side, var(--g1))
-        calc(var(--R) - 0.866 * var(--R) - var(--R))
-        calc(var(--R) + 0.5 * var(--R) - var(--R));
-    background-size: calc(2 * var(--R)) calc(2 * var(--R));
-    background-repeat: no-repeat;
-  }
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  width: 50%;
+  background: radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) + 0.866 * var(--R) - var(--R))
+      calc(var(--R) - 0.5 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) + 0.866 * var(--R) - var(--R))
+      calc(var(--R) - 0.5 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g2))
+      calc(var(--R) + 0.5 * var(--R) - var(--R))
+      calc(var(--R) - 0.866 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g1)) 0 calc(-1 * var(--R)),
+    radial-gradient(farthest-side, var(--g2))
+      calc(var(--R) - 0.5 * var(--R) - var(--R))
+      calc(var(--R) - 0.866 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) - 0.866 * var(--R) - var(--R))
+      calc(var(--R) - 0.5 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g2)) calc(-1 * var(--R)) 0,
+    radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) - 0.866 * var(--R) - var(--R))
+      calc(var(--R) + 0.5 * var(--R) - var(--R));
+  background-size: calc(2 * var(--R)) calc(2 * var(--R));
+  background-repeat: no-repeat;
+}
 
-  .spinner::after {
-    transform: rotate(180deg);
-    transform-origin: right;
-  }
+.spinner::after {
+  transform: rotate(180deg);
+  transform-origin: right;
+}
 
-  @keyframes spinner-maxc6n {
-    100% {
-      transform: rotate(-1turn);
-    }
+@keyframes spinner-maxc6n {
+  100% {
+    transform: rotate(-1turn);
   }
 }
