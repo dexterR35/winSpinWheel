@@ -47,7 +47,6 @@
               { length: 3 },
               (_, i) => `
               <div class="frame_scratch">
-            
                 <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
                 "jsContainer" + "" + (i + 1)
               }>
@@ -60,9 +59,7 @@
         </div>
       `;
           $("#appendDivs").append(htmlStructure);
-
           containerAppended = true;
-
           addScrath();
         } else {
           console.log("Container already appended");
@@ -143,23 +140,21 @@
                   sumOfPercentages >= percentValue / 2,
                   "allAtPercentValue"
                 );
-                if (trueContainers.length === 2) {
-                  if (
-                    allAtPercentValue ||
-                    sumOfPercentages / 3 >= percentValue
-                  ) {
-                    console.log(percentValue, ":sadasfa");
-                    console.log(sumOfPercentages / 3, ":sadasfa");
-                    // Trigger alerts and set pointerEvents
-                    $("._scratchCard").css("pointerEvents", "none");
-                    setTimeout(function () {
-                      alert(
-                        `Exactly two cards are done with ${Math.floor(
-                          parseFloat(_percentFixed)
-                        )} value completion each!`
-                      );
-                    }, 1000);
-                  }
+                if (
+                  trueContainers.length === 2 &&
+                  (allAtPercentValue || sumOfPercentages / 2 >= percentValue)
+                ) {
+                  console.log(percentValue, ":sadasfa");
+                  console.log(sumOfPercentages / 2, ":sadasfa");
+                  // Trigger alerts and set pointerEvents
+                  $("._scratchCard").css("pointerEvents", "none");
+                  setTimeout(function () {
+                    alert(
+                      `Exactly two cards are done with ${Math.floor(
+                        parseFloat(_percentFixed)
+                      )} value completion each!`
+                    );
+                  }, 1000);
                 }
               }
             },
@@ -182,8 +177,14 @@
                         `Container ID: ${containerId}, Value: ${completionStatus[containerId]}`
                       );
 
+                      // let textAppend = $(`#${containerId} .prizeScratch`);
                       let textAppend = $(`#${containerId} .prizeScratch`);
-                      textAppend.text(prize);
+
+                      // Get a random unused prize using the function
+                      const selectedPrize = getRandomUnusedPrize();
+
+                      // Set the text using the randomly selected prize
+                      textAppend.text(selectedPrize);
                     }
                   });
 
@@ -222,6 +223,47 @@
         });
         console.log("test");
       }
+      // Outside of your function, declare an array to keep track of used prizes
+      const usedPrizes = [];
+
+      // Function to get a random unused prize
+      function getRandomUnusedPrize() {
+        // Array of possible prizes
+        const possiblePrizes = ["Prize 1", "Prize 2", "Prize 3", "Prize 4"];
+
+        // Filter out used prizes
+        const remainingPrizes = possiblePrizes.filter(
+          (prize) => !usedPrizes.includes(prize)
+        );
+
+        // Check if there are remaining prizes
+        if (remainingPrizes.length > 0) {
+          // Get a random index from the remaining prizes
+          const randomIndex = Math.floor(
+            Math.random() * remainingPrizes.length
+          );
+
+          // Get the randomly selected prize
+          const selectedPrize = remainingPrizes[randomIndex];
+
+          // Add the selected prize to the used prizes array
+          usedPrizes.push(selectedPrize);
+
+          return selectedPrize;
+        } else {
+          // Handle the case when all prizes have been used
+          return "No more prizes";
+        }
+      }
+
+      // let textAppend = $(`#${containerId} .prizeScratch`);
+      //                 if (containerId === "jsContainer1") {
+      //                   textAppend.text("Prize 1");
+      //                 } else if (containerId === "jsContainer2") {
+      //                   textAppend.text("Prize 2");
+      //                 } else if (containerId === "jsContainer3") {
+      //                   textAppend.text("Prize 3");
+      //                 }  no random
     </script>
   </body>
 </html>
