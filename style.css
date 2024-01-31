@@ -9,12 +9,13 @@
 }
 
 :root {
-  --s_BG: 110vmax;
-  --s_pin: 53vmin;
-  --s_cave: 85vmin;
-  --s_mainBox: 58vmin;
+  --s_BG: 103vmax;
+  --s_pin: 55vmin;
+  --s_cave: 92vmin;
+  --s_mainBox: 60vmin;
   --s_boxWheel: 56vmin;
-  --wheel_frame: 58vmin;
+  --s_shadowWheel: 64vmin;
+  --wheel_frame: 61vmin;
   --s_modalDialog: calc(min(50vh, max(350px, 50vmax)));
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   --test: 46, 46, 46;
@@ -97,7 +98,7 @@ header .headerElements,
   overflow: hidden;
   background-image: url(./png/bg-desktop.jpg);
   background-size: var(--s_BG) !important;
-  background-position: center 20px;
+  background-position: center -170px !important;
   position: relative;
 }
 
@@ -233,12 +234,13 @@ audio {
 .wrapperBox {
   aspect-ratio: 16/9;
   position: relative;
-  top: 2%;
+  /* top: 2%; */
 }
 .mainbox {
   position: relative;
   width: var(--s_mainBox);
   height: var(--s_mainBox);
+  top: -2%;
 }
 
 ._boxContainer {
@@ -307,6 +309,7 @@ span {
 ._box8,
 ._box9,
 ._box10,
+._shadow_wheel,
 .cave {
   width: 100%;
   height: 100%;
@@ -398,6 +401,18 @@ span {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+._shadow_wheel {
+  /* background: red; */
+  z-index: 2;
+  width: fit-content;
+  height: fit-content;
+}
+
+._shadow_wheel img {
+  width: var(--s_shadowWheel);
+  height: var(--s_shadowWheel);
 }
 
 .borderCave .borderFrame {
@@ -520,9 +535,9 @@ span {
 }
 
 .modalNew {
-  width: 14%;
-  height: 26%;
-  background: red;
+  width: 16%;
+  height: 14vh;
+  /* background: red; */
   position: relative;
 
   background-repeat: no-repeat;
@@ -641,6 +656,7 @@ span {
   max-width: 85vw;
   width: 100%;
   height: 70vh;
+  position: relative;
   margin: auto;
   /* background-color: rgba(255, 0, 0, 0.219); */
   padding: 20px;
@@ -664,11 +680,11 @@ span {
   justify-content: space-evenly;
   align-items: center;
   height: auto;
-  gap: 30px;
+  /* gap: 10px; */
 }
 .frame_scratch {
-  width: 50%;
-  height: 36vh;
+  width: 100%;
+  height: 32vh;
   position: relative;
   /* background-color: black; */
 }
@@ -681,13 +697,10 @@ span {
   color: white;
   font-size: 2em;
 }
-/* ._scratchCard img {
-
-} */
 
 ._scratchCard {
   height: 100%;
-  width: 100%;
+  width: 85%;
   position: relative;
   /* position: absolute;
   top: 50%;
@@ -708,6 +721,7 @@ span {
   /* filter: hue-rotate(307deg); */
   width: 100%;
   height: 100%;
+  max-height: 320px;
 }
 .sc__canvas {
   width: 100%;
