@@ -31,13 +31,27 @@
       z-index: -1;
     }
   </style>
+
   <body>
     <div id="appendDivs"></div>
+
+    <audio
+      controls="controls"
+      id="cardsShow"
+      src="./audio/cardsShow.mp3"
+      type="audio/mp3"
+    ></audio>
+    <audio
+      controls="controls"
+      id="bonusWin"
+      src="./audio/bonusWin.mp3"
+      type="audio/mp3"
+    ></audio>
     <script>
       let containerAppended = false;
       let textAppendedCount = 0;
       const texts = [
-        ["500", "ron", "./png/nbLogo.png"],
+        ["500", "ron", "./png/elements/dollar.webp"],
         ["50", "runde gratuite", "./png/crown.webp"],
       ];
       let prize = "safasf";
@@ -51,26 +65,26 @@
 
       function addNewDivContainer() {
         if (!containerAppended) {
-          // cardsShow.play();
+          cardsShow.play();
           let htmlStructure = `
-        <div class="_scrathContainer _apDiv _hR">
+              <div class="_scrathContainer _apDiv _hR">
 
-          <div class="_scratchCardParent">
-            ${Array.from(
-              { length: 3 },
-              (_, i) => `
-              <div class="frame_scratch">
-                <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
-                "jsContainer" + "" + (i + 1)
-              }>
-                 <div class="prizeScratch"></div>
-               </div>
+                <div class="_scratchCardParent">
+                  ${Array.from(
+                    { length: 3 },
+                    (_, i) => `
+                    <div class="frame_scratch">
+                      <div class="${
+                        "_scratch" + "" + (i + 1)
+                      } _scratchCard" id=${"jsContainer" + "" + (i + 1)}>
+                       <div class="prizeScratch"></div>
+                     </div>
+                    </div>
+                  `
+                  ).join("")}
+                </div>
               </div>
-            `
-            ).join("")}
-          </div>
-        </div>
-      `;
+            `;
           $("#appendDivs").append(htmlStructure);
           containerAppended = true;
           addScratch();
@@ -134,11 +148,13 @@
               const completedContainerss = _containers.filter(
                 (container) => container.completionStatus
               );
-              // do something when the each container has maxvalue of percentValue
+              cardsShow.play();
+              // do something when the each container is 2xtrue
               if (containerIndex !== -1) {
                 if (completedContainerss.length >= 2) {
                   setTimeout(() => {
-                    alert("done 2x");
+                    // alert("done 2x");
+                    bonusWin.play();
                   }, 700);
                 }
               }
@@ -173,22 +189,27 @@
                         `#${containerId} .prizeScratch`
                       );
                       // Function to append text and image
-                      const appendTextAndImage = (text, imagePath) => {
-                        const p = $("<p>").text(text).hide();
-                        prizeScratchDiv.append(p);
-                        const img = $("<img>")
+                      const appendTextAndImage = (text, imagePath, addCls) => {
+                        const _addCls = text.slice(0, 3);
+                        const divE = $("<div>")
+                          .text(text)
+                          .addClass("_line" + _addCls.toUpperCase())
+                          .hide();
+                        const imgE = $("<img>")
                           .attr("src", imagePath)
                           .addClass("prizeImage")
                           .hide();
-                        $(`#${containerId}`).append(img);
+                        prizeScratchDiv.append(divE);
+                        $(`#${containerId}`).append(imgE);
                         //mini bug a second img tag is appended in(dom(parent)) with no attribute, so i check each container and i remove from dom
                         $(
                           `#${containerId} img:not([src],[alt],[title])`
                         ).remove();
 
-                        p.fadeIn("fast");
-                        img.fadeIn("slow");
+                        divE.fadeIn("fast");
+                        imgE.fadeIn("fast");
                       };
+
                       // Append text and image for the first/second
                       appendTextAndImage(text1, imagePath1);
                       appendTextAndImage(text2, imagePath2);

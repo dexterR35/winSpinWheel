@@ -697,14 +697,6 @@ span {
   color: white;
   font-size: 2em;
 }
-.prizeImage {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  top: -5%;
-  right: -5%;
-  z-index: 2;
-}
 
 ._scratchCard {
   height: 100%;
@@ -738,8 +730,20 @@ span {
   position: absolute;
   /* width: 100%;
   height: 100%; */
-  object-fit: contain;
 }
+
+/* .prizeScratch::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  z-index: -1;
+  background-image: url(./png/elements/crown.webp);
+  background-size: contain;
+} */
 ._canvaTextContainer {
   position: absolute;
   top: 0;
@@ -752,6 +756,55 @@ span {
 /*end PART 2 SCRATCH*/
 /*end PART 2 SCRATCH*/
 /*end PART 2 SCRATCH*/
+
+/*start prize SCRATCH*/
+/*start prize  SCRATCH*/
+/*start prize SCRATCH*/
+/*start prize  SCRATCH*/
+.prizeImage {
+  position: absolute;
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+  top: -16%;
+  right: -6%;
+  z-index: 2;
+}
+.prizeScratch {
+  /* background-color: red; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-size: 4vmin;
+}
+.prizeScratch div {
+  text-transform: uppercase;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+.prizeScratch div:nth-child(1) {
+  font-size: 4em;
+}
+.prizeScratch div:nth-child(2) {
+  /* font-size: 3.4em; */
+  margin-top: -0.4em;
+}
+.prizeScratch ._lineRON {
+  font-size: 3em;
+}
+.prizeScratch ._lineRUN {
+  font-size: 1.4em;
+  line-height: 0.9;
+}
+/*end prize SCRATCH*/
+/*end prize  SCRATCH*/
+/*end prize SCRATCH*/
+/*end prize  SCRATCH*/
 
 .spinner {
   --R: 28px;
