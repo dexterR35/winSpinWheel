@@ -37,8 +37,8 @@
       let containerAppended = false;
       let textAppendedCount = 0;
       const texts = [
-        ["500", "ron", "./png/elements/unscratched.webp"],
-        ["50", "runde gratuite", "./png/elements/unscratched.webp"],
+        ["500", "ron", "./png/nbLogo.png"],
+        ["50", "runde gratuite", "./png/crown.webp"],
       ];
       let prize = "safasf";
       let _percentFixed;
@@ -48,8 +48,41 @@
         { id: "jsContainer2", completionStatus: false },
         { id: "jsContainer3", completionStatus: false },
       ];
+
+      function addNewDivContainer() {
+        if (!containerAppended) {
+          // cardsShow.play();
+          let htmlStructure = `
+        <div class="_scrathContainer _apDiv _hR">
+
+          <div class="_scratchCardParent">
+            ${Array.from(
+              { length: 3 },
+              (_, i) => `
+              <div class="frame_scratch">
+                <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
+                "jsContainer" + "" + (i + 1)
+              }>
+                 <div class="prizeScratch"></div>
+               </div>
+              </div>
+            `
+            ).join("")}
+          </div>
+        </div>
+      `;
+          $("#appendDivs").append(htmlStructure);
+          containerAppended = true;
+          addScratch();
+        } else {
+          console.log("Container already appended");
+        }
+      }
+
+      // this is added when button is pressed
       function addScratch() {
         console.log("loaded Scratch Script");
+
         function checkUpdateStatus() {
           //filter _containers obj
           const completedContainers = _containers.filter(
@@ -58,8 +91,7 @@
           // Check if two or more containers have completionStatus set to true
           if (completedContainers.length >= 2) {
             // console.log(completedContainers, "completedContainers");
-
-            // Disable pointer events for the remaining containers  -> i want to prevent and not use pointerEvents because he can be disabled in inspectElement
+            // Disable pointer events for the remaining containers  -> i want to prevent/block and not use the pointerEvents because can be disabled in Inspect Element
             _containers.forEach((container) => {
               if (!container.completionStatus) {
                 const containerElement = document.getElementById(container.id);
@@ -70,14 +102,14 @@
             });
           }
         }
-
+        //create scrath card
         function createScratchCard(
           containerId,
           imageForwardSrc,
           imageBackgroundSrc
         ) {
           const _containerBox = document.getElementById(containerId);
-
+          //settings
           const sc = new ScratchCard(_containerBox, {
             scratchType: SCRATCH_TYPE.BRUSH,
             containerWidth: _containerBox.offsetWidth,
@@ -90,16 +122,28 @@
             nPoints: 0, // for spray
             pointSize: 0,
             brushSrc: "./png/brush.webp",
+            //callback when finish
             callback: function () {
               let percent = sc.getPercent();
+              //fixpercent but not use for now
               _percentFixed = percent.toFixed(2);
+              //find indexid of obj
               const containerIndex = _containers.findIndex(
                 (container) => container.id === containerId
               );
+              const completedContainerss = _containers.filter(
+                (container) => container.completionStatus
+              );
+              // do something when the each container has maxvalue of percentValue
               if (containerIndex !== -1) {
-                _containers[containerIndex].completionStatus = true;
-                console.log("done", containerIndex);
+                if (completedContainerss.length >= 2) {
+                  setTimeout(() => {
+                    alert("done 2x");
+                  }, 700);
+                }
               }
+
+              console.log("done", containerIndex);
             },
           });
 
@@ -137,11 +181,14 @@
                           .addClass("prizeImage")
                           .hide();
                         $(`#${containerId}`).append(img);
+                        //mini bug a second img tag is appended in(dom(parent)) with no attribute, so i check each container and i remove from dom
+                        $(
+                          `#${containerId} img:not([src],[alt],[title])`
+                        ).remove();
 
                         p.fadeIn("fast");
                         img.fadeIn("slow");
                       };
-
                       // Append text and image for the first/second
                       appendTextAndImage(text1, imagePath1);
                       appendTextAndImage(text2, imagePath2);
@@ -166,35 +213,6 @@
           );
         });
         console.log("test");
-      }
-      function addNewDivContainer() {
-        if (!containerAppended) {
-          // cardsShow.play();
-          let htmlStructure = `
-        <div class="_scrathContainer _apDiv _hR">
-
-          <div class="_scratchCardParent">
-            ${Array.from(
-              { length: 3 },
-              (_, i) => `
-              <div class="frame_scratch">
-                <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
-                "jsContainer" + "" + (i + 1)
-              }>
-                 <div class="containerPrize prizeScratch"></div>
-               </div>
-              </div>
-            `
-            ).join("")}
-          </div>
-        </div>
-      `;
-          $("#appendDivs").append(htmlStructure);
-          containerAppended = true;
-          addScratch();
-        } else {
-          console.log("Container already appended");
-        }
       }
 
       addNewDivContainer();
