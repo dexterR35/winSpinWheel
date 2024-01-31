@@ -52,7 +52,7 @@ span,
 #splashScreen,
 header .logoNB img,
 header .headerElements,
-._scratchCard img,
+._scratchCard img:not(.prizeImage),
 ._boxContainer,
 .borderCave,
 .modalNB,
@@ -697,6 +697,14 @@ span {
   color: white;
   font-size: 2em;
 }
+.prizeImage {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: -5%;
+  right: -5%;
+  z-index: 2;
+}
 
 ._scratchCard {
   height: 100%;
@@ -714,7 +722,7 @@ span {
   z-index: 10;
   object-fit: cover;
 }
-._scratchCard img {
+._scratchCard img:not(.prizeImage) {
   position: absolute;
   z-index: 0;
   /* object-fit: cover; */

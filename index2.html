@@ -36,7 +36,10 @@
     <script>
       let containerAppended = false;
       let textAppendedCount = 0;
-      const texts = ["Text 1", "Text 2"];
+      const texts = [
+        ["500", "ron", "./png/elements/unscratched.webp"],
+        ["50", "runde gratuite", "./png/elements/unscratched.webp"],
+      ];
       let prize = "safasf";
       let _percentFixed;
       let percentValue = 50;
@@ -47,15 +50,16 @@
       ];
       function addScratch() {
         console.log("loaded Scratch Script");
-
         function checkUpdateStatus() {
+          //filter _containers obj
           const completedContainers = _containers.filter(
             (container) => container.completionStatus
           );
-          // console.log(completedContainers, "completedContainers");
           // Check if two or more containers have completionStatus set to true
           if (completedContainers.length >= 2) {
-            // Disable pointer events for the remaining containers
+            // console.log(completedContainers, "completedContainers");
+
+            // Disable pointer events for the remaining containers  -> i want to prevent and not use pointerEvents because he can be disabled in inspectElement
             _containers.forEach((container) => {
               if (!container.completionStatus) {
                 const containerElement = document.getElementById(container.id);
@@ -73,7 +77,6 @@
           imageBackgroundSrc
         ) {
           const _containerBox = document.getElementById(containerId);
-          // Check if the container is already completed
 
           const sc = new ScratchCard(_containerBox, {
             scratchType: SCRATCH_TYPE.BRUSH,
@@ -99,42 +102,54 @@
               }
             },
           });
-          const containerIndex = _containers.findIndex(
-            (container) => container.id === containerId
-          );
-          if (
-            containerIndex !== -1 &&
-            !_containers[containerIndex].textAppended
-          ) {
-            _containers[containerIndex].textAppended = false; // Initialize the flag
-          }
-          //append a specific text to the first container that reaches a certain scratch percentage and a different text to the second container that reaches the same percentage, you can use a counter or a flag to keep track of how many containers have already appended text. Here's how you can implement this:
+
           sc.init()
             .then(() => {
               sc.canvas.addEventListener("scratch.move", () => {
                 let percent = sc.getPercent().toFixed(0);
-                // console.log(percent, "per");
                 const containerIndex = _containers.findIndex(
                   (container) => container.id === containerId
                 );
                 if (percent >= 0) {
                   if (containerIndex !== -1) {
-                    console.log(containerIndex);
+                    //add true for two containers and pointer events for last one
                     _containers[containerIndex].completionStatus = true;
                     checkUpdateStatus();
                   }
                 }
-                if (percent >= percentValue / 2.5 + 10) {
-                  if ($(`#${containerId} .prizeScratch`).text().trim() === "") {
+
+                // At half $percentValue check if empty document (prevent Re-render when scratch card)
+                if (percent >= percentValue / 4) {
+                  if ($(`#${containerId} .prizeScratch:empty`).length > 0) {
                     if (textAppendedCount < texts.length) {
-                      $(`#${containerId} .prizeScratch`).text(
-                        texts[textAppendedCount]
+                      // Check arrays in arrays
+                      const [text1, text2, imagePath1, imagePath2] =
+                        texts[textAppendedCount];
+                      const prizeScratchDiv = $(
+                        `#${containerId} .prizeScratch`
                       );
+                      // Function to append text and image
+                      const appendTextAndImage = (text, imagePath) => {
+                        const p = $("<p>").text(text).hide();
+                        prizeScratchDiv.append(p);
+                        const img = $("<img>")
+                          .attr("src", imagePath)
+                          .addClass("prizeImage")
+                          .hide();
+                        $(`#${containerId}`).append(img);
+
+                        p.fadeIn("fast");
+                        img.fadeIn("slow");
+                      };
+
+                      // Append text and image for the first/second
+                      appendTextAndImage(text1, imagePath1);
+                      appendTextAndImage(text2, imagePath2);
+
                       textAppendedCount++;
                     }
                   }
                 }
-
                 _percentFixed = percent;
               });
             })
@@ -166,7 +181,7 @@
                 <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
                 "jsContainer" + "" + (i + 1)
               }>
-              <div class="prizeScratch"></div>
+                 <div class="containerPrize prizeScratch"></div>
                </div>
               </div>
             `
