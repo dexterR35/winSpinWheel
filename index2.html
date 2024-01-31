@@ -35,6 +35,8 @@
     <div id="appendDivs"></div>
     <script>
       let containerAppended = false;
+      let textAppendedCount = 0;
+      const texts = ["Text 1", "Text 2"];
       let prize = "safasf";
       let _percentFixed;
       let percentValue = 50;
@@ -97,7 +99,16 @@
               }
             },
           });
-
+          const containerIndex = _containers.findIndex(
+            (container) => container.id === containerId
+          );
+          if (
+            containerIndex !== -1 &&
+            !_containers[containerIndex].textAppended
+          ) {
+            _containers[containerIndex].textAppended = false; // Initialize the flag
+          }
+          //append a specific text to the first container that reaches a certain scratch percentage and a different text to the second container that reaches the same percentage, you can use a counter or a flag to keep track of how many containers have already appended text. Here's how you can implement this:
           sc.init()
             .then(() => {
               sc.canvas.addEventListener("scratch.move", () => {
@@ -113,9 +124,14 @@
                     checkUpdateStatus();
                   }
                 }
-                if (percent >= 30) {
-                  if (containerIndex !== -1) {
-                    console.log(containerIndex, percent);
+                if (percent >= percentValue / 2.5 + 10) {
+                  if ($(`#${containerId} .prizeScratch`).text().trim() === "") {
+                    if (textAppendedCount < texts.length) {
+                      $(`#${containerId} .prizeScratch`).text(
+                        texts[textAppendedCount]
+                      );
+                      textAppendedCount++;
+                    }
                   }
                 }
 
