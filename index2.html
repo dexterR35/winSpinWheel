@@ -71,6 +71,7 @@
           imageBackgroundSrc
         ) {
           const _containerBox = document.getElementById(containerId);
+          // Check if the container is already completed
 
           const sc = new ScratchCard(_containerBox, {
             scratchType: SCRATCH_TYPE.BRUSH,
@@ -91,8 +92,8 @@
                 (container) => container.id === containerId
               );
               if (containerIndex !== -1) {
-                // console.log(containerIndex);
                 _containers[containerIndex].completionStatus = true;
+                console.log("done", containerIndex);
               }
             },
           });
