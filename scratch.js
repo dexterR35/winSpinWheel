@@ -14,6 +14,7 @@ const _containers = [
 
 // this is added when button is pressed
 function addScratch() {
+  updateTextBody("razuie whatever", "primeste GRATUITE");
   console.log("loaded Scratch Script");
   function checkUpdateStatus() {
     //filter _containers obj
@@ -69,7 +70,7 @@ function addScratch() {
             setTimeout(() => {
               startConfetti();
               jackpotWin.play();
-              showModal("final step", `${prizePool}`, "scenario2");
+              showModal("final step", "scenario2");
             }, 700);
           } else {
             console.log(`The length of the array is ${checkIndex.length}`);
@@ -114,8 +115,8 @@ function addScratch() {
                     .hide();
                   // console.log(text, "tesxt");
                   prizeScratchDiv.append(divE);
-                  $(`#${containerId}`).append(imgE);
                   //mini bug a second img tag is appended in(dom(parent)) with no attribute, so i check each container and i remove from dom
+                  $(`#${containerId}`).append(imgE);
                   $(`#${containerId} img:not([src],[alt],[title])`).remove();
                   // fadeIn
                   // shinningPopUp.play();

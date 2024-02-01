@@ -30,6 +30,7 @@ let prizePool = "200";
 console.log(buttonPressed, "start");
 //   <img src="/png//elements/framepilow.png" alt="frame" class="frame_img" />
 function addNewDivContainer() {
+  $("._hH").fadeIn("fast");
   if (!containerAppended) {
     positivePopUp.play();
     let htmlStructure = `
@@ -92,14 +93,14 @@ function spin() {
   }, 5000);
   setTimeout(function () {
     winningLarge.play();
-    showModal("Felicitari", `${SelectedItem}`, "scenario1");
+    showModal("Felicitari", "scenario1");
     // set initial rotation of the wheel after complete animation
     _boxContainer.css("transition", "all ease 5s");
     _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
   }, 5500);
 }
 
-function showModal(title, message, scenario) {
+function showModal(title, scenario) {
   let buttonsConfig = {};
   if (scenario === "scenario1" || scenario === "scenario2") {
     if (buttonClicked) {
@@ -109,33 +110,48 @@ function showModal(title, message, scenario) {
     buttonsConfig = {
       handleBtnClick: function () {
         bonusWin.play();
-        $("#customModal").fadeOut("slow", function () {
+        $("#customModal").fadeOut("fast", function () {
           $(this).remove();
           // winningLarge.play();
         });
         setTimeout(function () {
-          $("._hR").fadeOut("slow", function () {
+          $("._hR").fadeOut("fast", function () {
             $(this).remove();
             // bonusWin.play();
             setTimeout(addNewDivContainer, 500);
           });
+          $("._hH").fadeOut("fast");
         }, 1000);
       },
     };
   } else {
     console.log("test");
   }
+
+  let contentOfferLines =
+    scenario === "scenario1"
+      ? `
+        <div class="content-offer ${scenario}">
+          <div class="m_line1">ai câștigat</div>
+          <div class="m_line2">${prizePool} rotiri</div>
+          <div class="m_line3">gratuite</div>
+        </div>`
+      : scenario === "scenario2"
+      ? `
+        <div class="content-offer ${scenario}">
+          <div class="m_line1">Alt text for scenario 2</div>
+          <div class="m_line2">Another message for scenario 2</div>
+          <div class="m_line3">Another line for scenario 2</div>
+        </div>`
+      : "";
+
   let modalContent = `
        <div class="modal-dialog" >
        <img class="modalImg" src="./png/elements/suport_text.png"/>
          <div class="modal-content">
             <div class="modal-body" id="modalContent">
-              <h2 class="modal-title" id="modalTitle">${title}</h2>
-              <div class="content-offer">
-              <div class="m_line1">ai câștigat</div>
-              <div class="m_line2">${message} rotiri</div>
-              <div class="m_line3">gratuite</div>
-              </div>
+              <div class="modal-title" id="modalTitle">${title}</div>
+              ${contentOfferLines}
             </div>
             </div>
             <div class="modal-footer" id="modalFooter"></div>
@@ -156,7 +172,7 @@ function showModal(title, message, scenario) {
   for (let buttonLabel in buttonsConfig) {
     if (buttonsConfig.hasOwnProperty(buttonLabel)) {
       $("<button>", {
-        class: "btn btn-primary",
+        class: "btnNew btn-primary",
         text: scenario === "scenario1" ? "continuă" : "Inregistrează-te",
         click: buttonsConfig[buttonLabel],
         disabled: buttonClicked,
@@ -167,16 +183,13 @@ function showModal(title, message, scenario) {
   modal.focus();
 }
 
-$(document).ready(function () {
-  $(".clipPath").each(function (index) {
-    let rotationAngle = -14 + index * 36;
-    console.log(rotationAngle, "rotationAngle");
-    _boxContainer.css("transform", "rotate(144deg)");
-    $(this).css("transform", "rotate(" + rotationAngle + "deg)");
-  });
-});
+function updateTextBody(text, subtext) {
+  $("._tText").text(text);
+  $("._tText_s").text(subtext);
+}
 
 let mouseMoveInited = false;
+
 let _seven = document.querySelector("._seven"),
   _crown = document.querySelector("._crown"),
   _dollar = document.querySelector("._dollar");
@@ -220,4 +233,13 @@ function check() {
 
 window.addEventListener("resize", check);
 
-check();
+$(document).ready(function () {
+  $(".clipPath").each(function (index) {
+    let rotationAngle = -14 + index * 36;
+    console.log(rotationAngle, "rotationAngle");
+    _boxContainer.css("transform", "rotate(144deg)");
+    $(this).css("transform", "rotate(" + rotationAngle + "deg)");
+  });
+  updateTextBody("învârte cartonașele și", "rundele gratuite");
+  check();
+});

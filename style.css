@@ -70,7 +70,7 @@
   --s_boxWheel: 56vmin;
   --s_shadowWheel: 64vmin;
   --wheel_frame: 61vmin;
-  --s_modalDialog: calc(min(50vh, max(350px, 50vmax)));
+  --s_modalDialog: calc(min(50vh, max(350px, 45vmax)));
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   --test: 46, 46, 46;
   --modalBgColor: #270e25b8;
@@ -78,6 +78,12 @@
   --white_color: #fff;
   --textColor2: #b9e2fff2;
   --button_color: linear-gradient(to right, #ff1c26, #a81c1f);
+  --button_color-hover: linear-gradient(to left, #ff1c26, #a81c1f);
+
+  /* spinner */
+  --R: 28px;
+  --g1: #ff1d00 96%, #0000;
+  --g2: #e1e1ed 96%, #0000;
 }
 body {
   /* font-family: sans-serif; */
@@ -551,6 +557,14 @@ span {
   padding: 20px;
   flex-direction: column;
 }
+@media (max-width: 991px) {
+  .modal-content {
+    width: 100%;
+  }
+  .modalNB {
+    padding: 0 10px;
+  }
+}
 .modal-dialog {
   width: var(--s_modalDialog);
   max-width: 100%;
@@ -570,20 +584,34 @@ span {
 
 .modal-title {
   margin: 0;
-  height: 26%;
+  height: 20%;
   display: flex;
-  margin: 10px 0;
+  margin: 10px 0 25px 0;
   justify-content: center;
   align-items: end;
 }
 
 /*modaltext*/
-
+.modal-body:has(.scenario1) {
+  font-size: clamp(5vh, 2.5vw, 36px);
+}
+@media (max-width: 320px) {
+  .modal-body:has(.scenario1) {
+    font-size: clamp(3vh, 2.5vw, 18px);
+  }
+}
+.modal-body:has(.scenario2) {
+  font-size: clamp(2vh, 2vw, 36px);
+}
 .content-offer {
-  font-size: 5.5vmin;
   line-height: 1.1;
   text-align: center;
 }
+/* @media (max-width: 992px) {
+  .content-offer.scenario1 {
+    font-size: clamp(5vh, 2.5vw, 36px);
+  }
+} */
 .close {
   cursor: pointer;
 }
@@ -626,10 +654,10 @@ span {
 }
 
 /* Button Style (Adjust as needed) */
-.btn {
+.btnNew {
   font-family: "montExtraBold";
   padding: 0.8em;
-  width: 60%;
+  width: fit-content;
   margin-left: 10px;
   background: var(--button_color);
   color: var(--white_color);
@@ -637,8 +665,13 @@ span {
   border-radius: 8px;
   cursor: pointer;
   text-transform: uppercase;
-  font-size: 2.5vmin;
+  font-size: clamp(2vh, 1.5vw, 36px);
   margin: 0 auto;
+}
+
+.btnNew:hover {
+  background: var(--button_color-hover);
+  transition: all 2s ease;
 }
 
 ._perspective {
@@ -776,7 +809,7 @@ span {
 }
 .frame_scratch {
   width: 100%;
-  height: 32vh;
+  height: 36vh;
   position: relative;
   /* background-color: black; */
 }
@@ -908,11 +941,7 @@ span {
 /*end prize  SCRATCH*/
 /*end prize SCRATCH*/
 /*end prize  SCRATCH*/
-
 .spinner {
-  --R: 28px;
-  --g1: #ff1d00 96%, #0000;
-  --g2: #e1e1ed 96%, #0000;
   width: calc(2 * var(--R));
   height: calc(2 * var(--R));
   border-radius: 50%;
