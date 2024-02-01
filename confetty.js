@@ -5,7 +5,7 @@ function randomInRange(min, max) {
 }
 
 function startConfetti() {
-  let durationConf = 2 * 1000;
+  let durationConf = 4 * 1000;
   let animationEnd = Date.now() + durationConf;
   let defaults = {
     startVelocity: 15,

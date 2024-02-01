@@ -1,47 +1,16 @@
 let textAppendedCount = 0;
 const texts = [
-  ["500", "ron", "./png/elements/x4.webp"],
-  ["50", "runde gratuite", "./png/elements/x3.webp"],
+  ["500", "ron", "./png/elements/x3.webp"],
+  ["50", "runde gratuite", "./png/elements/x4.webp"],
 ];
 let prize = "safasf";
 let checkIndex = [];
-let _percentFixed;
 let percentValue = 40;
 const _containers = [
   { id: "jsContainer1", completionStatus: false },
   { id: "jsContainer2", completionStatus: false },
   { id: "jsContainer3", completionStatus: false },
 ];
-
-// function addNewDivContainer() {
-//   if (!containerAppended) {
-//     // cardsShow.play();
-//     let htmlStructure = `
-//         <div class="_scrathContainer _apDiv _hR">
-
-//           <div class="_scratchCardParent">
-//             ${Array.from(
-//               { length: 3 },
-//               (_, i) => `
-//               <div class="frame_scratch">
-//                 <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
-//                 "jsContainer" + "" + (i + 1)
-//               }>
-//                  <div class="prizeScratch"></div>
-//                </div>
-//               </div>
-//             `
-//             ).join("")}
-//           </div>
-//         </div>
-//       `;
-//     $("#appendDivs").append(htmlStructure);
-//     containerAppended = true;
-//     addScratch();
-//   } else {
-//     console.log("Container already appended");
-//   }
-// }
 
 // this is added when button is pressed
 function addScratch() {
@@ -83,9 +52,8 @@ function addScratch() {
       brushSrc: "./png/brush.webp",
       //callback when finish
       callback: function () {
-        let percent = sc.getPercent();
-        //fixpercent but not use for now
-        _percentFixed = percent.toFixed(2);
+        // let percent = sc.getPercent();
+
         //find indexid of obj
         const containerIndex = _containers.findIndex(
           (container) => container.id === containerId
@@ -98,23 +66,15 @@ function addScratch() {
             console.log(
               `The Final length of the array is ${checkIndex.length}`
             );
-
             setTimeout(() => {
-              // alert("done 2x");
               startConfetti();
               jackpotWin.play();
-
-              showModal(
-                "Congratulations",
-                `"You won" ${prizePool}`,
-                "scenario2"
-              );
+              showModal("final step", `${prizePool}`, "scenario2");
             }, 700);
           } else {
             console.log(`The length of the array is ${checkIndex.length}`);
           }
         }
-        // cardsShow.play();
         console.log("done single card", containerIndex);
       },
     });
@@ -122,7 +82,6 @@ function addScratch() {
     sc.init()
       .then(() => {
         sc.canvas.addEventListener("scratch.move", () => {
-          // cardsShow.play();
           let percent = sc.getPercent().toFixed(0);
           const containerIndex = _containers.findIndex(
             (container) => container.id === containerId
@@ -134,7 +93,6 @@ function addScratch() {
               checkUpdateStatus();
             }
           }
-
           // $percentValue check if empty document (prevent Re-render when scratch card)
           if (percent >= 2) {
             if ($(`#${containerId} .prizeScratch:empty`).length > 0) {
@@ -154,9 +112,8 @@ function addScratch() {
                     .attr("src", imagePath)
                     .addClass("prizeImage")
                     .hide();
-                  console.log(text, "tesxt");
+                  // console.log(text, "tesxt");
                   prizeScratchDiv.append(divE);
-
                   $(`#${containerId}`).append(imgE);
                   //mini bug a second img tag is appended in(dom(parent)) with no attribute, so i check each container and i remove from dom
                   $(`#${containerId} img:not([src],[alt],[title])`).remove();
@@ -174,7 +131,6 @@ function addScratch() {
               }
             }
           }
-          _percentFixed = percent;
         });
       })
       .catch((error) => {

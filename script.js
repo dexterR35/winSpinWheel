@@ -31,7 +31,7 @@ console.log(buttonPressed, "start");
 //   <img src="/png//elements/framepilow.png" alt="frame" class="frame_img" />
 function addNewDivContainer() {
   if (!containerAppended) {
-    // cardsShow.play();
+    positivePopUp.play();
     let htmlStructure = `
         <div class="_scrathContainer _apDiv _hR">
 
@@ -71,7 +71,7 @@ function spin() {
 
   let SelectedItem = "";
 
-  let prizes = shuffle([2773, 3133, 3313]); // only 400 prize from bgwheel >  180deg
+  let prizes = shuffle([2845, 2484, 2845]); // only 400 prize from bgwheel >  360deg >2484->200   2773>400
 
   let Result = [prizes[0]];
   console.log(Result);
@@ -116,6 +116,7 @@ function showModal(title, message, scenario) {
         setTimeout(function () {
           $("._hR").fadeOut("slow", function () {
             $(this).remove();
+            // bonusWin.play();
             setTimeout(addNewDivContainer, 500);
           });
         }, 1000);
@@ -131,7 +132,7 @@ function showModal(title, message, scenario) {
             <div class="modal-body" id="modalContent">
               <h2 class="modal-title" id="modalTitle">${title}</h2>
               <div class="content-offer">
-              <div class="m_line1">ai castigat</div>
+              <div class="m_line1">ai câștigat</div>
               <div class="m_line2">${message} rotiri</div>
               <div class="m_line3">gratuite</div>
               </div>
@@ -156,7 +157,7 @@ function showModal(title, message, scenario) {
     if (buttonsConfig.hasOwnProperty(buttonLabel)) {
       $("<button>", {
         class: "btn btn-primary",
-        text: scenario === "scenario1" ? "continua" : "Inregistreaza-te",
+        text: scenario === "scenario1" ? "continuă" : "Inregistrează-te",
         click: buttonsConfig[buttonLabel],
         disabled: buttonClicked,
       }).appendTo("#modalFooter");
@@ -169,8 +170,8 @@ function showModal(title, message, scenario) {
 $(document).ready(function () {
   $(".clipPath").each(function (index) {
     let rotationAngle = -14 + index * 36;
-    // console.log(rotationAngle, "rotationAngle");
-    _boxContainer.css("transform", "rotate(108deg)");
+    console.log(rotationAngle, "rotationAngle");
+    _boxContainer.css("transform", "rotate(144deg)");
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });
 });
@@ -179,12 +180,13 @@ let mouseMoveInited = false;
 let _seven = document.querySelector("._seven"),
   _crown = document.querySelector("._crown"),
   _dollar = document.querySelector("._dollar");
+
 function onMouseMove(e) {
   (x = e.clientX), (y = e.clientY);
 
   _seven.style["transform"] =
     "translateX(" +
-    (e.clientX * 0.01 - 5) +
+    (e.clientX * 0.01 + 2) +
     "px) translateY(" +
     -e.clientY * 0.1 +
     "px)";
@@ -218,4 +220,4 @@ function check() {
 
 window.addEventListener("resize", check);
 
-// check();
+check();
