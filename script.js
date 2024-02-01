@@ -25,37 +25,35 @@ const mainBox = $("#mainbox");
 let buttonPressed = false;
 let buttonClicked = false;
 let containerAppended = false;
-let prizePool = "400";
+let prizePool = "200";
 
 console.log(buttonPressed, "start");
 //   <img src="/png//elements/framepilow.png" alt="frame" class="frame_img" />
 function addNewDivContainer() {
   if (!containerAppended) {
-    cardsShow.play();
+    // cardsShow.play();
     let htmlStructure = `
-      <div class="_scrathContainer _apDiv _hR">
+        <div class="_scrathContainer _apDiv _hR">
 
-      <div class="modalNew"><div>${prizePool}</div></div>
-        <div class="_scratchCardParent">
-          ${Array.from(
-            { length: 3 },
-            (_, i) => `
-            <div class="frame_scratch">
-              <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
-              "jsContainer" + "" + (i + 1)
-            }>
-             </div>
-            </div>
-          `
-          ).join("")}
+          <div class="_scratchCardParent">
+            ${Array.from(
+              { length: 3 },
+              (_, i) => `
+              <div class="frame_scratch">
+                <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
+                "jsContainer" + "" + (i + 1)
+              }>
+                 <div class="prizeScratch"></div>
+               </div>
+              </div>
+            `
+            ).join("")}
+          </div>
         </div>
-      </div>
-    `;
+      `;
     $("#appendDivs").append(htmlStructure);
-
     containerAppended = true;
-
-    addScrath();
+    addScratch();
   } else {
     console.log("Container already appended");
   }
@@ -94,7 +92,7 @@ function spin() {
   }, 5000);
   setTimeout(function () {
     winningLarge.play();
-    showModal("Congratulations", `"You won" + ${SelectedItem}`, "scenario1");
+    showModal("Felicitari", `${SelectedItem}`, "scenario1");
     // set initial rotation of the wheel after complete animation
     _boxContainer.css("transition", "all ease 5s");
     _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
@@ -131,11 +129,15 @@ function showModal(title, message, scenario) {
        <img class="modalImg" src="./png/elements/suport_text.png"/>
          <div class="modal-content">
             <div class="modal-body" id="modalContent">
-              <h5 class="modal-title" id="modalTitle">${title}</h5>
-              <div class="content-offer">${message}</div>
+              <h2 class="modal-title" id="modalTitle">${title}</h2>
+              <div class="content-offer">
+              <div class="m_line1">ai castigat</div>
+              <div class="m_line2">${message} rotiri</div>
+              <div class="m_line3">gratuite</div>
+              </div>
             </div>
-           <div class="modal-footer" id="modalFooter"></div>
-         </div>
+            </div>
+            <div class="modal-footer" id="modalFooter"></div>
        </div>`;
 
   let modal = $("<div>", {
@@ -154,7 +156,7 @@ function showModal(title, message, scenario) {
     if (buttonsConfig.hasOwnProperty(buttonLabel)) {
       $("<button>", {
         class: "btn btn-primary",
-        text: scenario === "scenario1" ? "continueb" : "Inregistreaza-te",
+        text: scenario === "scenario1" ? "continua" : "Inregistreaza-te",
         click: buttonsConfig[buttonLabel],
         disabled: buttonClicked,
       }).appendTo("#modalFooter");
