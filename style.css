@@ -1,3 +1,57 @@
+@font-face {
+  font-family: "montSuperBold";
+  src: url("./fonts/MontserratZ-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "montExtraBold";
+  src: url("./fonts/MontserratZ-ExtraBold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "montBold";
+  src: url("./fonts/MontserratZ-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "montSemiBold";
+  src: url("./fonts/MontserratZ-SemiBold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "montMedium";
+  src: url("./fonts/MontserratZ-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "montRegular";
+  src: url("./fonts/MontserratZ-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "montLight";
+  src: url("./fonts/MontserratZ-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "montExtraLight";
+  src: url("./fonts/MontserratZ-ExtraLight.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "montThin";
+  src: url("./fonts/MontserratZ-Thin.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 *,
 *::after,
 *::before {
@@ -24,7 +78,7 @@
   --button_color: linear-gradient(to right, #ff1c26, #a81c1f);
 }
 body {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -463,12 +517,12 @@ span {
   position: absolute;
   top: 50%;
   left: 50%;
-  /* transform: translate(-50%, -100%); */
+  transform: translate(-50%, -100%);
   background-image: url(./png/elements/crown_card.png);
   background-size: 20vh;
   z-index: 1;
 
-  animation: floating 10s ease-in-out infinite;
+  /* animation: floating 10s ease-in-out infinite; */
 }
 
 @keyframes floating {
@@ -762,13 +816,16 @@ span {
 /*start prize SCRATCH*/
 /*start prize  SCRATCH*/
 .prizeImage {
-  position: absolute;
-  width: 80px;
-  height: auto;
-  object-fit: contain;
-  top: -16%;
-  right: -6%;
   z-index: 2;
+  position: absolute;
+  width: 15vh;
+  height: 15vh;
+  max-width: 40%;
+  object-fit: contain;
+  top: -20%;
+  right: -10%;
+  rotate: -12deg;
+  filter: drop-shadow(0px 4px 7px black);
 }
 .prizeScratch {
   /* background-color: red; */
@@ -778,7 +835,8 @@ span {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  font-family: "montExtraBold";
+  -webkit-text-stroke-width: medium;
   font-size: 4vmin;
 }
 .prizeScratch div {
@@ -786,13 +844,17 @@ span {
   color: black;
   font-weight: bold;
   text-align: center;
+  height: 38%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .prizeScratch div:nth-child(1) {
   font-size: 4em;
 }
 .prizeScratch div:nth-child(2) {
   /* font-size: 3.4em; */
-  margin-top: -0.4em;
+  /* margin-top: -0.4em; */
 }
 .prizeScratch ._lineRON {
   font-size: 3em;

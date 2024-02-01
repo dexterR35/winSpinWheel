@@ -43,20 +43,27 @@
     ></audio>
     <audio
       controls="controls"
-      id="bonusWin"
-      src="./audio/bonusWin.mp3"
+      id="shinningPopUp"
+      src="./audio/shinningPopUp.mp3"
+      type="audio/mp3"
+    ></audio>
+    <audio
+      controls="controls"
+      id="jackpotWin"
+      src="./audio/jackpotWin.mp3"
       type="audio/mp3"
     ></audio>
     <script>
       let containerAppended = false;
       let textAppendedCount = 0;
       const texts = [
-        ["500", "ron", "./png/elements/dollar.webp"],
-        ["50", "runde gratuite", "./png/crown.webp"],
+        ["500", "ron", "./png/elements/x4.webp"],
+        ["50", "runde gratuite", "./png/elements/x3.webp"],
       ];
       let prize = "safasf";
+      let checkIndex = [];
       let _percentFixed;
-      let percentValue = 50;
+      let percentValue = 40;
       const _containers = [
         { id: "jsContainer1", completionStatus: false },
         { id: "jsContainer2", completionStatus: false },
@@ -65,7 +72,7 @@
 
       function addNewDivContainer() {
         if (!containerAppended) {
-          cardsShow.play();
+          // cardsShow.play();
           let htmlStructure = `
               <div class="_scrathContainer _apDiv _hR">
 
@@ -96,7 +103,6 @@
       // this is added when button is pressed
       function addScratch() {
         console.log("loaded Scratch Script");
-
         function checkUpdateStatus() {
           //filter _containers obj
           const completedContainers = _containers.filter(
@@ -145,27 +151,34 @@
               const containerIndex = _containers.findIndex(
                 (container) => container.id === containerId
               );
-              const completedContainerss = _containers.filter(
-                (container) => container.completionStatus
-              );
-              cardsShow.play();
-              // do something when the each container is 2xtrue
+              //appent containerIndex in an array
+              checkIndex.push(containerIndex);
+              //check is empty ,check if array is === 2
               if (containerIndex !== -1) {
-                if (completedContainerss.length >= 2) {
+                if (checkIndex.length === 2) {
+                  console.log(
+                    `The Final length of the array is ${checkIndex.length}`
+                  );
+
                   setTimeout(() => {
-                    // alert("done 2x");
-                    bonusWin.play();
+                    alert("done 2x");
+                    jackpotWin.play();
                   }, 700);
+                } else {
+                  console.log(
+                    `The length of the array is ${checkIndex.length}`
+                  );
                 }
               }
-
-              console.log("done", containerIndex);
+              // cardsShow.play();
+              console.log("done single card", containerIndex);
             },
           });
 
           sc.init()
             .then(() => {
               sc.canvas.addEventListener("scratch.move", () => {
+                // cardsShow.play();
                 let percent = sc.getPercent().toFixed(0);
                 const containerIndex = _containers.findIndex(
                   (container) => container.id === containerId
@@ -178,8 +191,8 @@
                   }
                 }
 
-                // At half $percentValue check if empty document (prevent Re-render when scratch card)
-                if (percent >= percentValue / 4) {
+                // $percentValue check if empty document (prevent Re-render when scratch card)
+                if (percent >= 2) {
                   if ($(`#${containerId} .prizeScratch:empty`).length > 0) {
                     if (textAppendedCount < texts.length) {
                       // Check arrays in arrays
@@ -199,13 +212,16 @@
                           .attr("src", imagePath)
                           .addClass("prizeImage")
                           .hide();
+                        console.log(text, "tesxt");
                         prizeScratchDiv.append(divE);
+
                         $(`#${containerId}`).append(imgE);
                         //mini bug a second img tag is appended in(dom(parent)) with no attribute, so i check each container and i remove from dom
                         $(
                           `#${containerId} img:not([src],[alt],[title])`
                         ).remove();
-
+                        // fadeIn
+                        // shinningPopUp.play();
                         divE.fadeIn("fast");
                         imgE.fadeIn("fast");
                       };
@@ -229,7 +245,7 @@
         _containers.forEach((container) => {
           createScratchCard(
             container.id,
-            "./png/elements/unscratched.webp",
+            "./png/elements/unscratched3.webp",
             "./png/elements/scratched.webp"
           );
         });
