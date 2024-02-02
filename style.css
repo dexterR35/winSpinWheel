@@ -67,9 +67,9 @@
   --s_pin: 55vmin;
   --s_cave: 88vmin;
   --s_mainBox: 60vmin;
-  --s_boxWheel: 56vmin;
-  --s_shadowWheel: 64vmin;
-  --wheel_frame: 61vmin;
+  --s_boxWheel: 55vmin;
+  --s_shadowWheel: 63vmin;
+  --wheel_frame: 60vmin;
   --s_modalDialog: 55%;
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   --test: 46, 46, 46;
@@ -92,6 +92,19 @@ body {
   -ms-user-select: none;
   -o-user-select: none;
   font-family: "montExtraBold";
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-image: url(./png/bg-desktop.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
 }
 .headerElements,
 .linksNB,
@@ -163,8 +176,8 @@ header .headerElements,
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background-image: url(./png/bg-desktop.jpg);
-  background-size: var(--s_BG) !important;
+  /* background-image: url(./png/bg-desktop.jpg); */
+  /* background-size: var(--s_BG) !important; */
   background-size: cover;
   /* background-position: center -170px !important; */
   position: relative;
@@ -300,7 +313,7 @@ audio {
 }
 
 .wrapperBox {
-  aspect-ratio: 16/9;
+  /* aspect-ratio: 16/9; */
   position: relative;
   /* top: 2%; */
 }
@@ -575,7 +588,13 @@ span {
     width: 100%;
   }
   .modalNB {
-    padding: 0 10px;
+    padding: 33px 0 0 0;
+  }
+  .modal-title {
+    margin: 10px 0 15px 0;
+  }
+  .modalNB.scenario2 .modal-dialog {
+    height: fit-content;
   }
 }
 .modal-dialog {
@@ -642,9 +661,22 @@ span {
   width: 100%;
 }
 .modal-body:has(.scenario2) ._of img {
-  height: 42vh !important;
+  /* height: 42vh !important; */
 }
-
+@media (max-width: 991px) {
+  .flexScenario {
+    flex-direction: column;
+  }
+  .modal-body:has(.scenario2) ._of img {
+    width: 35vh !important;
+  }
+  .modal-content.scenario2 {
+    /* top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto !important; */
+  }
+}
 .content-offer {
   line-height: 1.1;
   text-align: center;
@@ -693,7 +725,7 @@ span {
 /* Button Style (Adjust as needed) */
 .btnNew {
   font-family: "montExtraBold";
-  padding: 0.8em;
+  padding: 0.8em 3em;
   width: fit-content;
   margin-left: 10px;
   background: var(--button_color);
@@ -902,7 +934,8 @@ span {
   font-size: 3vmin;
   text-transform: uppercase;
   line-height: 0.9;
-  filter: sepia(1);
+  filter: grayscale(1);
+  z-index: 2;
 }
 
 /* .prizeScratch::after {
@@ -1040,6 +1073,21 @@ span {
   }
 }
 
+@media (orientation: portrait) {
+  .modal-content {
+    padding: 0;
+  }
+  .modal-dialog {
+    width: 100%;
+  }
+  header {
+    position: sticky;
+  }
+  #appendDivs {
+    height: 100%;
+    margin: 20px 0;
+  }
+}
 @media (max-width: 992px) {
   .elemAssets {
     display: none;
@@ -1068,12 +1116,18 @@ span {
     width: 100%;
   }
   .frame_scratch {
-    width: 90%;
+    width: 80%;
     height: 20vh;
   }
   .scratchPrizeSmall {
     width: 11.3vh;
     height: 8.7vh;
     font-size: 2vh;
+  }
+  .modalNB.scenario2 {
+    padding: 16px;
+  }
+  .modal-body {
+    margin: 0 -315px;
   }
 }
