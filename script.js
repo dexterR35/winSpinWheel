@@ -35,7 +35,7 @@ function addNewDivContainer() {
     positivePopUp.play();
     let htmlStructure = `
         <div class="_scrathContainer _apDiv _hR">
-
+        <div class="scratchPrizeSmall"><div>rotiri</div><div>Gratis</div><div>${prizePool}</div></div>
           <div class="_scratchCardParent">
             ${Array.from(
               { length: 3 },
@@ -128,6 +128,9 @@ function showModal(title, scenario) {
     console.log("test");
   }
 
+  let imgForModal = `
+  <img class="modalImg" src="./png/elements/suport_text.png"/>
+`;
   let contentOfferLines =
     scenario === "scenario1"
       ? `
@@ -138,17 +141,29 @@ function showModal(title, scenario) {
         </div>`
       : scenario === "scenario2"
       ? `
+  
         <div class="content-offer ${scenario}">
-          <div class="m_line1">Alt text for scenario 2</div>
-          <div class="m_line2">Another message for scenario 2</div>
-          <div class="m_line3">Another line for scenario 2</div>
+          <div class="m_line1">
+            <div>ÎNREGISTREAZĂ-TE ACUM</div>
+            <div>ȘI PROFITĂ DE PREMIUL TĂU!</div>
+        </div >
+         <div class="flexScenario">
+          <div class ="offerPart1 _of">
+          ${imgForModal}
+            <div class="m_line2"><div>ROTIRI</div><div>gratis</div><div>${prizePool}</div></div>       
+          </div>
+          <div class ="offerPart2 _of">
+          ${imgForModal}
+            <div class="m_line2"><div>PACHET DE</div><div>BUN VENIT</div><div>1500RON</div><div>${prizePool} Rotiri</div></div>     
+          </div>
+          </div>
         </div>`
       : "";
 
   let modalContent = `
        <div class="modal-dialog" >
-       <img class="modalImg" src="./png/elements/suport_text.png"/>
-         <div class="modal-content">
+        ${scenario !== "scenario2" ? imgForModal : ""}
+         <div class="modal-content ${scenario}">
             <div class="modal-body" id="modalContent">
               <div class="modal-title" id="modalTitle">${title}</div>
               ${contentOfferLines}
@@ -158,7 +173,7 @@ function showModal(title, scenario) {
        </div>`;
 
   let modal = $("<div>", {
-    class: "modalNB",
+    class: `modalNB ${scenario}`,
     id: "customModal",
     style: "display: flex;",
     role: "dialog",

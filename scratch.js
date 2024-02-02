@@ -70,7 +70,7 @@ function addScratch() {
             setTimeout(() => {
               startConfetti();
               jackpotWin.play();
-              showModal("final step", "scenario2");
+              showModal("Felicitari", "scenario2");
             }, 700);
           } else {
             console.log(`The length of the array is ${checkIndex.length}`);

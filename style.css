@@ -70,7 +70,7 @@
   --s_boxWheel: 56vmin;
   --s_shadowWheel: 64vmin;
   --wheel_frame: 61vmin;
-  --s_modalDialog: calc(min(50vh, max(350px, 45vmax)));
+  --s_modalDialog: 55%;
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   --test: 46, 46, 46;
   --modalBgColor: #270e25b8;
@@ -104,7 +104,9 @@ body {
 #splashScreen,
 ._scratchCard,
 ._perspective,
-._canvaTextContainer {
+._canvaTextContainer,
+.content-offer.scenario2,
+.flexScenario {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -125,7 +127,9 @@ header .headerElements,
 .modalNB::before,
 ._scratchCard,
 ._canvaTextContainer,
-.elemAssets img {
+.elemAssets img,
+.modal-body,
+.flexScenario {
   width: 100%;
   height: 100%;
 }
@@ -161,7 +165,8 @@ header .headerElements,
   overflow: hidden;
   background-image: url(./png/bg-desktop.jpg);
   background-size: var(--s_BG) !important;
-  background-position: center -170px !important;
+  background-size: cover;
+  /* background-position: center -170px !important; */
   position: relative;
 }
 
@@ -437,12 +442,12 @@ span {
   }
 }
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .mainbox {
     width: 100%;
     height: 50%;
   }
-}
+} */
 
 /*PIN*/
 /*PIN*/
@@ -518,15 +523,23 @@ span {
 }
 .modal-dialog {
   position: relative;
+  /* height: auto; */
 }
-.modal-dialog::before {
+
+.modal-content.scenario2 {
+  top: unset;
+  left: unset;
+  transform: unset;
+  height: auto !important;
+}
+.modalNB.scenario1 .modal-dialog::before {
   content: "";
   width: 100%;
   height: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -92%);
+  transform: translate(-50%, -105%);
   background-image: url(./png/elements/crown_card.png);
   background-size: 24vh;
   z-index: 1;
@@ -566,14 +579,14 @@ span {
   }
 }
 .modal-dialog {
-  width: var(--s_modalDialog);
+  height: var(--s_modalDialog);
   max-width: 100%;
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); */
   border-radius: 5px;
 }
 .modalImg {
+  /* top: 0; */
   object-fit: contain;
-  top: 0;
   position: relative;
 }
 
@@ -600,34 +613,58 @@ span {
     font-size: clamp(3vh, 2.5vw, 18px);
   }
 }
+.content-offer.scenario2 {
+  flex-direction: column !important;
+  gap: 20px;
+}
+.modal-content.scenario2 {
+  position: relative;
+}
+.modalNB.scenario2 .modal-dialog {
+  height: auto !important;
+}
+
 .modal-body:has(.scenario2) {
   font-size: clamp(2vh, 2vw, 36px);
 }
+
+.modal-body:has(.scenario2) ._of {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-body:has(.scenario2) ._of .m_line2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+.modal-body:has(.scenario2) ._of img {
+  height: 42vh !important;
+}
+
 .content-offer {
   line-height: 1.1;
   text-align: center;
 }
-/* @media (max-width: 992px) {
-  .content-offer.scenario1 {
-    font-size: clamp(5vh, 2.5vw, 36px);
-  }
-} */
+
 .close {
   cursor: pointer;
 }
 
 .modal-body {
-  padding: 20px;
+  position: relative;
   font-size: 3vmin;
   text-transform: uppercase;
   font-weight: bold;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  height: auto !important;
 }
 
 .modal-footer {
-  margin: -10px auto 0 auto;
+  margin: 12px auto 0 auto;
 }
 
 .modalNew {
@@ -779,7 +816,8 @@ span {
 ._scrathContainer {
   max-width: 85vw;
   width: 100%;
-  height: 70vh;
+  /* height: 70vh; */
+  height: auto;
   position: relative;
   margin: auto;
   /* background-color: rgba(255, 0, 0, 0.219); */
@@ -820,19 +858,13 @@ span {
   left: 50%;
   transform: translate(-50%, -50%);
   color: var(--white_color);
-  font-size: 2em;
 }
 
 ._scratchCard {
   height: 100%;
   width: 85%;
   position: relative;
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
   user-select: none;
-  /* background-image: url(./png/elements/framepilow.png); */
 }
 .frame_img {
   position: relative;
@@ -842,22 +874,35 @@ span {
 ._scratchCard img:not(.prizeImage) {
   position: absolute;
   z-index: 0;
-  /* object-fit: cover; */
-  /* filter: hue-rotate(307deg); */
   width: 100%;
   height: 100%;
-  max-height: 320px;
-  filter: sepia(1);
+  max-height: 500px;
+  /* filter: sepia(1); */
 }
 .sc__canvas {
   width: 100%;
   height: 100%;
   z-index: 2;
   position: absolute;
+  /* filter: drop-shadow(6px 5px 4px black); */
+}
 
-  filter: drop-shadow(6px 5px 4px black);
-  /* width: 100%;
-  height: 100%; */
+.scratchPrizeSmall {
+  overflow: hidden;
+  position: relative;
+  width: 16vh;
+  height: 12vh;
+  background-image: url(./png/elements/scratched.webp);
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 3vmin;
+  text-transform: uppercase;
+  line-height: 0.9;
+  filter: sepia(1);
 }
 
 /* .prizeScratch::after {
@@ -872,14 +917,14 @@ span {
   background-image: url(./png/elements/crown.webp);
   background-size: contain;
 } */
-._canvaTextContainer {
+/* ._canvaTextContainer {
   position: absolute;
   top: 0;
   z-index: 0;
   flex-direction: column;
   background-image: url(./png/elements/unscratched.webp);
   background-size: contain;
-}
+} */
 /*end PART 2 SCRATCH*/
 /*end PART 2 SCRATCH*/
 /*end PART 2 SCRATCH*/
@@ -915,13 +960,18 @@ span {
 }
 .prizeScratch div {
   text-transform: uppercase;
-  color: black;
+  color: var(--white_color);
   font-weight: bold;
   text-align: center;
-  height: 38%;
+  height: 34%;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-shadow: var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 30px,
+    var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 30px,
+    var(--textShadow) 0px 0px 10px, 2px 3px 0px rgba(206, 206, 206, 0);
+
+  /* filter: drop-shadow(1px 4px 2px #1a1a1a); */
 }
 .prizeScratch div:nth-child(1) {
   font-size: 4em;
@@ -987,5 +1037,43 @@ span {
 @keyframes spinner-maxc6n {
   100% {
     transform: rotate(-1turn);
+  }
+}
+
+@media (max-width: 992px) {
+  .elemAssets {
+    display: none;
+  }
+  header .linksNB {
+    gap: 8px;
+    font-size: 0.85em;
+  }
+  header .linksNB a {
+    padding: 5px 18px;
+  }
+  #appendDivs {
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  ._scratchCardParent {
+    gap: 20px;
+  }
+  ._scrathContainer {
+    /* max-width: 100%; */
+    background: red;
+    gap: 7px;
+  }
+  ._scratchCard {
+    height: 100%;
+    width: 100%;
+  }
+  .frame_scratch {
+    width: 90%;
+    height: 20vh;
+  }
+  .scratchPrizeSmall {
+    width: 11.3vh;
+    height: 8.7vh;
+    font-size: 2vh;
   }
 }
