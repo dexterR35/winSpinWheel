@@ -721,7 +721,7 @@ span {
     width: 100%;
   }
   #appendDivs {
-    height: calc(80vh + 10vh);
+    height: calc(88vh + 8vw);
   }
   .elemAssets {
     display: none;
@@ -863,25 +863,25 @@ span {
     background-size: 550%;
   }
   .caveImg {
-    height: calc(96vw + 8vh);
+    height: calc(100vw + 8vh);
   }
   .mainbox {
-    width: calc(62vw + 8vh);
-    height: calc(62vw + 8vh);
+    width: calc(65vw + 8vh);
+    height: calc(65vw + 8vh);
   }
   ._boxContainer {
-    background-size: calc(57vw + 8vh);
+    background-size: calc(60vw + 8vh);
   }
   .borderCave .borderFrame {
-    background-size: calc(64vw + 8vh);
+    background-size: calc(66vw + 8vh);
   }
   ._shadow_wheel img {
     width: calc(69vw + 8vh);
     height: calc(69vw + 8vh);
   }
   .pinImg {
-    height: calc(54vw + 8vh);
-    max-height: calc(54vw + 8vh);
+    height: calc(57vw + 8vh);
+    max-height: calc(57vw + 8vh);
   }
   .modal-dialog {
     height: calc(68vw + 6vh);
