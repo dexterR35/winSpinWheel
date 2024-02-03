@@ -178,4 +178,20 @@ $(document).ready(function () {
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });
   updateTextBody("învârte cartonașele și", "rundele gratuite");
+  $(".cross").hide();
+  $(".menuMobile").hide();
+
+  $(".hamburger").click(function () {
+    $(".menuMobile").slideToggle("slow", function () {
+      $(".hamburger").toggle();
+      $(".cross").toggle();
+    });
+  });
+
+  $(".cross").click(function () {
+    $(".menuMobile").slideToggle("slow", function () {
+      $(".cross").toggle();
+      $(".hamburger").toggle();
+    });
+  });
 });
