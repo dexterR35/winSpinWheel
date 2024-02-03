@@ -1,63 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./header.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <header>
-      <nav class="__nav">
-        <div class="__logo"><img src="./png/nbLogo.png" alt="nblogo" /></div>
-        <ul class="__ul">
-          <li>
-            <a href="#">SPORT</a>
-          </li>
-          <li>
-            <a href="#">CASINO</a>
-          </li>
-          <li>
-            <a href="#">LOGHEAZĂ-TE</a>
-          </li>
-        </ul>
-        <button class="hamburger">&#9776;</button>
-        <button class="cross">&#735;</button>
-      </nav>
-      <nav class="menuMobile">
-        <ul>
-          <li>
-            <a href="#"><div>SPORT</div></a>
-          </li>
-          <li>
-            <a href="#"><div>CASINO</div></a>
-          </li>
-          <li>
-            <a href="#"><div>LOGHEAZĂ-TE</div></a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $(".cross").hide();
-        $(".menuMobile").hide();
+<nav class="__nav_d _n">
+  <div class="__logo"><img src="./png/nbLogo.png" alt="nblogo" /></div>
+  <ul class="__ul _d">
+    <li>
+      <a href="#">SPORT</a>
+    </li>
+    <li>
+      <a href="#">CASINO</a>
+    </li>
+    <li>
+      <a href="#">LOGHEAZĂ-TE</a>
+    </li>
+  </ul>
+  <div class="___ham">
+    <div class="__ham" id="__ham">
+      <span class="_ln"></span>
+      <span class="_ln"></span>
+      <span class="_ln"></span>
+    </div>
+  </div>
+</nav>
+<nav class="__nav_m _n">
+  <ul>
+    <li>
+      <a href="#">SPORT</a>
+    </li>
+    <li>
+      <a href="#">CASINO</a>
+    </li>
+    <li>
+      <a href="#">LOGHEAZĂ-TE</a>
+    </li>
+  </ul>
+</nav>
 
-        $(".hamburger").click(function () {
-          $(".menuMobile").slideToggle("slow", function () {
-            $(".hamburger").toggle();
-            $(".cross").toggle();
-          });
-        });
-
-        $(".cross").click(function () {
-          $(".menuMobile").slideToggle("slow", function () {
-            $(".cross").toggle();
-            $(".hamburger").toggle();
-          });
-        });
-      });
-    </script>
-  </body>
-</html>
+<script>
+  $(".__nav_m").hide();
+  $(".___ham").click(function () {
+    $(".__ham").toggleClass("is-active");
+    $(".__nav_m").slideToggle("slow");
+  });
+</script>

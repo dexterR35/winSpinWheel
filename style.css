@@ -71,29 +71,23 @@ body {
   --s_mainBox: 60vmin;
   --s_boxWheel: 55vmin;
   --s_shadowWheel: 63vmin;
-  --wheel_frame: 60vmin;
+  --s_wheel_frame: 60vmin;
   --s_modalDialog: calc(21.5vw + 6vh);
   --s_modalDialog_s: calc(17.5vw + 6vh);
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
+
   --s_md_text: calc(1.5vh + 1.7vw);
   --s_lg_text: calc(2.5vh + 2.5vw);
-  --test: 46, 46, 46;
+  --fontSize: calc(1.7vw + 1.8vh);
+
   --modalBgColor: #270e25b8;
   --textShadow: #f11a1a;
   --white_color: #fff;
   --textColor2: #b9e2fff2;
   --button_color: linear-gradient(to right, #ff1c26, #a81c1f);
   --button_color-hover: linear-gradient(to left, #ff1c26, #a81c1f);
-
-  --fontSize: calc(1.7vw + 1.8vh);
-
-  /* spinner */
-  --R: 28px;
-  --g1: #ff1d00 96%, #0000;
-  --g2: #e1e1ed 96%, #0000;
 }
 body {
-  /* font-family: sans-serif; */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -105,9 +99,7 @@ body::after {
   content: "";
   position: absolute;
   top: 0;
-  width: 100%;
-  height: 100%;
-  background-size: 105%;
+  background-size: cover;
   background-image: url(./png/bg-desktop.jpg);
   background-repeat: no-repeat;
   background-position: bottom;
@@ -132,10 +124,14 @@ body::after {
   align-items: center;
   justify-content: center;
 }
+
 body,
+body::after,
 span,
 #splashScreen,
 ._scratchCard img:not(.prizeImage),
+.modalNB.scenario1 .modal-dialog::before,
+.sc__canvas,
 ._boxContainer,
 .borderCave,
 .modalNB,
@@ -145,18 +141,17 @@ span,
 .modalNB::before,
 ._scratchCard,
 ._canvaTextContainer,
+.elemAssets,
+.borderCave .borderFrame,
 .elemAssets img,
 .modal-body,
-.flexScenario {
+.modal-content,
+.flexScenario,
+.modalNew div {
   width: 100%;
   height: 100%;
 }
-#appendDivs {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-}
+
 #splashScreen {
   position: absolute;
   display: none;
@@ -172,7 +167,7 @@ span,
 
 #splashScreen p {
   font-size: 1.4vw;
-  color: #fff;
+  color: var(--white_color);
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -187,7 +182,7 @@ span,
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   border-radius: 10px;
-  z-index: 10;
+  z-index: 20;
 }
 
 #appendDivs,
@@ -219,8 +214,8 @@ audio {
   overflow: hidden;
   background-size: var(--s_boxWheel);
   background-image: url(./png/wheel/roata_noua.webp);
-  z-index: 2;
   border-radius: 50%;
+  z-index: 2;
 }
 
 span {
@@ -303,9 +298,12 @@ span {
 ._box9,
 ._box10,
 ._shadow_wheel,
-.cave {
-  width: 100%;
-  height: 100%;
+.cave,
+.spin,
+._pin,
+.borderCave,
+.modal-content,
+.modal-body:has(.scenario2) ._of .m_line2 {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -313,10 +311,6 @@ span {
 }
 
 .spin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 85px;
   height: 85px;
   border-radius: 50%;
@@ -372,10 +366,6 @@ span {
 /*PIN*/
 
 ._pin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   z-index: 2;
 }
 
@@ -385,13 +375,9 @@ span {
   z-index: 4;
   position: absolute;
   border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 ._shadow_wheel {
-  /* background: red; */
   z-index: 2;
   width: fit-content;
   height: fit-content;
@@ -405,11 +391,9 @@ span {
 .borderCave .borderFrame {
   border: 15px solid transparent;
   border-radius: 50%;
-  width: 100%;
-  height: 100%;
   animation: rotate 140s linear infinite;
   background-image: url(./png/wheel/wheel_frame.png);
-  background-size: var(--wheel_frame);
+  background-size: var(--s_wheel_frame);
 }
 
 @keyframes rotate {
@@ -451,8 +435,6 @@ span {
 }
 .modalNB.scenario1 .modal-dialog::before {
   content: "";
-  width: 100%;
-  height: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -466,14 +448,10 @@ span {
   position: absolute;
   z-index: 1;
   color: var(--white_color);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
   padding: 20px;
   flex-direction: column;
 }
+
 @media (max-width: 991px) {
   .modal-content {
     width: 100%;
@@ -548,10 +526,6 @@ span {
   font-size: var(--s_lg_text);
 }
 .modal-body:has(.scenario2) ._of .m_line2 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100%;
 }
 
@@ -559,9 +533,9 @@ span {
   .flexScenario {
     flex-direction: column;
   }
-  .modal-body:has(.scenario2) ._of img {
+  /* .modal-body:has(.scenario2) ._of img {
     width: 35vh !important;
-  }
+  } */
 }
 .content-offer {
   line-height: 1.1;
@@ -595,8 +569,6 @@ span {
   background-image: url(./png/elements/suport_text.png);
 }
 .modalNew div {
-  height: 100%;
-  width: 100%;
   color: var(--white_color);
   font-weight: bold;
   font-size: 2em;
@@ -676,17 +648,13 @@ span {
 /*PART 1 ElementDesktopBg*/
 .elemAssets {
   position: absolute;
-  width: 100%;
-  height: 100%;
 }
 .elemAssets div {
   width: calc(10vw + 13vh);
   height: calc(10vw + 13vh);
-  /* background: black; */
   position: absolute;
 }
 /*seven*/
-
 .elemAssets div:nth-child(1) {
   right: 10%;
   top: -14%;
@@ -745,6 +713,21 @@ span {
   justify-content: center;
 }
 
+@media (orientation: portrait) {
+  .modal-content {
+    padding: 0;
+  }
+  .modal-dialog {
+    width: 100%;
+  }
+  #appendDivs {
+    height: calc(80vh + 10vh);
+  }
+  .elemAssets {
+    display: none;
+  }
+}
+
 @media (max-width: 991px) {
   ._scrathContainer {
     max-width: 96vw;
@@ -774,8 +757,6 @@ span {
 }
 
 ._scratchCard {
-  height: 100%;
-  width: 100%;
   position: relative;
   user-select: none;
 }
@@ -787,14 +768,10 @@ span {
 ._scratchCard img:not(.prizeImage) {
   position: absolute;
   z-index: 0;
-  width: 100%;
-  height: 100%;
   max-height: 500px;
   filter: grayscale(1);
 }
 .sc__canvas {
-  width: 100%;
-  height: 100%;
   z-index: 2;
   position: absolute;
   filter: drop-shadow(1px 1px 2px black);
@@ -881,15 +858,59 @@ span {
 /*end prize SCRATCH*/
 /*end prize  SCRATCH*/
 
-@media (orientation: portrait) {
-  .modal-content {
-    padding: 0;
+@media (max-width: 678px) {
+  body::after {
+    background-size: 550%;
+  }
+  .caveImg {
+    height: calc(96vw + 8vh);
+  }
+  .mainbox {
+    width: calc(62vw + 8vh);
+    height: calc(62vw + 8vh);
+  }
+  ._boxContainer {
+    background-size: calc(57vw + 8vh);
+  }
+  .borderCave .borderFrame {
+    background-size: calc(64vw + 8vh);
+  }
+  ._shadow_wheel img {
+    width: calc(69vw + 8vh);
+    height: calc(69vw + 8vh);
+  }
+  .pinImg {
+    height: calc(54vw + 8vh);
+    max-height: calc(54vw + 8vh);
   }
   .modal-dialog {
-    width: 100%;
+    height: calc(68vw + 6vh);
+    margin-bottom: 10em;
   }
-  #appendDivs {
-    height: 100%;
-    margin: 20px 0;
+  .modal-body:has(.scenario1) {
+    font-size: calc(5.7vw + 1.3vh);
+  }
+  .btnNew {
+    font-size: calc(3vw + 1.2vh);
+  }
+  ._scratchCardParent {
+    gap: 13px;
+  }
+  .frame_scratch {
+    width: calc(28vw + 19vh);
+    height: calc(25vw + 8vh);
+  }
+  .scratchPrizeSmall {
+    position: absolute;
+  }
+  .scratchPrizeSmall {
+    display: none;
+  }
+  ._perspective {
+    bottom: 0%;
+  }
+  .modal-body:has(.scenario2) ._of {
+    width: calc(2vw + 23vh);
+    height: calc(2vw + 23vh);
   }
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./header.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <nav class="__nav_d _n">
+        <div class="__logo"><img src="./png/nbLogo.png" alt="nblogo" /></div>
+        <ul class="__ul _d">
+          <li>
+            <a href="#">SPORT</a>
+          </li>
+          <li>
+            <a href="#">CASINO</a>
+          </li>
+          <li>
+            <a href="#">LOGHEAZĂ-TE</a>
+          </li>
+        </ul>
+        <div class="___ham">
+          <div class="__ham" id="__ham">
+            <span class="_ln"></span>
+            <span class="_ln"></span>
+            <span class="_ln"></span>
+          </div>
+        </div>
+      </nav>
+      <nav class="__nav_m _n">
+        <ul>
+          <li>
+            <a href="#">SPORT</a>
+          </li>
+          <li>
+            <a href="#">CASINO</a>
+          </li>
+          <li>
+            <a href="#">LOGHEAZĂ-TE</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".__nav_m").hide();
+        $(".___ham").click(function () {
+          $(".__ham").toggleClass("is-active");
+          $(".__nav_m").slideToggle("slow");
+        });
+
+        $("#headerId").load("external.html");
+      });
+    </script>
+  </body>
+</html>

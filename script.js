@@ -153,7 +153,7 @@ function showModal(title, scenario) {
     "aria-describedby": "modalContent",
   })
     .html(modalContent)
-    .appendTo("#appendDivs")
+    .appendTo("body")
     .fadeIn("slow");
 
   for (let buttonLabel in buttonsConfig) {
@@ -171,6 +171,7 @@ function showModal(title, scenario) {
 }
 
 $(document).ready(function () {
+  $("#headerId").load("./header.html");
   $(".clipPath").each(function (index) {
     let rotationAngle = -14 + index * 36;
     console.log(rotationAngle, "rotationAngle");
@@ -178,20 +179,4 @@ $(document).ready(function () {
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });
   updateTextBody("învârte cartonașele și", "rundele gratuite");
-  $(".cross").hide();
-  $(".menuMobile").hide();
-
-  $(".hamburger").click(function () {
-    $(".menuMobile").slideToggle("slow", function () {
-      $(".hamburger").toggle();
-      $(".cross").toggle();
-    });
-  });
-
-  $(".cross").click(function () {
-    $(".menuMobile").slideToggle("slow", function () {
-      $(".cross").toggle();
-      $(".hamburger").toggle();
-    });
-  });
 });
