@@ -28,36 +28,10 @@ let containerAppended = false;
 let prizePool = "200";
 
 console.log(buttonPressed, "start");
-//   <img src="/png//elements/framepilow.png" alt="frame" class="frame_img" />
-function addNewDivContainer() {
-  $("._hH").fadeIn("fast");
-  if (!containerAppended) {
-    positivePopUp.play();
-    let htmlStructure = `
-        <div class="_scrathContainer _apDiv _hR">
-        <div class="scratchPrizeSmall"><div>rotiri</div><div>Gratis</div><div>${prizePool}</div></div>
-          <div class="_scratchCardParent">
-            ${Array.from(
-              { length: 3 },
-              (_, i) => `
-              <div class="frame_scratch">
-                <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
-                "jsContainer" + "" + (i + 1)
-              }>
-                 <div class="prizeScratch"></div>
-               </div>
-              </div>
-            `
-            ).join("")}
-          </div>
-        </div>
-      `;
-    $("#appendDivs").append(htmlStructure);
-    containerAppended = true;
-    addScratch();
-  } else {
-    console.log("Container already appended");
-  }
+
+function updateTextBody(text, subtext) {
+  $("._tText").text(text);
+  $("._tText_s").text(subtext);
 }
 
 function spin() {
@@ -68,12 +42,10 @@ function spin() {
   buttonPressed = true;
   console.log(buttonPressed, "spin");
 
-  wheel.play();
+  //wheel.play();
 
   let SelectedItem = "";
-
   let prizes = shuffle([2845, 2484, 2845]); // only 400 prize from bgwheel >  360deg >2484->200   2773>400
-
   let Result = [prizes[0]];
   console.log(Result);
   if (prizes.includes(Result[0])) SelectedItem = prizePool;
@@ -86,13 +58,13 @@ function spin() {
     buttonPressed = true;
   }, 100);
   setTimeout(function () {
-    you_win.play();
+    //you_win.play();
   }, 4500);
   setTimeout(function () {
     _pinImg.removeClass("animate");
   }, 5000);
   setTimeout(function () {
-    winningLarge.play();
+    //winningLarge.play();
     showModal("Felicitari", "scenario1");
     // set initial rotation of the wheel after complete animation
     _boxContainer.css("transition", "all ease 5s");
@@ -109,7 +81,7 @@ function showModal(title, scenario) {
     buttonClicked = false;
     buttonsConfig = {
       handleBtnClick: function () {
-        bonusWin.play();
+        // bonusWin.play();
         $("#customModal").fadeOut("fast", function () {
           $(this).remove();
           // winningLarge.play();
@@ -198,56 +170,6 @@ function showModal(title, scenario) {
   modal.focus();
 }
 
-function updateTextBody(text, subtext) {
-  $("._tText").text(text);
-  $("._tText_s").text(subtext);
-}
-
-let mouseMoveInited = false;
-
-let _seven = document.querySelector("._seven"),
-  _crown = document.querySelector("._crown"),
-  _dollar = document.querySelector("._dollar");
-
-function onMouseMove(e) {
-  (x = e.clientX), (y = e.clientY);
-
-  _seven.style["transform"] =
-    "translateX(" +
-    (e.clientX * 0.01 + 2) +
-    "px) translateY(" +
-    -e.clientY * 0.1 +
-    "px)";
-  _crown.style["transform"] =
-    "translateX(" +
-    (5 - e.clientX * 0.02) +
-    "px) translateY(" +
-    (5 - e.clientY * 0.01) +
-    "px)";
-  _dollar.style["transform"] =
-    "translateX(" +
-    (e.clientX * 0.02 - 5) +
-    "px) translateY(" +
-    (5 - e.clientY * 0.01) +
-    "px)";
-}
-
-function check() {
-  if (window.innerWidth > 1000) {
-    if (mouseMoveInited) return false;
-    mouseMoveInited = true;
-    window.addEventListener("mousemove", onMouseMove);
-  } else if (mouseMoveInited) {
-    mouseMoveInited = false;
-    _seven.style["transform"] = "";
-    _crown.style["transform"] = "";
-    _dollar.style["transform"] = "";
-    window.removeEventListener("mousemove", onMouseMove);
-  }
-}
-
-window.addEventListener("resize", check);
-
 $(document).ready(function () {
   $(".clipPath").each(function (index) {
     let rotationAngle = -14 + index * 36;
@@ -256,5 +178,4 @@ $(document).ready(function () {
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });
   updateTextBody("învârte cartonașele și", "rundele gratuite");
-  check();
 });

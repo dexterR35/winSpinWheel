@@ -12,6 +12,36 @@ const _containers = [
   { id: "jsContainer3", completionStatus: false },
 ];
 
+function addNewDivContainer() {
+  $("._hH").fadeIn("fast");
+  if (!containerAppended) {
+    // positivePopUp.play();
+    let htmlStructure = `
+        <div class="_scrathContainer _apDiv _hR">
+        <div class="scratchPrizeSmall"><div>rotiri</div><div>Gratis</div><div>${prizePool}</div></div>
+          <div class="_scratchCardParent">
+            ${Array.from(
+              { length: 3 },
+              (_, i) => `
+              <div class="frame_scratch">
+                <div class="${"_scratch" + "" + (i + 1)} _scratchCard" id=${
+                "jsContainer" + "" + (i + 1)
+              }>
+                 <div class="prizeScratch"></div>
+               </div>
+              </div>
+            `
+            ).join("")}
+          </div>
+        </div>
+      `;
+    $("#appendDivs").append(htmlStructure);
+    containerAppended = true;
+    addScratch();
+  } else {
+    console.log("Container already appended");
+  }
+}
 // this is added when button is pressed
 function addScratch() {
   updateTextBody("razuie whatever", "primeste GRATUITE");
@@ -69,7 +99,7 @@ function addScratch() {
             );
             setTimeout(() => {
               startConfetti();
-              jackpotWin.play();
+              // jackpotWin.play();
               showModal("Felicitari", "scenario2");
             }, 700);
           } else {
@@ -84,6 +114,7 @@ function addScratch() {
       .then(() => {
         sc.canvas.addEventListener("scratch.move", () => {
           let percent = sc.getPercent().toFixed(0);
+          console.log(percent, "per");
           const containerIndex = _containers.findIndex(
             (container) => container.id === containerId
           );
