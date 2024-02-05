@@ -79,29 +79,35 @@ function showModal(title, scenario) {
       return;
     }
     buttonClicked = false;
-    buttonsConfig = {
-      handleBtnClick: function () {
-        // bonusWin.play();
-        $("#customModal").fadeOut("fast", function () {
-          $(this).remove();
-          // winningLarge.play();
-        });
-        setTimeout(function () {
-          $("._hR").fadeOut("fast", function () {
+    if (scenario === "scenario2") {
+      buttonsConfig = {
+        handleBtnClick: function () {
+          // Redirect to another website for scenario 2
+          window.location.href = "https://example.com"; // Replace with the desired website URL
+        },
+      };
+    } else {
+      buttonsConfig = {
+        handleBtnClick: function () {
+          // bonusWin.play();
+          $("#customModal").fadeOut("fast", function () {
             $(this).remove();
-            // bonusWin.play();
-            setTimeout(addNewDivContainer, 500);
+            // winningLarge.play();
           });
-          $("._hH").fadeOut("fast");
-        }, 1000);
-      },
-    };
-  } else {
-    console.log("test");
+          setTimeout(function () {
+            $("._hR").fadeOut("fast", function () {
+              $(this).remove();
+              // bonusWin.play();
+              setTimeout(addNewDivContainer, 500);
+            });
+            $("._hH").fadeOut("fast");
+          }, 1000);
+        },
+      };
+    }
   }
-
   let imgForModal = `
-  <img class="modalImg" src="./png/elements/suport_text.png"/>
+  <img class="modalImg" src="./png/elements/support_text2.webp"/>
 `;
   let contentOfferLines =
     scenario === "scenario1"

@@ -5,7 +5,7 @@ const texts = [
 ];
 let prize = "safasf";
 let checkIndex = [];
-let percentValue = 40;
+
 const _containers = [
   { id: "jsContainer1", completionStatus: false },
   { id: "jsContainer2", completionStatus: false },
@@ -17,8 +17,7 @@ function addNewDivContainer() {
   if (!containerAppended) {
     // positivePopUp.play();
     let htmlStructure = `
-        <div class="_scrathContainer _apDiv _hR">
-        <div class="scratchPrizeSmall"><div>rotiri</div><div>Gratis</div><div>${prizePool}</div></div>
+      <div class="_scrathContainer _apDiv _hR">
           <div class="_scratchCardParent">
             ${Array.from(
               { length: 3 },
@@ -34,6 +33,7 @@ function addNewDivContainer() {
             ).join("")}
           </div>
         </div>
+        <div class="scratchPrizeSmall"><img src="./png/elements/suport.webp" alt"elem"><div class="wrap-prizeSmall"><div>rotiri</div><div>Gratis</div><div>${prizePool}</div></div></div>
       `;
     $("#appendDivs").append(htmlStructure);
     containerAppended = true;
@@ -44,7 +44,8 @@ function addNewDivContainer() {
 }
 // this is added when button is pressed
 function addScratch() {
-  updateTextBody("razuie whatever", "primeste GRATUITE");
+  $("._perspective").addClass("_s2");
+  updateTextBody("răzuie cartonașele și", "ia-ți bonusul");
   console.log("loaded Scratch Script");
   function checkUpdateStatus() {
     //filter _containers obj
@@ -69,6 +70,20 @@ function addScratch() {
   function createScratchCard(containerId, imageForwardSrc, imageBackgroundSrc) {
     const _containerBox = document.getElementById(containerId);
     //settings
+
+    let percentValue;
+    let brushResp;
+    if (window.innerWidth < 768) {
+      percentValue = 40;
+      brushResp = "./png/elements/brushMobile.webp";
+      console.log(percentValue);
+      console.log(brushResp, "resp");
+    } else {
+      brushResp = "./png/elements/brush.webp";
+      console.log(brushResp, "resp");
+      percentValue = 45;
+      console.log(percentValue);
+    }
     const sc = new ScratchCard(_containerBox, {
       scratchType: SCRATCH_TYPE.BRUSH,
       containerWidth: _containerBox.offsetWidth,
@@ -80,7 +95,7 @@ function addScratch() {
       clearZoneRadius: 0, // for line
       nPoints: 0, // for spray
       pointSize: 0,
-      brushSrc: "./png/brush.webp",
+      brushSrc: brushResp,
       //callback when finish
       callback: function () {
         // let percent = sc.getPercent();
@@ -173,7 +188,7 @@ function addScratch() {
   _containers.forEach((container) => {
     createScratchCard(
       container.id,
-      "./png/elements/unscratched3.webp",
+      "./png/elements/unscratched.webp",
       "./png/elements/scratched.webp"
     );
   });

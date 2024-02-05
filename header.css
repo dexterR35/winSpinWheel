@@ -89,7 +89,7 @@ header .__logo img {
 .___ham .__ham ._ln {
   width: 27px;
   height: 3px;
-  background-color: #190445;
+  background-color: var(--white_color);
   display: block;
   margin: 6px auto;
   -webkit-transition: all 0.3s ease-in-out;
@@ -126,7 +126,7 @@ header .__logo img {
   width: 100%;
   height: 100vh;
   position: relative;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   text-align: center;
   /* box-shadow: 0 8px 32px 0 rgb(0 0 0 / 38%); */
 }
@@ -163,7 +163,12 @@ header .__logo img {
 .__nav_m ul li:nth-child(3) a {
   color: var(--white_color);
 }
-
+@media (orientation: portrait) {
+  header {
+    height: 3.5em !important;
+    position: relative;
+  }
+}
 @media (min-width: 1024px) {
   header .__nav_d {
     max-width: 94%;
