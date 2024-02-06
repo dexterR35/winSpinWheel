@@ -65,7 +65,7 @@ function spin() {
   }, 5000);
   setTimeout(function () {
     //winningLarge.play();
-    showModal("Felicitari", "scenario1");
+    showModal("Felicitări!", "scenario1");
     // set initial rotation of the wheel after complete animation
     _boxContainer.css("transition", "all ease 5s");
     _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
@@ -132,7 +132,7 @@ function showModal(title, scenario) {
           </div>
           <div class ="offerPart2 _of">
           ${imgForModal}
-            <div class="m_line2"><div>PACHET DE</div><div>BUN VENIT</div><div>1500RON</div><div>${prizePool} Rotiri</div></div>     
+            <div class="m_line2"><div>bonus DE</div><div>BUN VENIT</div><div>1500 RON</div><div>${prizePool} Rotiri</div></div>     
           </div>
           </div>
         </div>`
@@ -178,11 +178,12 @@ function showModal(title, scenario) {
 
 $(document).ready(function () {
   $("#headerId").load("./header.html");
+  $("#_terms").load("./terms.html");
   $(".clipPath").each(function (index) {
     let rotationAngle = -14 + index * 36;
     console.log(rotationAngle, "rotationAngle");
     _boxContainer.css("transform", "rotate(144deg)");
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });
-  updateTextBody("învârte cartonașele și", "rundele gratuite");
+  updateTextBody("ÎNVÂRTE ROATA ȘI IA-NE", "rundele gratuite");
 });

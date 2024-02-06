@@ -45,7 +45,7 @@ function addNewDivContainer() {
 // this is added when button is pressed
 function addScratch() {
   $("._perspective").addClass("_s2");
-  updateTextBody("răzuie cartonașele și", "ia-ți bonusul");
+  updateTextBody("RĂZUIEȘTE cartonașele și", "DESCOPERĂ bonusul");
   console.log("loaded Scratch Script");
   function checkUpdateStatus() {
     //filter _containers obj
@@ -74,14 +74,14 @@ function addScratch() {
     let percentValue;
     let brushResp;
     if (window.innerWidth < 768) {
-      percentValue = 40;
+      percentValue = 5;
       brushResp = "./png/elements/brushMobile.webp";
       console.log(percentValue);
       console.log(brushResp, "resp");
     } else {
       brushResp = "./png/elements/brush.webp";
       console.log(brushResp, "resp");
-      percentValue = 45;
+      percentValue = 5;
       console.log(percentValue);
     }
     const sc = new ScratchCard(_containerBox, {
@@ -115,7 +115,7 @@ function addScratch() {
             setTimeout(() => {
               startConfetti();
               // jackpotWin.play();
-              showModal("Felicitari", "scenario2");
+              showModal("Felicitări", "scenario2");
             }, 700);
           } else {
             console.log(`The length of the array is ${checkIndex.length}`);
