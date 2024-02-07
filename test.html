@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toggle Div Height</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      #container {
+        height: 100%;
+        position: relative;
+      }
+      #content {
+        width: 100%;
+        height: 0;
+        background-color: rgb(158, 70, 70);
+        overflow: hidden;
+        position: absolute;
+        bottom: 0;
+        transition: height 0.5s ease;
+        z-index: 1; /* Setăm z-index-ul la 1 pentru a asigura că este sub buton în mod implicit */
+      }
+      #toggleButton {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        z-index: 2; /* Setăm z-index-ul butonului la 2 pentru a-l face să fie deasupra modalului */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="content">
+        <!-- Div care se va extinde -->
+        <!-- Aici poti adauga orice continut doresti -->
+        <p>Continutul div-ului care se va extinde.</p>
+      </div>
+    </div>
+    <button id="toggleButton">Toggle</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#toggleButton").click(function () {
+          $("#content").toggleClass("expanded");
+          var zIndex = $("#content").hasClass("expanded") ? -1 : 1; // Dacă div-ul este extins, setăm z-index-ul la -1 pentru a-l face să fie deasupra butonului
+          $("#content").css("z-index", zIndex);
+        });
+      });
+    </script>
+  </body>
+</html>

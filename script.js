@@ -165,7 +165,7 @@ function showModal(title, scenario) {
   for (let buttonLabel in buttonsConfig) {
     if (buttonsConfig.hasOwnProperty(buttonLabel)) {
       $("<button>", {
-        class: "btnNew btn-primary",
+        class: "_btn btnNew btn-primary",
         text: scenario === "scenario1" ? "continuă" : "Inregistrează-te",
         click: buttonsConfig[buttonLabel],
         disabled: buttonClicked,
