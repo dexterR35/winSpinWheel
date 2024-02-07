@@ -235,7 +235,7 @@ span,
 @media (max-width: 1024px) {
   .wrapp-all {
     justify-content: start;
-    padding-top: 9vh;
+    padding-top: 3vh;
   }
 }
 #appendDivs {
@@ -1021,10 +1021,6 @@ span {
     height: calc(20vw + 8vh);
   }
 
-  .modal-body:has(.scenario2) ._of {
-    width: calc(32vw + 22vh);
-    height: auto;
-  }
   .modal-body:has(.scenario2) .m_line1 {
     font-size: 1em;
   }
@@ -1054,6 +1050,14 @@ span {
   .frame_scratch {
     width: calc(27vw + 7vh);
     height: calc(20vw + 8vh);
+  }
+
+  .modal-body:has(.scenario2) ._of {
+    width: calc(30vw + 15vh);
+    height: auto;
+  }
+  .modal-footer {
+    margin: 1em auto 0 auto;
   }
 }
 .loading-spinner::after {
