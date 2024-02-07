@@ -15,24 +15,24 @@
     </div>
 
     <header id="headerId"></header>
+    <div class="elemAssets">
+      <div class="div _seven">
+        <img src="./png/elements/seven.webp" alt="seven" />
+      </div>
+      <div class="div _crown">
+        <img src="./png/elements/crown.webp" alt="crown" />
+      </div>
+      <div class="div">
+        <img src="./png/elements/star-cherries.webp" alt="cherries" />
+      </div>
+      <div class="div _dollar">
+        <img src="./png/elements/dollar.webp" alt="dollar" />
+      </div>
+    </div>
     <div class="hero">
       <div class="wrapp-all">
         <div class="appendDivs" id="appendDivs">
-          <div class="elemAssets">
-            <div class="div _seven">
-              <img src="./png/elements/seven.webp" alt="seven" />
-            </div>
-            <div class="div _crown">
-              <img src="./png/elements/crown.webp" alt="crown" />
-            </div>
-            <div class="div">
-              <img src="./png/elements/star-cherries.webp" alt="cherries" />
-            </div>
-            <div class="div _dollar">
-              <img src="./png/elements/dollar.webp" alt="dollar" />
-            </div>
-          </div>
-
+          <div id="loadingStatus" class="loading-spinner"></div>
           <div class="wrapperBox _hR">
             <div class="cave">
               <img src="./png/elements/arch2.webp" alt="" class="caveImg" />
@@ -151,6 +151,22 @@
     <script src="./scratch.js" defer></script>
     <script src="./script.js" defer></script>
     <script src="./confetty.js" defer></script>
-    <!-- <script src="./confetty.js"></script> -->
+    <script>
+      window.addEventListener("load", function () {
+        var splashScreen = document.getElementById("splashScreen");
+        if (splashScreen) {
+          splashScreen.style.display = "none";
+        }
+      });
+
+      // Show main content when the page has finished loading
+      document.addEventListener("DOMContentLoaded", function () {
+        var mainContent = document.getElementById("mainContent");
+        if (mainContent) {
+          mainContent.style.display = "block"; // Show main content
+          // lazyLoadImages();
+        }
+      });
+    </script>
   </body>
 </html>

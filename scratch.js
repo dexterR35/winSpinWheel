@@ -13,6 +13,7 @@ const _containers = [
 ];
 
 function addNewDivContainer() {
+  $("#loadingStatus").hide();
   $("._hH").fadeIn("fast");
   if (!containerAppended) {
     // positivePopUp.play();

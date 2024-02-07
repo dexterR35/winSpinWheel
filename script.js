@@ -63,9 +63,12 @@ function spin() {
   setTimeout(function () {
     _pinImg.removeClass("animate");
   }, 5000);
+
   setTimeout(function () {
     //winningLarge.play();
+
     showModal("Felicitări!", "scenario1");
+
     // set initial rotation of the wheel after complete animation
     _boxContainer.css("transition", "all ease 5s");
     _boxContainer.css("transform", "rotate(" + Result[0] + "deg)");
@@ -94,11 +97,13 @@ function showModal(title, scenario) {
             $(this).remove();
             // winningLarge.play();
           });
+
           setTimeout(function () {
             $("._hR").fadeOut("fast", function () {
               $(this).remove();
               // bonusWin.play();
-              setTimeout(addNewDivContainer, 500);
+
+              setTimeout(addNewDivContainer, 650);
             });
             $("._hH").fadeOut("fast");
           }, 1000);
