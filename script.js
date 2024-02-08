@@ -92,6 +92,7 @@ function showModal(title, scenario) {
     } else {
       buttonsConfig = {
         handleBtnClick: function () {
+          $("body").addClass("sc2");
           // bonusWin.play();
           $("#customModal").fadeOut("fast", function () {
             $(this).remove();
@@ -182,6 +183,7 @@ function showModal(title, scenario) {
 }
 
 $(document).ready(function () {
+  $("body").removeClass("sc2");
   $("#headerId").load("./header.html");
   $("#_terms").load("./terms.html");
   $(".clipPath").each(function (index) {
