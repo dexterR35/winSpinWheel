@@ -70,12 +70,12 @@
   --s_boxWheel: 55vmin;
   --s_shadowWheel: 63vmin;
   --s_wheel_frame: 60vmin;
-  --s_modalDialog: calc(21vw + 7vh);
+  --s_modalDialog: calc(20vw + 6vh);
   --s_modalDialog_s: calc(16vw + 10vh);
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
   /* --s_md_text: calc(1.5vh + 1.7vw);
   --s_lg_text: calc(3vh + 1.5vw); */
-  --fontSize: calc(1.7vw + 1.8vh);
+  --fontSize: calc(1.8vw + 1.8vh);
   --modalBgColor: #270e25b8;
   --textShadow: #f11a1a;
   --white_color: #fff;
@@ -520,9 +520,6 @@ span {
     width: 100%;
   }
 
-  .modal-title {
-    margin: 10px 0 15px 0;
-  }
   .modalNB.scenario2 .modal-dialog {
     height: fit-content;
   }
@@ -550,18 +547,22 @@ span {
   text-align: center;
   margin: 20px 0 10px 0;
 }
-
+.sc2 .elemAssets ._dollar {
+  z-index: 4;
+}
 /*modaltext*/
 .modal-body:has(.scenario1) {
   font-size: var(--fontSize);
+  gap: 10px;
 }
 .modal-body .scenario1 {
+  line-height: 1.1;
 }
 .modal-body .scenario1 .m_line2 {
   font-size: 1.14em;
 }
 .modal-body .scenario1 .m_line3 {
-  font-size: 1.27em;
+  font-size: 1.28em;
 }
 @media (max-width: 320px) {
   .modal-body:has(.scenario1) {
@@ -595,7 +596,7 @@ span {
   font-size: calc(1.5vh + 1.5vw);
 }
 .modal-body:has(.scenario2) .offerPart1 .m_line2 {
-  font-size: calc(2vh + 2vw);
+  font-size: calc(1.8vh + 1.8vw);
 }
 .modal-body:has(.scenario2) .offerPart1 .m_line2 div:nth-child(1) {
   font-size: 1.06em;
@@ -615,16 +616,18 @@ span {
 @media (max-width: 991px) {
   .flexScenario {
     flex-direction: column;
+    gap: 10px;
   }
   .modal-body:has(.scenario2) ._of .m_line2 {
     width: 100%;
-    font-size: calc(2vh + 2vw);
+    font-size: calc(2.1vh + 2.1vw);
   }
   .modal-body:has(.scenario2) .offerPart1 .m_line2 {
-    font-size: calc(2.7vh + 2.7vw);
+    font-size: calc(2.5vh + 2.5vw);
   }
-  .modal-title {
-    font-size: 0.8em;
+  .modal-body:has(.scenario2) .offerPart1 .m_line2:nth-child(3) {
+    font-size: 1.95em;
+    margin-top: -0.1em;
   }
   /* .modal-body:has(.scenario2) ._of img {
     width: 35vh !important;
@@ -689,9 +692,7 @@ span {
   margin: 0 auto;
   z-index: 100;
 }
-.modal-footer {
-  margin: 1em auto 0 auto;
-}
+
 @media (max-width: 992px) {
   .modal-footer .btnNew {
     font-size: calc(1.4vh + 1.4vw);
@@ -701,6 +702,24 @@ span {
   background: var(--button_color-hover);
   color: var(--white_color);
   transition: all 0.3s ease;
+}
+.modal-title {
+  font-size: 1.1em;
+}
+.scenario2 .modal-title {
+  font-size: calc(2vh + 2vw);
+  margin: 0 0 10px 0;
+}
+.scenario2 .m_line2 {
+  line-height: 1.05;
+}
+.scenario2 .offerPart1 .m_line2 div:nth-child(1) {
+  font-size: 0.9em;
+}
+
+.scenario2 .offerPart1 .m_line2 div:nth-child(3) {
+  font-size: 1.9em;
+  margin-top: -0.1em;
 }
 
 ._perspective {
@@ -713,11 +732,7 @@ span {
   font-family: "montExtraBold";
   bottom: 0;
   font-size: 1.5vh;
-}
-@media (max-width: 768px) {
-  ._perspective {
-    font-size: 1.3vh;
-  }
+  gap: 10px;
 }
 @media (max-width: 1200px) {
   ._perspective {
@@ -750,12 +765,14 @@ span {
 }
 ._tText {
   position: relative;
-  font-size: 2em;
+  font-size: 2.2em;
 }
 ._tText_s {
   font-size: 5em;
 }
 
+@media (max-width: 768px) {
+}
 .container_terms {
   position: relative;
   width: 100%;
@@ -860,7 +877,7 @@ body:has(.sc2) {
 .prizeScratch {
   position: relative;
   z-index: 1;
-
+  line-height: 1.1;
   color: var(--white_color);
 }
 
@@ -912,6 +929,7 @@ body:has(.sc2) {
   z-index: 2;
   font-size: calc(var(--fontSize) / 1.8);
 }
+
 /*end PART 2 SCRATCH*/
 /*end PART 2 SCRATCH*/
 /*end PART 2 SCRATCH*/
@@ -947,12 +965,12 @@ body:has(.sc2) {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 30px,
-    var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 30px,
+  text-shadow: var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 10px,
+    var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 10px,
     var(--textShadow) 0px 0px 10px, 2px 3px 0px rgba(206, 206, 206, 0);
 }
 .prizeScratch div:nth-child(1) {
-  font-size: 1.8em;
+  font-size: 1.9em;
   margin-bottom: -10px;
 }
 .prizeScratch ._lineRON {
@@ -972,15 +990,18 @@ body:has(.sc2) {
     height: auto;
   }
   .prizeImage {
-    top: -13%;
-    right: -3%;
+    top: -17%;
+    right: -9%;
+    filter: drop-shadow(1px 3px 3px black);
   }
   #appendDivs:has(._s2) {
     /* margin-top: 5%; */
     justify-content: start;
   }
   .prizeScratch {
-    font-size: calc(2.6vh + 1.5vw);
+    font-size: calc(2.5vh + 1.5vw);
+    filter: drop-shadow(1px 2px 3px #161616);
+    line-height: unset;
   }
   ._scrathContainer {
     margin: 0 auto;
@@ -1011,9 +1032,6 @@ body:has(.sc2) {
 }
 
 @media (max-width: 1023px) {
-  .mainbox {
-    top: 1em;
-  }
   body::after {
     background-size: 550%;
   }
@@ -1042,9 +1060,6 @@ body:has(.sc2) {
     height: calc(55vw + 6vh);
     /* margin-bottom: 10em; */
   }
-  .modal-body:has(.scenario1) {
-    font-size: calc(5vw + 1.5vh);
-  }
 
   ._scratchCardParent {
     gap: 13px;
@@ -1054,12 +1069,12 @@ body:has(.sc2) {
     height: calc(20vw + 8vh);
   }
 
-  .modal-body:has(.scenario2) .m_line1 {
+  /* .modal-body:has(.scenario2) .m_line1 {
     font-size: 1em;
   }
   .modal-body:has(.scenario2) .modal-title {
     font-size: 1.4em;
-  }
+  } */
 
   .modal-dialog:has(.scenario2) .btnNew {
     padding: 0.6em 1.5em;
@@ -1073,6 +1088,52 @@ body:has(.sc2) {
   }
 }
 @media (max-width: 768px) {
+  .scratchPrizeSmall {
+    width: 50%;
+    height: 3.6em;
+  }
+  .wrap-prizeSmall {
+    gap: 5px;
+    font-size: calc(var(--fontSize) / 1.4);
+  }
+  ._perspective {
+    font-size: 1.2vh;
+    gap: 7px;
+    line-height: 1.1;
+  }
+  ._perspective._s2 ._tText_s {
+    font-size: 4.7em;
+  }
+
+  ._perspective._s2 ._tText {
+    font-size: 2em;
+  }
+  ._tText_s {
+    font-size: 5.7em;
+  }
+  ._tText {
+    font-size: 2.2em;
+  }
+  .modal-body:has(.scenario1) {
+    font-size: calc(5vw + 1.3vh);
+    gap: 0;
+  }
+  /* .modal-body:has(.scenario2) .modal-title {
+    font-size: 1.6em;
+  } */
+  .scenario2 .modal-title {
+    font-size: 8vw;
+  }
+  .modal-body:has(.scenario2) .m_line1 {
+    font-size: 5.5vw;
+  }
+}
+@media (max-width: 768px) {
+  .content-offer {
+    text-shadow: var(--textShadow) 0px 0px 6px, var(--textShadow) 0px 0px 9px,
+      var(--textShadow) 0px 0px 8px, var(--textShadow) 0px 0px 4px,
+      var(--textShadow) 0px 0px 7px, 2px 3px 0px rgba(206, 206, 206, 0);
+  }
   ._scratchCardParent {
     flex-direction: row;
     flex-wrap: wrap;

@@ -93,6 +93,7 @@ function showModal(title, scenario) {
       buttonsConfig = {
         handleBtnClick: function () {
           $("body").addClass("sc2");
+          $(".wrapp-all").css("backdrop-filter", "unset");
           // bonusWin.play();
           $("#customModal").fadeOut("fast", function () {
             $(this).remove();
@@ -152,9 +153,10 @@ function showModal(title, scenario) {
               <div class="modal-title" id="modalTitle">${title}</div>
               ${contentOfferLines}
             </div>
-            </div>
-            <div class="modal-footer" id="modalFooter"></div>
-       </div>`;
+          </div>
+        
+       </div>
+       <div class="modal-footer" id="modalFooter"></div>`;
 
   let modal = $("<div>", {
     class: `modalNB ${scenario}`,

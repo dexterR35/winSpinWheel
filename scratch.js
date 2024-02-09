@@ -117,7 +117,7 @@ function addScratch() {
               startConfetti();
               // jackpotWin.play();
               showModal("Felicitări", "scenario2");
-            }, 700);
+            }, 1000);
           } else {
             console.log(`The length of the array is ${checkIndex.length}`);
           }
@@ -138,6 +138,8 @@ function addScratch() {
             if (containerIndex !== -1) {
               //add true for two containers and pointer events for last one
               _containers[containerIndex].completionStatus = true;
+
+              //winningLarge.play();
               checkUpdateStatus();
             }
           }

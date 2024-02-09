@@ -132,6 +132,7 @@ header .__logo img {
   height: calc(100vh - 60px);
   position: relative;
   text-align: center;
+  background: #6161614a;
 }
 
 .__nav_m ul {
