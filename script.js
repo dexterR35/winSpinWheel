@@ -27,7 +27,7 @@ let buttonClicked = false;
 let containerAppended = false;
 let prizePool = "200";
 
-console.log(buttonPressed, "start");
+// console.log(buttonPressed, "start");
 
 function updateTextBody(text, subtext) {
   $("._tText").text(text);
@@ -40,14 +40,14 @@ function spin() {
   }
 
   buttonPressed = true;
-  console.log(buttonPressed, "spin");
+  // console.log(buttonPressed, "spin");
 
-  //wheel.play();
+  wheel.play();
 
   let SelectedItem = "";
   let prizes = shuffle([2845, 2484, 2845]); // only 400 prize from bgwheel >  360deg >2484->200   2773>400
   let Result = [prizes[0]];
-  console.log(Result);
+  // console.log(Result);
   if (prizes.includes(Result[0])) SelectedItem = prizePool;
 
   _boxContainer.css("transition", "all ease 5s");
@@ -58,14 +58,14 @@ function spin() {
     buttonPressed = true;
   }, 100);
   setTimeout(function () {
-    //you_win.play();
+    you_win.play();
   }, 4500);
   setTimeout(function () {
     _pinImg.removeClass("animate");
   }, 5000);
 
   setTimeout(function () {
-    //winningLarge.play();
+    winningLarge.play();
 
     showModal("Felicitări!", "scenario1");
 
@@ -94,16 +94,16 @@ function showModal(title, scenario) {
         handleBtnClick: function () {
           $("body").addClass("sc2");
           $(".wrapp-all").css("backdrop-filter", "unset");
-          // bonusWin.play();
+          bonusWin.play();
           $("#customModal").fadeOut("fast", function () {
             $(this).remove();
-            // winningLarge.play();
+            winningLarge.play();
           });
 
           setTimeout(function () {
             $("._hR").fadeOut("fast", function () {
               $(this).remove();
-              // bonusWin.play();
+              bonusWin.play();
 
               setTimeout(addNewDivContainer, 650);
             });
@@ -190,7 +190,7 @@ $(document).ready(function () {
   $("#_terms").load("./terms.html");
   $(".clipPath").each(function (index) {
     let rotationAngle = -14 + index * 36;
-    console.log(rotationAngle, "rotationAngle");
+    // console.log(rotationAngle, "rotationAngle");
     _boxContainer.css("transform", "rotate(144deg)");
     $(this).css("transform", "rotate(" + rotationAngle + "deg)");
   });

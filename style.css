@@ -1,57 +1,3 @@
-@font-face {
-  font-family: "montSuperBold";
-  src: url("./fonts/MontserratZ-Bold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "montExtraBold";
-  src: url("./fonts/MontserratZ-ExtraBold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "montBold";
-  src: url("./fonts/MontserratZ-Bold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "montSemiBold";
-  src: url("./fonts/MontserratZ-SemiBold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "montMedium";
-  src: url("./fonts/MontserratZ-Medium.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "montRegular";
-  src: url("./fonts/MontserratZ-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "montLight";
-  src: url("./fonts/MontserratZ-Light.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "montExtraLight";
-  src: url("./fonts/MontserratZ-ExtraLight.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "montThin";
-  src: url("./fonts/MontserratZ-Thin.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
 *,
 *::after,
 *::before {
@@ -202,7 +148,7 @@ span,
   /* display: none; */
   top: 0;
   left: 0;
-  background: crimson;
+  background: rgb(12, 8, 56);
   /* background-image: url(./png/splashScreen.jpg); */
   background-size: cover;
   flex-direction: column !important;
@@ -211,9 +157,10 @@ span,
 }
 
 #splashScreen p {
-  font-size: 1.4vw;
+  font-size: 1.5em;
   color: var(--white_color);
   text-transform: uppercase;
+  font-family: "montBold";
 }
 .hero {
   flex: 1;

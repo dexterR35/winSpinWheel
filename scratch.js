@@ -1,3 +1,5 @@
+console.log("start scratch script");
+
 let textAppendedCount = 0;
 const texts = [
   ["500", "ron", "./png/elements/x3.webp"],
@@ -16,7 +18,7 @@ function addNewDivContainer() {
   $("#loadingStatus").hide();
   $("._hH").fadeIn("fast");
   if (!containerAppended) {
-    // positivePopUp.play();
+    positivePopUp.play();
     let htmlStructure = `
       <div class="_scrathContainer _apDiv _hR">
           <div class="_scratchCardParent">
@@ -110,19 +112,20 @@ function addScratch() {
         //check is empty ,check if array is === 2
         if (containerIndex !== -1) {
           if (checkIndex.length === 2) {
-            console.log(
-              `The Final length of the array is ${checkIndex.length}`
-            );
+            // console.log(
+            //   `The Final length of the array is ${checkIndex.length}`
+            // );
+            cardsShow.play();
             setTimeout(() => {
               startConfetti();
-              // jackpotWin.play();
+              jackpotWin.play();
               showModal("Felicitări", "scenario2");
             }, 1000);
           } else {
-            console.log(`The length of the array is ${checkIndex.length}`);
+            // console.log(`The length of the array is ${checkIndex.length}`);
           }
         }
-        console.log("done single card", containerIndex);
+        // console.log("done single card", containerIndex);
       },
     });
 
@@ -139,7 +142,6 @@ function addScratch() {
               //add true for two containers and pointer events for last one
               _containers[containerIndex].completionStatus = true;
 
-              //winningLarge.play();
               checkUpdateStatus();
             }
           }
@@ -168,7 +170,7 @@ function addScratch() {
                   $(`#${containerId}`).append(imgE);
                   $(`#${containerId} img:not([src],[alt],[title])`).remove();
                   // fadeIn
-                  // shinningPopUp.play();
+
                   divE.fadeIn("fast");
                   imgE.fadeIn("fast");
                 };

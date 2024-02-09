@@ -7,6 +7,62 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="stylesheet" href="./header.css" />
     <title>Roata</title>
+    <style>
+      @font-face {
+        font-family: "montSuperBold";
+        src: url("./fonts/MontserratZ-Bold.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "montExtraBold";
+        src: url("./fonts/MontserratZ-ExtraBold.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "montBold";
+        src: url("./fonts/MontserratZ-Bold.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "montSemiBold";
+        src: url("./fonts/MontserratZ-SemiBold.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "montMedium";
+        src: url("./fonts/MontserratZ-Medium.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "montRegular";
+        src: url("./fonts/MontserratZ-Regular.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "montLight";
+        src: url("./fonts/MontserratZ-Light.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "montExtraLight";
+        src: url("./fonts/MontserratZ-ExtraLight.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "montThin";
+        src: url("./fonts/MontserratZ-Thin.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
   </head>
   <body class="body">
     <div id="splashScreen">
@@ -96,7 +152,7 @@
       <div id="_terms" class="terms_modal"></div>
     </div>
 
-    <!-- <div class="audio">
+    <div class="audio">
       <audio
         controls="controls"
         id="wheel"
@@ -142,15 +198,11 @@
         src="./audio/jackpotWin.mp3"
         type="audio/mp3"
       ></audio>
-    </div> -->
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/scratchcard-js@1.5.5/build/scratchcard.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <!-- <script src="./splash.js"></script> -->
-    <script src="./scratch.js" defer></script>
-    <script src="./script.js" defer></script>
-    <script src="./confetty.js" defer></script>
     <script>
       window.addEventListener("load", function () {
         var splashScreen = document.getElementById("splashScreen");
@@ -159,14 +211,16 @@
         }
       });
 
-      // Show main content when the page has finished loading
       document.addEventListener("DOMContentLoaded", function () {
         var mainContent = document.getElementById("mainContent");
         if (mainContent) {
-          mainContent.style.display = "block"; // Show main content
-          // lazyLoadImages();
+          mainContent.style.display = "block";
         }
       });
     </script>
+    <!-- <script src="./splash.js"></script> -->
+    <script src="./script.js" defer></script>
+    <script src="./scratch.js" defer></script>
+    <script src="./confetty.js" defer></script>
   </body>
 </html>
