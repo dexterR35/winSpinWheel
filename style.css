@@ -13,7 +13,7 @@
   --s_pin: 54vmin;
   --s_cave: 87vmin;
   --s_mainBox: 58vmin;
-  --s_boxWheel: 55vmin;
+  --s_boxWheel: 54.5vmin;
   --s_shadowWheel: 63vmin;
   --s_wheel_frame: 60vmin;
   --s_modalDialog: calc(20vw + 6vh);
@@ -74,11 +74,6 @@ a {
   font-family: "montExtraBold";
 }
 
-@media (max-width: 992px) {
-  body::after {
-    background-image: url(./png/bg-mobile.jpg);
-  }
-}
 .headerElements,
 .linksNB,
 .modalNB,
@@ -142,7 +137,11 @@ body::after {
   z-index: -1;
   /* height: 100vh !important; */
 }
-
+@media (max-width: 992px) {
+  body::after {
+    background-image: url(./png/bg-mobile.jpg);
+  }
+}
 body:has(.modalNB)::before {
   content: "";
   position: absolute;
@@ -430,6 +429,70 @@ span {
     transform: rotate(360deg);
   }
 }
+.offerPart1 {
+  overflow: hidden;
+}
+.offerPart1::after {
+  position: absolute;
+  content: attr(data-label);
+  top: 16px;
+  left: -42px;
+  padding: 0.7em;
+  height: auto;
+  width: 16em;
+  background: var(--button_color);
+  color: white;
+  text-align: center;
+  font-family: "montExtraBold";
+  box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
+  rotate: 335deg;
+  font-size: 0.8em;
+}
+/* .offerPart1::before {
+  content: "";
+  border-bottom: 45px solid #c7c7c7;
+  border-left: 42px solid transparent;
+  transform: rotate(15deg);
+  left: -12px;
+  top: 34px;
+  position: absolute;
+} */
+.flexScenario {
+  position: relative;
+}
+/* .flexScenario::after {
+  content: "";
+  border-bottom: 13px solid #c7c7c7;
+  border-left: 73px solid transparent;
+  transform: rotate(169deg);
+  left: 64px;
+  top: -9px;
+  position: absolute;
+  z-index: -1;
+} */
+@media (max-width: 768px) {
+  .flexScenario {
+    width: fit-content;
+  }
+  /* .flexScenario::after {
+    border-bottom: 56px solid #c7c7c7;
+    border-left: 23px solid transparent;
+    transform: rotate(255deg);
+    left: 8.2vw;
+    top: -2.9vh;
+  } */
+  .offerPart1::after {
+    font-size: 1.1vh;
+    top: 1.5vh;
+    left: -3vh;
+  }
+  /* .offerPart1::before {
+    border-bottom: 25px solid #c7c7c7;
+    border-left: 19px solid transparent;
+    left: -2.3vw;
+    top: 3.9vh;
+  } */
+}
 
 /* Modal Styles */
 .modalNB {
@@ -529,7 +592,7 @@ span {
 }
 .content-offer.scenario2 {
   flex-direction: column !important;
-  gap: 20px;
+  gap: 40px;
 }
 .modal-content.scenario2 {
   position: relative;
@@ -554,7 +617,7 @@ span {
   font-size: calc(1.5vh + 1.5vw);
 }
 .modal-body:has(.scenario2) .offerPart1 .m_line2 {
-  font-size: calc(1.8vh + 1.8vw);
+  font-size: calc(1.7vh + 1.7vw);
 }
 .modal-body:has(.scenario2) .offerPart1 .m_line2 div:nth-child(1) {
   font-size: 1.06em;

@@ -88,7 +88,7 @@ function showModal(title, scenario) {
         handleBtnClick: function () {
           stopConfetti();
           // Redirect to another website for scenario 2
-          window.location.href = "https://example.com"; // Replace with the desired website URL
+          window.location.href = "https://example.com";
         },
       };
     } else {
@@ -108,7 +108,6 @@ function showModal(title, scenario) {
             $("._hR").fadeOut("fast", function () {
               $(this).remove();
               bonusWin.play();
-
               setTimeout(addNewDivContainer, 750);
             });
             $("._hH").fadeOut("fast");
@@ -130,18 +129,19 @@ function showModal(title, scenario) {
         </div>`
       : scenario === "scenario2"
       ? `
-  
         <div class="content-offer ${scenario}">
           <div class="m_line1">
             <div>ÎNREGISTREAZĂ-TE ACUM</div>
             <div>ȘI PROFITĂ DE PREMIUL TĂU!</div>
         </div >
          <div class="flexScenario">
-          <div class ="offerPart1 _of">
+          <div class ="offerPart1 _of" data-label="Fără Depunere">
+   
           ${imgForModal}
             <div class="m_line2"><div>ROTIRI</div><div>gratis</div><div>${prizePool}</div></div>       
           </div>
           <div class ="offerPart2 _of">
+       
           ${imgForModal}
             <div class="m_line2"><div>bonus DE</div><div>BUN VENIT</div><div>1500 RON</div><div>${prizePool} Rotiri</div></div>     
           </div>
@@ -178,7 +178,7 @@ function showModal(title, scenario) {
     if (buttonsConfig.hasOwnProperty(buttonLabel)) {
       $("<button>", {
         class: "_btn btnNew btn-primary",
-        text: scenario === "scenario1" ? "continuă" : "Inregistrează-te",
+        text: scenario === "scenario1" ? "continuă" : "Înregistrează-te",
         click: buttonsConfig[buttonLabel],
         disabled: buttonClicked,
       }).appendTo("#modalFooter");

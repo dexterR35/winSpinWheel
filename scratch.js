@@ -118,7 +118,7 @@ function addScratch() {
             cardsShow.play();
             setTimeout(() => {
               jackpotWin.play();
-              showModal("Felicitări", "scenario2");
+              showModal("Felicitări!", "scenario2");
             }, 1300);
           } else {
             // console.log(`The length of the array is ${checkIndex.length}`);
