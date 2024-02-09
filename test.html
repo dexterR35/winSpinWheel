@@ -34,24 +34,28 @@
     </style>
   </head>
   <body>
-    <div id="container">
-      <div id="content">
-        <!-- Div care se va extinde -->
-        <!-- Aici poti adauga orice continut doresti -->
-        <p>Continutul div-ului care se va extinde.</p>
+    <div class="m_line1">
+      <div>ÎNREGISTREAZĂ-TE ACUM</div>
+      <div>ȘI PROFITĂ DE PREMIUL TĂU!</div>
+    </div>
+    <div class="flexScenario">
+      <div class="offerPart1 _of" data-label="Fără Depunere">
+        ${imgForModal}
+        <div class="m_line2">
+          <div>ROTIRI</div>
+          <div>gratis</div>
+          <div>${prizePool}</div>
+        </div>
+      </div>
+      <div class="offerPart2 _of">
+        ${imgForModal}
+        <div class="m_line2">
+          <div>bonus DE</div>
+          <div>BUN VENIT</div>
+          <div>1500 RON</div>
+          <div>${prizePool} Rotiri</div>
+        </div>
       </div>
     </div>
-    <button id="toggleButton">Toggle</button>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $("#toggleButton").click(function () {
-          $("#content").toggleClass("expanded");
-          var zIndex = $("#content").hasClass("expanded") ? -1 : 1; // Dacă div-ul este extins, setăm z-index-ul la -1 pentru a-l face să fie deasupra butonului
-          $("#content").css("z-index", zIndex);
-        });
-      });
-    </script>
   </body>
 </html>

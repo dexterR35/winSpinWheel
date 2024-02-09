@@ -47,7 +47,7 @@ function addNewDivContainer() {
 }
 // this is added when button is pressed
 function addScratch() {
-  $("._perspective").addClass("_s2");
+  $("._front_text").addClass("_s2");
   updateTextBody("RĂZUIEȘTE cartonașele și", "DESCOPERĂ bonusul");
   console.log("loaded Scratch Script");
   function checkUpdateStatus() {
@@ -118,7 +118,7 @@ function addScratch() {
             cardsShow.play();
             setTimeout(() => {
               jackpotWin.play();
-              showModal("Felicitări!", "scenario2");
+              showModal("scenario2");
             }, 1300);
           } else {
             // console.log(`The length of the array is ${checkIndex.length}`);
@@ -192,7 +192,7 @@ function addScratch() {
   _containers.forEach((container) => {
     createScratchCard(
       container.id,
-      "./png/elements/unscratched.webp",
+      "./png/elements/unscratched2.webp",
       "./png/elements/scratched.webp"
     );
   });

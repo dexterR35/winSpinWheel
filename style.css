@@ -7,7 +7,6 @@
   outline: none;
   text-decoration: none;
 }
-
 :root {
   --s_BG: 103vmax;
   --s_pin: 54vmin;
@@ -16,18 +15,69 @@
   --s_boxWheel: 54.5vmin;
   --s_shadowWheel: 63vmin;
   --s_wheel_frame: 60vmin;
-  --s_modalDialog: calc(20vw + 6vh);
-  --s_modalDialog_s: calc(16vw + 10vh);
+  --s_dialog_two: 350px;
   --clipPathBoxes: polygon(0 0%, 0 38%, 48% 55%);
+  --sizeW: 435px;
+  --sizeH: 310px;
   /* --s_md_text: calc(1.5vh + 1.7vw);
   --s_lg_text: calc(3vh + 1.5vw); */
-  --fontSize: calc(1.8vw + 1.8vh);
+  --font-2xnormal: 2em;
+  --font-normal: 1em;
   --modalBgColor: #270e25b8;
   --textShadow: #f11a1a;
   --white_color: #fff;
-  --textColor2: #b9e2fff2;
+  --text_color_second: #b9e2fff2;
   --button_color: linear-gradient(to right, #ff1c26, #a81c1f);
+  --badge_color: linear-gradient(to right, #780005, #ffa5a7);
   --button_color-hover: linear-gradient(to left, #ff1c26, #a81c1f);
+  --textShadowFull: var(--textShadow) 0px 0px 7px,
+    var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 10px,
+    var(--textShadow) 0px 0px 19px, var(--textShadow) 0px 0px 22px,
+    2px 3px 0px rgba(206, 206, 206, 0);
+}
+@media (max-width: 576px) {
+  :root {
+    /* --s_dialog: 350px; */
+    --fontSize: 2.6em;
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    /* --s_dialog: 350px; */
+    --fontSize: 2.6em;
+  }
+}
+@media (min-width: 992px) {
+  :root {
+    /* --sizeW: 400px;
+    --sizeH: 290px; */
+    --fontSize: 1.8em;
+  }
+}
+@media (min-width: 1200px) {
+  :root {
+    /* --s_dialog: 380px; */
+    --fontSize: calc(var(--font-normal) + 1em);
+    --sizeW: 400px;
+    --sizeH: 310px;
+    /* --sizeW: 300px;
+    --sizeH: 250px; */
+  }
+}
+@media (min-width: 1400px) {
+  :root {
+    /* --s_dialog: 380px; */
+    /* --sizeW: 330px;
+    --sizeH: 270px; */
+  }
+}
+@media (min-width: 1600px) {
+  :root {
+    --s_dialog: 500px;
+    --fontSize: calc(var(--font-normal) + 1.6em);
+    --sizeW: 435px;
+    --sizeH: 310px;
+  }
 }
 
 body {
@@ -84,7 +134,7 @@ a {
 #appendDivs,
 #splashScreen,
 ._scratchCard,
-._perspective,
+._front_text,
 ._canvaTextContainer,
 .content-offer.scenario2,
 .flexScenario,
@@ -135,7 +185,6 @@ body::after {
   background-repeat: no-repeat;
   background-position: bottom;
   z-index: -1;
-  /* height: 100vh !important; */
 }
 @media (max-width: 992px) {
   body::after {
@@ -155,11 +204,9 @@ body:has(.modalNB)::before {
 }
 #splashScreen {
   position: absolute;
-  /* display: none; */
   top: 0;
   left: 0;
   background: rgb(12, 8, 56);
-  /* background-image: url(./png/splashScreen.jpg); */
   background-size: cover;
   flex-direction: column !important;
   gap: 30px;
@@ -197,14 +244,12 @@ body:has(.modalNB)::before {
   }
 }
 #appendDivs {
-  /* padding: 20px 0 0; */
   position: relative;
   z-index: 20;
   gap: calc(1vh + 0.4vw);
   flex-direction: column;
 }
 #appendDivs:has(._s2) {
-  /* margin-top: 5%; */
   flex-direction: column-reverse;
 }
 #appendDivs,
@@ -241,6 +286,7 @@ audio {
   border-radius: 50%;
   z-index: 2;
 }
+
 .flexScenario {
   gap: 20px;
 }
@@ -276,42 +322,6 @@ span {
     transform: translate(0%, 0%) rotate(0deg);
   }
 }
-/*color and text position for each clipPath inside the wheel*/
-/*color and text position for each clipPath inside the wheel*/
-/*color and text position for each clipPath inside the wheel*/
-/* 
-.span1 {
-  background-color: green;
-}
-.span2 {
-  background-color: red;
-}
-.span3 {
-  background-color: blue;
-}
-.span4 {
-  background-color: rgb(9, 247, 68);
-}
-.span5 {
-  background-color: cyan;
-}
-.span6 {
-  background-color: purple;
-}
-.span7 {
-  background-color: rgb(247, 54, 173);
-}
-.span8 {
-  background-color: rgb(241, 219, 17);
-}
-.span9 {
-  background-color: brown;
-}
-.span10 {
-  background-color: crimson;
-} */
-
-/*END color and text position for each clipPath inside the wheel*/
 
 ._box1,
 ._box2,
@@ -432,23 +442,33 @@ span {
 .offerPart1 {
   overflow: hidden;
 }
-.offerPart1::after {
+.badge {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.627);
+  z-index: 412;
+}
+.badge::after {
   position: absolute;
   content: attr(data-label);
-  top: 16px;
-  left: -42px;
+  top: -66px;
+  left: -55px;
   padding: 0.7em;
-  height: auto;
-  width: 16em;
-  background: var(--button_color);
+  height: 10em;
+  /* border: 2px solid black; */
+  width: 20em;
+  /* background: var(--button_color); */
   color: white;
   text-align: center;
   font-family: "montExtraBold";
-  box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
-  rotate: 335deg;
+  border: 1px solid #ffffff;
+  box-shadow: 2px 2px 24px rgb(255 255 255);
+  rotate: 328deg;
   font-size: 0.8em;
+  opacity: 1.8;
 }
-/* .offerPart1::before {
+.badge::before {
   content: "";
   border-bottom: 45px solid #c7c7c7;
   border-left: 42px solid transparent;
@@ -456,7 +476,7 @@ span {
   left: -12px;
   top: 34px;
   position: absolute;
-} */
+}
 .flexScenario {
   position: relative;
 }
@@ -524,7 +544,7 @@ span {
   left: 50%;
   transform: translate(-50%, -100%);
   background-image: url(./png/elements/crown_card.png);
-  background-size: calc(6vw + 4vh);
+  background-size: 27%;
   z-index: 1;
 }
 
@@ -546,10 +566,10 @@ span {
   }
 }
 .modal-dialog {
-  height: var(--s_modalDialog);
+  width: var(--s_dialog);
+  height: auto;
   max-width: 100%;
   border-radius: 5px;
-  /* max-height: 45vh; */
   top: -4%;
 }
 .modalImg {
@@ -572,9 +592,11 @@ span {
   z-index: 4;
 }
 /*modaltext*/
-.modal-body:has(.scenario1) {
+/*modaltext*/
+/*modaltext*/
+.modal-body:has(.scenario1),
+.modal-body:has(.scenario2) {
   font-size: var(--fontSize);
-  gap: 10px;
 }
 .modal-body .scenario1 {
   line-height: 1.1;
@@ -585,11 +607,10 @@ span {
 .modal-body .scenario1 .m_line3 {
   font-size: 1.28em;
 }
-@media (max-width: 320px) {
-  .modal-body:has(.scenario1) {
-    font-size: clamp(3vh, 2.5vw, 18px);
-  }
-}
+
+/*modaltext*/
+/*modaltext*/
+
 .content-offer.scenario2 {
   flex-direction: column !important;
   gap: 40px;
@@ -600,25 +621,22 @@ span {
 .modalNB.scenario2 .modal-dialog {
   height: auto !important;
 }
-.modalNB.scenario2 .modal-body {
-  font-size: var(--s_md_text);
-}
 
 .modal-body:has(.scenario2) ._of {
   position: relative;
-  width: var(--s_modalDialog_s);
-  /* height: 8em; */
-}
-
-.modal-body:has(.scenario2) ._of .m_line2,
-.modal-body:has(.scenario2) .m_line1,
-.modal-title {
-  width: 100%;
-  font-size: calc(1.5vh + 1.5vw);
+  width: var(--s_dialog);
 }
 .modal-body:has(.scenario2) .offerPart1 .m_line2 {
-  font-size: calc(1.7vh + 1.7vw);
+  font-size: calc(var(--font-2xnormal) - 0.3em);
 }
+.modal-body:has(.scenario2) .offerPart2 .m_line2 {
+  font-size: calc(var(--font-normal) + 0.4em);
+  width: 100%;
+}
+.modal-body:has(.scenario2) .m_line1 {
+  font-size: calc(var(--font-normal) + 0.35em);
+}
+
 .modal-body:has(.scenario2) .offerPart1 .m_line2 div:nth-child(1) {
   font-size: 1.06em;
 }
@@ -631,10 +649,8 @@ span {
 .modal-body:has(.scenario2) .offerPart2 .m_line2 div:nth-child(4) {
   font-size: 0.99em;
 }
-/* .modal-body:has(.scenario2) .offerPart1 .m_line2 div:nth-child(3) {
-  font-size: 1.9em;
-} */
-@media (max-width: 991px) {
+
+/* @media (max-width: 991px) {
   .flexScenario {
     flex-direction: column;
     gap: 10px;
@@ -650,23 +666,18 @@ span {
     font-size: 1.95em;
     margin-top: -0.1em;
   }
-  /* .modal-body:has(.scenario2) ._of img {
-    width: 35vh !important;
-  } */
-}
+} */
 .content-offer {
   text-align: center;
 }
 
-.close {
+._close {
   cursor: pointer;
 }
 
 .modal-body {
   position: relative;
-  font-size: 3vmin;
   text-transform: uppercase;
-
   flex-direction: column;
   height: auto !important;
 }
@@ -676,35 +687,15 @@ span {
   padding: 0.8em 2.5em;
 }
 
-.modalNew {
-  width: 16%;
-  height: 14vh;
-  position: relative;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  background-image: url(./png/elements/suport_text.png);
-}
-.modalNew div {
-  color: var(--white_color);
-
-  font-size: 2em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 ._btn {
   font-family: "montExtraBold";
   background: var(--button_color);
   color: var(--white_color);
-
   cursor: pointer;
   border-radius: 8px;
   text-transform: uppercase;
 }
 
-/* Button Style (Adjust as needed) */
 .btnNew {
   padding: 0.5em 2.5em;
   width: fit-content;
@@ -724,11 +715,11 @@ span {
   color: var(--white_color);
   transition: all 0.3s ease;
 }
-.modal-title {
-  font-size: 1.1em;
+.scenario1 .modal-title {
+  font-size: calc(var(--font-normal) + 0.1em);
 }
 .scenario2 .modal-title {
-  font-size: calc(2vh + 2vw);
+  font-size: calc(var(--font-normal) + 0.5em);
   margin: 0 0 10px 0;
 }
 .scenario2 .m_line2 {
@@ -743,7 +734,7 @@ span {
   margin-top: -0.1em;
 }
 
-._perspective {
+._front_text {
   width: 100%;
   position: relative;
   z-index: 10;
@@ -753,29 +744,25 @@ span {
   font-family: "montExtraBold";
   bottom: 0;
   font-size: 1.5vh;
-  gap: 10px;
 }
 @media (max-width: 1200px) {
-  ._perspective {
+  ._front_text {
     font-size: 1.2vh;
   }
 }
 
-._perspective,
+._front_text,
 .content-offer,
 .modal-title {
   filter: drop-shadow(2px 3px 3px black);
 }
-._perspective div:nth-child(1),
+._front_text div:nth-child(1),
 .modal-title {
-  color: var(--textColor2);
+  color: var(--text_color_second);
 }
-._perspective div:nth-child(2),
+._front_text div:nth-child(2),
 .content-offer {
-  text-shadow: var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 10px,
-    var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 10px,
-    var(--textShadow) 0px 0px 10px, 2px 3px 0px rgba(206, 206, 206, 0);
-  color: var(--white_color);
+  text-shadow: var(--textShadowFull);
 }
 
 ._tText,
@@ -786,10 +773,10 @@ span {
 }
 ._tText {
   position: relative;
-  font-size: 2.2em;
+  font-size: calc(var(--font-2xnormal) + 0.2em);
 }
 ._tText_s {
-  font-size: 5em;
+  font-size: calc(var(--font-2xnormal) + 3em);
 }
 
 @media (max-width: 768px) {
@@ -870,7 +857,7 @@ body:has(.sc2) {
 /*PART 2 SCRATCH*/
 
 ._scrathContainer {
-  max-width: 85vw;
+  max-width: 100%;
   width: 100%;
   height: auto;
   position: relative;
@@ -884,21 +871,22 @@ body:has(.sc2) {
 
 ._scratchCardParent {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   height: auto;
   z-index: 5;
-  gap: 63px;
+  gap: 60px;
 }
 .frame_scratch {
-  width: calc(20vw + 9vh);
-  height: calc(12vw + 9vh);
+  width: var(--sizeW);
+  min-width: var(--sizeW);
+  height: var(--sizeH);
   position: relative;
 }
 .prizeScratch {
   position: relative;
   z-index: 1;
-  line-height: 1.1;
+  line-height: 1.05;
   color: var(--white_color);
 }
 
@@ -925,10 +913,10 @@ body:has(.sc2) {
 
 .scratchPrizeSmall {
   position: relative;
-  width: 21%;
-  height: 3em;
+  width: fit-content;
+  height: 4.7em;
   padding: 1em;
-  font-size: calc(var(--fontSize) * 0.5);
+
   text-transform: uppercase;
   z-index: 2;
   gap: 10px;
@@ -948,7 +936,8 @@ body:has(.sc2) {
 .wrap-prizeSmall {
   gap: 10px;
   z-index: 2;
-  font-size: calc(var(--fontSize) / 1.8);
+  font-size: calc(var(--fontSize) / 1.6);
+  padding: 0 1em;
 }
 
 /*end PART 2 SCRATCH*/
@@ -963,18 +952,18 @@ body:has(.sc2) {
 .prizeImage {
   z-index: 2;
   position: absolute;
-  width: calc(6vw + 4vh);
-  height: calc(5vw + 5vh);
+  width: calc(3vw + 7vh);
+  height: calc(3vw + 9vh);
   max-width: 40%;
   object-fit: contain;
-  top: -20%;
-  right: -10%;
+  top: -7vh;
+  right: -4vh;
   rotate: -12deg;
   filter: drop-shadow(-4px 4px 6px black);
 }
 .prizeScratch {
   /* background-color: red; */
-  font-size: calc(2.5vh + 2vw);
+  font-size: calc(var(--fontSize) * 1.5);
   filter: drop-shadow(2px 6px 4px #161616);
 }
 .prizeScratch div {
@@ -986,9 +975,7 @@ body:has(.sc2) {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 10px,
-    var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 10px,
-    var(--textShadow) 0px 0px 10px, 2px 3px 0px rgba(206, 206, 206, 0);
+  text-shadow: var(--textShadowFull);
 }
 .prizeScratch div:nth-child(1) {
   font-size: 1.9em;
@@ -1117,16 +1104,16 @@ body:has(.sc2) {
     gap: 5px;
     font-size: calc(var(--fontSize) / 1.4);
   }
-  ._perspective {
+  ._front_text {
     font-size: 1.2vh;
     gap: 7px;
     line-height: 1.1;
   }
-  ._perspective._s2 ._tText_s {
+  ._front_text._s2 ._tText_s {
     font-size: 4.7em;
   }
 
-  ._perspective._s2 ._tText {
+  ._front_text._s2 ._tText {
     font-size: 2em;
   }
   ._tText_s {
@@ -1151,9 +1138,7 @@ body:has(.sc2) {
 }
 @media (max-width: 768px) {
   .content-offer {
-    text-shadow: var(--textShadow) 0px 0px 6px, var(--textShadow) 0px 0px 9px,
-      var(--textShadow) 0px 0px 8px, var(--textShadow) 0px 0px 4px,
-      var(--textShadow) 0px 0px 7px, 2px 3px 0px rgba(206, 206, 206, 0);
+    text-shadow: var(--textShadowFull);
   }
   ._scratchCardParent {
     flex-direction: row;

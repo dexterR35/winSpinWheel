@@ -67,7 +67,7 @@ function spin() {
   setTimeout(function () {
     winningLarge.play();
 
-    showModal("Felicitări!", "scenario1");
+    showModal("scenario1");
 
     // set initial rotation of the wheel after complete animation
     _boxContainer.css("transition", "all ease 5s");
@@ -75,7 +75,7 @@ function spin() {
   }, 5500);
 }
 
-function showModal(title, scenario) {
+function showModal(scenario) {
   startConfetti();
   let buttonsConfig = {};
   if (scenario === "scenario1" || scenario === "scenario2") {
@@ -117,36 +117,41 @@ function showModal(title, scenario) {
     }
   }
   let imgForModal = `
-  <img class="modalImg" src="./png/elements/support_text2.webp"/>
+  <img class="modalImg" src="./png/elements/support_text3.webp"/>
 `;
   let contentOfferLines =
     scenario === "scenario1"
       ? `
-        <div class="content-offer ${scenario}">
           <div class="m_line1">ai câștigat</div>
           <div class="m_line2">${prizePool} rotiri</div>
           <div class="m_line3">gratuite</div>
-        </div>`
+       `
       : scenario === "scenario2"
       ? `
-        <div class="content-offer ${scenario}">
-          <div class="m_line1">
-            <div>ÎNREGISTREAZĂ-TE ACUM</div>
-            <div>ȘI PROFITĂ DE PREMIUL TĂU!</div>
-        </div >
-         <div class="flexScenario">
-          <div class ="offerPart1 _of" data-label="Fără Depunere">
-   
-          ${imgForModal}
-            <div class="m_line2"><div>ROTIRI</div><div>gratis</div><div>${prizePool}</div></div>       
-          </div>
-          <div class ="offerPart2 _of">
-       
-          ${imgForModal}
-            <div class="m_line2"><div>bonus DE</div><div>BUN VENIT</div><div>1500 RON</div><div>${prizePool} Rotiri</div></div>     
-          </div>
-          </div>
-        </div>`
+      <div class="m_line1">
+      <div>ÎNREGISTREAZĂ-TE ACUM</div>
+      <div>ȘI PROFITĂ DE PREMIUL TĂU!</div>
+    </div>
+    <div class="flexScenario">
+      <div class="offerPart1 _of">   
+      <div class="badge" data-label="Fără Depunere"></div>
+        ${imgForModal}
+        <div class="m_line2">
+          <div>ROTIRI</div>
+          <div>gratis</div>
+          <div>${prizePool}</div>
+        </div>
+      </div>
+      <div class="offerPart2 _of">
+        ${imgForModal}
+        <div class="m_line2">
+          <div>bonus DE</div>
+          <div>BUN VENIT</div>
+          <div>1500 RON</div>
+          <div>${prizePool} Rotiri</div>
+        </div>
+      </div>
+    </div>`
       : "";
 
   let modalContent = `
@@ -154,8 +159,10 @@ function showModal(title, scenario) {
         ${scenario !== "scenario2" ? imgForModal : ""}
          <div class="modal-content ${scenario}">
             <div class="modal-body" id="modalContent">
-              <div class="modal-title" id="modalTitle">${title}</div>
+              <div class="modal-title" id="modalTitle">Felicitari!</div>
+              <div class="content-offer ${scenario}">
               ${contentOfferLines}
+              </div >
             </div>
           </div>
         
