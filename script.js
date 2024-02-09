@@ -76,6 +76,7 @@ function spin() {
 }
 
 function showModal(title, scenario) {
+  startConfetti();
   let buttonsConfig = {};
   if (scenario === "scenario1" || scenario === "scenario2") {
     if (buttonClicked) {
@@ -85,6 +86,7 @@ function showModal(title, scenario) {
     if (scenario === "scenario2") {
       buttonsConfig = {
         handleBtnClick: function () {
+          stopConfetti();
           // Redirect to another website for scenario 2
           window.location.href = "https://example.com"; // Replace with the desired website URL
         },
@@ -94,10 +96,12 @@ function showModal(title, scenario) {
         handleBtnClick: function () {
           $("body").addClass("sc2");
           $(".wrapp-all").css("backdrop-filter", "unset");
+          // stopConfetti();
           bonusWin.play();
           $("#customModal").fadeOut("fast", function () {
             $(this).remove();
-            winningLarge.play();
+            stopConfetti();
+            // bonusWin.play();
           });
 
           setTimeout(function () {
@@ -105,7 +109,7 @@ function showModal(title, scenario) {
               $(this).remove();
               bonusWin.play();
 
-              setTimeout(addNewDivContainer, 650);
+              setTimeout(addNewDivContainer, 750);
             });
             $("._hH").fadeOut("fast");
           }, 1000);

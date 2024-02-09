@@ -117,10 +117,9 @@ function addScratch() {
             // );
             cardsShow.play();
             setTimeout(() => {
-              startConfetti();
               jackpotWin.play();
               showModal("Felicitări", "scenario2");
-            }, 1000);
+            }, 1300);
           } else {
             // console.log(`The length of the array is ${checkIndex.length}`);
           }
