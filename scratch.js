@@ -192,7 +192,7 @@ function addScratch() {
   _containers.forEach((container) => {
     createScratchCard(
       container.id,
-      "./png/elements/unscratched2.webp",
+      "./png/elements/unscratched3.webp",
       "./png/elements/scratched.webp"
     );
   });

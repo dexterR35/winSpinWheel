@@ -28,7 +28,7 @@
   --white_color: #fff;
   --text_color_second: #b9e2fff2;
   --button_color: linear-gradient(to right, #ff1c26, #a81c1f);
-  --badge_color: linear-gradient(to right, #780005, #ffa5a7);
+  --badge_color: linear-gradient(65deg, #5e0808, #ff7272);
   --button_color-hover: linear-gradient(to left, #ff1c26, #a81c1f);
   --textShadowFull: var(--textShadow) 0px 0px 7px,
     var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 10px,
@@ -37,8 +37,10 @@
 }
 @media (max-width: 576px) {
   :root {
-    /* --s_dialog: 350px; */
-    --fontSize: 2.6em;
+    --s_dialog: 87vmin;
+    /* --sizeW: 170px;
+    --sizeH: 135px; */
+    --fontSize: 1.6em;
   }
 }
 @media (max-width: 768px) {
@@ -49,34 +51,34 @@
 }
 @media (min-width: 992px) {
   :root {
-    /* --sizeW: 400px;
-    --sizeH: 290px; */
+    --sizeW: 270px;
+    --sizeH: 195px;
     --fontSize: 1.8em;
   }
 }
 @media (min-width: 1200px) {
   :root {
-    /* --s_dialog: 380px; */
+    --s_dialog: 650px;
     --fontSize: calc(var(--font-normal) + 1em);
-    --sizeW: 400px;
-    --sizeH: 310px;
+    --sizeW: 300px;
+    --sizeH: 210px;
     /* --sizeW: 300px;
     --sizeH: 250px; */
   }
 }
 @media (min-width: 1400px) {
   :root {
-    /* --s_dialog: 380px; */
-    /* --sizeW: 330px;
-    --sizeH: 270px; */
+    --s_dialog: 650px;
+    --sizeW: 340px;
+    --sizeH: 235px;
   }
 }
 @media (min-width: 1600px) {
   :root {
-    --s_dialog: 500px;
+    --s_dialog: 850px;
     --fontSize: calc(var(--font-normal) + 1.6em);
-    --sizeW: 435px;
-    --sizeH: 310px;
+    --sizeW: 420px;
+    --sizeH: 306px;
   }
 }
 
@@ -222,7 +224,7 @@ body:has(.modalNB)::before {
 .hero {
   flex: 1;
   height: 100%;
-  overflow: normal;
+  overflow: hidden;
   z-index: 22;
 }
 .wrapp-all {
@@ -246,7 +248,7 @@ body:has(.modalNB)::before {
 #appendDivs {
   position: relative;
   z-index: 20;
-  gap: calc(1vh + 0.4vw);
+  gap: calc(1vh + 1.3vw);
   flex-direction: column;
 }
 #appendDivs:has(._s2) {
@@ -289,6 +291,7 @@ audio {
 
 .flexScenario {
   gap: 20px;
+  max-width: 100%;
 }
 
 span {
@@ -442,23 +445,69 @@ span {
 .offerPart1 {
   overflow: hidden;
 }
-.badge {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 0, 0, 0.627);
-  z-index: 412;
+.c_badge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: rotate(-45deg);
+  background: var(--badge_color);
+  position: absolute;
+  font-size: 0.47em;
+  font-family: "montExtraBold";
+  background: #7564006e;
+  border: 0.4vh dotted #edd797db;
+  width: 103%;
+  height: 97%;
+  text-shadow: var(--textShadow) 0px 0px 10px, var(--textShadow) 0px 0px 8px,
+    var(--textShadow) 0px 0px 1px, var(--textShadow) 0px 0px 6px !important;
 }
-.badge::after {
+.badge {
+  position: absolute;
+  width: 93%;
+  height: 93%;
+  background: var(--badge_color);
+  z-index: 412;
+  left: 0;
+  top: 0;
+  margin: 6px;
+  border-radius: 6%;
+  margin: 8px 0px 0px 4px;
+  clip-path: polygon(0 0, 0 48.7%, 37.8% 0);
+}
+.c_badge div {
+  width: 100%;
+  transform: translate(-10%, -100%);
+}
+
+.c_badge div:nth-child(1) {
+  width: 100%;
+  position: absolute;
+  top: -11%;
+  left: 0;
+}
+.c_badge div:nth-child(2) {
+  width: 100%;
+  position: absolute;
+  top: -3%;
+  left: 0;
+}
+.c_badge div:nth-child(3) {
+  position: absolute;
+  top: -21.2%;
+  left: 37.5%;
+  border-radius: 50%;
+  background: #1615108c;
+  border: 2px solid #ffb66b;
+  width: 6%;
+  height: 8%;
+}
+/* .badge::after {
   position: absolute;
   content: attr(data-label);
-  top: -66px;
-  left: -55px;
+  top: -0px;
+  left: 0px;
   padding: 0.7em;
   height: 10em;
-  /* border: 2px solid black; */
-  width: 20em;
-  /* background: var(--button_color); */
   color: white;
   text-align: center;
   font-family: "montExtraBold";
@@ -467,16 +516,20 @@ span {
   rotate: 328deg;
   font-size: 0.8em;
   opacity: 1.8;
-}
-.badge::before {
+} */
+/* .badge::before {
   content: "";
-  border-bottom: 45px solid #c7c7c7;
-  border-left: 42px solid transparent;
-  transform: rotate(15deg);
-  left: -12px;
-  top: 34px;
+
+  transform: rotate(317deg);
+  left: -113px;
+  top: -101px;
   position: absolute;
-}
+  width: 66%;
+  height: 80%;
+  background: linear-gradient(from top, red 50%, blue 50%);
+  z-index: 10;
+  margin: 6px;
+} */
 .flexScenario {
   position: relative;
 }
@@ -490,9 +543,10 @@ span {
   position: absolute;
   z-index: -1;
 } */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .flexScenario {
     width: fit-content;
+    flex-direction: column;
   }
   /* .flexScenario::after {
     border-bottom: 56px solid #c7c7c7;
@@ -572,6 +626,9 @@ span {
   border-radius: 5px;
   top: -4%;
 }
+.scenario1 .modal-dialog {
+  width: calc(var(--s_dialog) / 1.6);
+}
 .modalImg {
   object-fit: contain;
   position: relative;
@@ -597,6 +654,9 @@ span {
 .modal-body:has(.scenario1),
 .modal-body:has(.scenario2) {
   font-size: var(--fontSize);
+}
+.modal-body:has(.scenario1) {
+  font-size: calc(var(--fontSize) + 0.2em);
 }
 .modal-body .scenario1 {
   line-height: 1.1;
@@ -624,18 +684,18 @@ span {
 
 .modal-body:has(.scenario2) ._of {
   position: relative;
-  width: var(--s_dialog);
+  height: 100%;
 }
 .modal-body:has(.scenario2) .offerPart1 .m_line2 {
-  font-size: calc(var(--font-2xnormal) - 0.3em);
+  font-size: calc(var(--font-2xnormal) - 0.8em);
 }
 .modal-body:has(.scenario2) .offerPart2 .m_line2 {
-  font-size: calc(var(--font-normal) + 0.4em);
+  font-size: calc(var(--font-normal) + 0.1em);
   width: 100%;
 }
-.modal-body:has(.scenario2) .m_line1 {
+/* .modal-body:has(.scenario2) .m_line1 {
   font-size: calc(var(--font-normal) + 0.35em);
-}
+} */
 
 .modal-body:has(.scenario2) .offerPart1 .m_line2 div:nth-child(1) {
   font-size: 1.06em;
@@ -683,7 +743,7 @@ span {
 }
 
 .modal-footer ._btn {
-  font-size: calc(0.7vh + 0.7vw);
+  font-size: calc(0.5vh + 0.5vw);
   padding: 0.8em 2.5em;
 }
 
@@ -779,7 +839,7 @@ span {
   font-size: calc(var(--font-2xnormal) + 3em);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 }
 .container_terms {
   position: relative;
@@ -857,7 +917,7 @@ body:has(.sc2) {
 /*PART 2 SCRATCH*/
 
 ._scrathContainer {
-  max-width: 100%;
+  max-width: 90%;
   width: 100%;
   height: auto;
   position: relative;
@@ -875,7 +935,7 @@ body:has(.sc2) {
   align-items: center;
   height: auto;
   z-index: 5;
-  gap: 60px;
+  gap: 3vw;
 }
 .frame_scratch {
   width: var(--sizeW);
@@ -963,7 +1023,7 @@ body:has(.sc2) {
 }
 .prizeScratch {
   /* background-color: red; */
-  font-size: calc(var(--fontSize) * 1.5);
+  font-size: calc(var(--fontSize) * 1.35);
   filter: drop-shadow(2px 6px 4px #161616);
 }
 .prizeScratch div {
@@ -1064,17 +1124,19 @@ body:has(.sc2) {
     height: calc(57vw + 8vh);
     max-height: calc(57vw + 8vh);
   }
-  .modal-dialog {
-    height: calc(55vw + 6vh);
-    /* margin-bottom: 10em; */
+  .modal-body:has(.scenario2) .offerPart2 .m_line2 {
+    font-size: calc(2.3vw + 2.3vh);
+    width: 100%;
+  }
+  .modal-body:has(.scenario2) .offerPart1 .m_line2 {
+    font-size: calc(2.6vw + 2.6vh);
+  }
+  .c_badge {
+    font-size: calc(1vh + 1vw);
   }
 
   ._scratchCardParent {
     gap: 13px;
-  }
-  .frame_scratch {
-    width: calc(48vw + 8vh);
-    height: calc(20vw + 8vh);
   }
 
   /* .modal-body:has(.scenario2) .m_line1 {
@@ -1087,22 +1149,25 @@ body:has(.sc2) {
   .modal-dialog:has(.scenario2) .btnNew {
     padding: 0.6em 1.5em;
   }
+  .scenario1 .modal-dialog {
+    width: var(--s_dialog);
+  }
 }
 
 @media (max-width: 991px) {
   ._scrathContainer {
-    max-width: 96vw;
+    max-width: 100vw;
     padding: 15px 0px 15px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .scratchPrizeSmall {
     width: 50%;
     height: 3.6em;
   }
   .wrap-prizeSmall {
     gap: 5px;
-    font-size: calc(var(--fontSize) / 1.4);
+    font-size: calc(1.3vw + 1.3vh);
   }
   ._front_text {
     font-size: 1.2vh;
@@ -1135,6 +1200,10 @@ body:has(.sc2) {
   .modal-body:has(.scenario2) .m_line1 {
     font-size: 5.5vw;
   }
+  .prizeImage {
+    width: calc(4vw + 5vh);
+    height: calc(3vw + 5vh);
+  }
 }
 @media (max-width: 768px) {
   .content-offer {
@@ -1143,10 +1212,12 @@ body:has(.sc2) {
   ._scratchCardParent {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 23px;
   }
   .frame_scratch {
-    width: calc(27vw + 7vh);
-    height: calc(20vw + 8vh);
+    width: calc(26vw + 8vh);
+    height: calc(22vw + 7vh);
+    min-width: unset !important;
   }
 
   .modal-body:has(.scenario2) ._of {

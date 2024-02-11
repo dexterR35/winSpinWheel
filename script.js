@@ -133,24 +133,31 @@ function showModal(scenario) {
       <div>ȘI PROFITĂ DE PREMIUL TĂU!</div>
     </div>
     <div class="flexScenario">
-      <div class="offerPart1 _of">   
-      <div class="badge" data-label="Fără Depunere"></div>
-        ${imgForModal}
-        <div class="m_line2">
-          <div>ROTIRI</div>
-          <div>gratis</div>
-          <div>${prizePool}</div>
+        <div class="offerPart1 _of">
+          <div class="badge" data-label="Fără Depunere">
+            <div class="c_badge">
+              <div>Fara</div>
+              <div>Depunere</div>
+              <div></div>
+            </div>
+          </div>
+
+          ${imgForModal}
+          <div class="m_line2">
+            <div>ROTIRI</div>
+            <div>gratis</div>
+            <div>${prizePool}</div>
+          </div>
         </div>
-      </div>
-      <div class="offerPart2 _of">
-        ${imgForModal}
-        <div class="m_line2">
-          <div>bonus DE</div>
-          <div>BUN VENIT</div>
-          <div>1500 RON</div>
-          <div>${prizePool} Rotiri</div>
+        <div class="offerPart2 _of">
+          ${imgForModal}
+          <div class="m_line2">
+            <div>bonus DE</div>
+            <div>BUN VENIT</div>
+            <div>1500 RON</div>
+            <div>${prizePool} Rotiri</div>
+          </div>
         </div>
-      </div>
     </div>`
       : "";
 
