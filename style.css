@@ -470,7 +470,7 @@ span {
   left: 0;
   top: 0;
   margin: 6px;
-  border-radius: 6%;
+  border-radius: 7%;
   margin: 8px 0px 0px 4px;
   clip-path: polygon(0 0, 0 48.7%, 37.8% 0);
 }
@@ -743,7 +743,7 @@ span {
 }
 
 .modal-footer ._btn {
-  font-size: calc(0.5vh + 0.5vw);
+  font-size: calc(0.8vh + 0.6vw);
   padding: 0.8em 2.5em;
 }
 
@@ -842,7 +842,8 @@ span {
 @media (max-width: 767px) {
 }
 .container_terms {
-  position: relative;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -1039,14 +1040,14 @@ body:has(.sc2) {
 }
 .prizeScratch div:nth-child(1) {
   font-size: 1.9em;
-  margin-bottom: -10px;
+  margin-bottom: -3px;
 }
 .prizeScratch ._lineRON {
   font-size: 1.64em;
   margin-top: -10px;
 }
 .prizeScratch ._lineRUN {
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 /*end prize SCRATCH*/
 /*end prize  SCRATCH*/
@@ -1066,11 +1067,7 @@ body:has(.sc2) {
     /* margin-top: 5%; */
     justify-content: start;
   }
-  .prizeScratch {
-    font-size: calc(2.5vh + 1.5vw);
-    filter: drop-shadow(1px 2px 3px #161616);
-    line-height: unset;
-  }
+
   ._scrathContainer {
     margin: 0 auto;
   }
@@ -1198,7 +1195,7 @@ body:has(.sc2) {
     font-size: 8vw;
   }
   .modal-body:has(.scenario2) .m_line1 {
-    font-size: 5.5vw;
+    font-size: 5vw;
   }
   .prizeImage {
     width: calc(4vw + 5vh);
@@ -1209,6 +1206,18 @@ body:has(.sc2) {
   .content-offer {
     text-shadow: var(--textShadowFull);
   }
+  .content-offer.scenario2 {
+    gap: 20px;
+  }
+  .prizeScratch {
+    font-size: calc(2.4vh + 1.4vw);
+    filter: drop-shadow(1px 2px 3px #161616);
+    line-height: unset;
+  }
+  .prizeScratch div:nth-child(1) {
+    font-size: 1.9em;
+    margin-bottom: -7px;
+  }
   ._scratchCardParent {
     flex-direction: row;
     flex-wrap: wrap;
@@ -1216,7 +1225,7 @@ body:has(.sc2) {
   }
   .frame_scratch {
     width: calc(26vw + 8vh);
-    height: calc(22vw + 7vh);
+    height: calc(20vw + 6vh);
     min-width: unset !important;
   }
 

@@ -66,7 +66,7 @@ header .__logo img {
   backdrop-filter: blur(5px);
 }
 ._n li a {
-  color: var(--white_color);
+  color: #202020;
   font-size: 17px;
   font-weight: bold;
 }
@@ -125,16 +125,18 @@ header .__logo img {
 
 /*mobile nav*/
 .__nav_m {
-  z-index: 10000;
+  z-index: 3000;
   font-weight: bold;
   font-size: 0.8em;
   width: 100%;
-  height: calc(100vh - 60px);
+  height: 100vh;
   position: relative;
   text-align: center;
-  background: #6161614a;
+  background: #ffffffcf;
 }
-
+.__nav_d ul li a {
+  color: var(--white_color);
+}
 .__nav_m ul {
   background-color: #e6ebe926;
 }
